@@ -1,0 +1,21 @@
+.time-box-container {
+    border: 1px solid black;
+    height: 25px;
+    display: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.blank-time-box {
+    background-color: #ffffff;
+    height:100%;
+    display:inline-block;
+    padding:0;
+    margin:0;
+}
+.filled-time-box {
+    background: #e9ffef url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23436d4e' fill-opacity='0.45' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    height:100%;
+    padding:0;
+    margin:0;
+    display:inline-block;
+}

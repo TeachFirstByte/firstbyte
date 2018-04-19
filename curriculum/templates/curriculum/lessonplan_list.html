@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "curriculum/style/main.css" %}" />
+    <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
 </head>
 <body>
  {% for lessonplan in object_list %}
      {{ lessonplan.title }}
+     <div class="time-box-container" data-class-time="{{ lessonplan.class_time.total_seconds }}" data-prep-time="{{ lessonplan.prep_time.total_seconds }}"></div>
  {% endfor %}
 </body>
 </html>

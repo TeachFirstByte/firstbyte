@@ -1,0 +1,9 @@
+<p class="lesson-plan title">{{ lessonplan.title }}</p>
+<p class="lesson-plan grade-level">{{ lessonplan.get_grade_level_display }}</p>
+<p class="lesson-plan prep-time">{{ lessonplan.prep_time }}</p>
+<p class="lesson-plan class-time">{{ lessonplan.class_time }}</p>
+<p class="lesson-plan summary">{{ lessonplan.summary }}</p>
+<p class="lesson-plan materials">{{ lessonplan.materials }}</p>
+<div class="time-box-container"
+     data-class-time="{{ lessonplan.class_time.total_seconds }}"
+     data-prep-time="{{ lessonplan.prep_time.total_seconds }}"></div>

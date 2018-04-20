@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "curriculum/style/main.css" %}" />
+    <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
 </head>
 <body>
-{{ object.title }}
+    <p class="lesson-plan title">{{ object.title }}</p>
+    <p class="lesson-plan grade-level">{{ object.get_grade_level_display }}</p>
+    <p class="lesson-plan prep-time">{{ object.prep_time }}</p>
+    <p class="lesson-plan class-time">{{ object.class_time }}</p>
+    <p class="lesson-plan summary">{{ object.summary }}</p>
+    <p class="lesson-plan materials">{{ object.materials }}</p>
+    <div class="time-box-container"
+         data-class-time="{{ object.class_time.total_seconds }}"
+         data-prep-time="{{ object.prep_time.total_seconds }}"></div>
 </body>
 </html>

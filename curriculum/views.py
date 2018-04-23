@@ -21,4 +21,3 @@ class LessonPlanView(DetailView):
 
 class LessonPlanList(ListView):
     model = models.LessonPlan
-

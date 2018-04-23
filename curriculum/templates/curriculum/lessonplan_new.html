@@ -2,8 +2,6 @@
 {% block title %}Create a Lesson Plan{% endblock %}
 {% block head %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static "curriculum/style/main.css" %}" />
-    <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
 {% endblock %}
 {% block body %}
     <form method="post" enctype="multipart/form-data">{% csrf_token %}

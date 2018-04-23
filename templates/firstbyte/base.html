@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - FirstByte Curriculum</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "firstbyte/style/main.css" %}" />
+    {% block head %}{% endblock %}
+</head>
+<body>
+<header>
+    <img src="{% static "firstbyte/img/logo.jpg" %}"/>
+</header>
+<nav>
+    {% spaceless %}
+    <ul>
+        <li>About us</li>
+        <li>Curriculum</li>
+        <li><a href={% url 'login' %}>Log in</a></li>
+    </ul>
+    {% endspaceless %}
+</nav>
+{% block body %} {% endblock %}
+</body>
+</html>

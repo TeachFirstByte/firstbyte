@@ -1,0 +1,13 @@
+nav ul {
+    list-style-type: none;
+    margin:0;
+}
+nav ul li {
+    display:inline-block;
+    height:2.5em;
+
+    box-sizing:border-box;
+    border: 1px solid black;
+    padding: 2.5em 2em;
+    margin: 8px;
+}

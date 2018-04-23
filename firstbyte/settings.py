@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'curriculum.apps.CurriculumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -126,3 +127,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+LOGIN_URL = '/user/login'
+LOGIN_REDIRECT_URL = '/user/me'
+
+# Email settings (use local SMTP debugging server for now)
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025

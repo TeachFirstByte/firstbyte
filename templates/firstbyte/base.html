@@ -2,22 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{% block title %}{% endblock %} - FirstByte Curriculum</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static "firstbyte/style/pills.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "firstbyte/style/main.css" %}" />
     {% block head %}{% endblock %}
 </head>
 <body>
-<header>
-    <a href="https://teachfirstbyte.org/"><img src="{% static "firstbyte/img/logo.jpg" %}"/></a>
-</header>
-<nav>
-    {% spaceless %}
-    <ul>
-        <li><a href={% url 'login' %}>Log in</a></li>
-    </ul>
-    {% endspaceless %}
-</nav>
-{% block body %} {% endblock %}
+    <header>
+        <div class="row no-padding">
+            <span class="whole column align-right" id="user-banner">
+                {% if user.is_authenticated %}
+                   Hello, <a href="{% url 'me' %}">{{ user.first_name }}</a>
+                    (<a href="{% url 'logout' %}">Sign out</a>)
+                {% else %}
+                    <a href="{% url 'login' %}">Log in</a>
+                    (<a href="{% url 'login' %}">Sign up</a>)
+                {% endif %}
+            </span>
+        </div>
+        <div class="row">
+            <a class="whole column" href="https://teachfirstbyte.org/">
+                <img id="logo" src="{% static "firstbyte/img/logo.jpg" %}"/>
+            </a>
+        </div>
+    </header>
+    <nav>
+        <div class="row">
+            {% spaceless %}
+                <a class="one-third column align-center" href="http://teachfirstbyte.org/">teachfirstbyte.org</a>
+                <a class="one-third column align-center" href={% url 'create-lesson-plan' %}>Submit Curriculum</a>
+                <a class="one-third column align-center" href={% url 'list-lesson-plan' %}>Find Curriculum</a>
+            {% endspaceless %}
+        </div>
+    </nav>
+    <section class="content">
+        <div class="row">
+            {% block body %} {% endblock %}
+        </div>
+    </section>
+    <footer>
+        <div class="row footer-nav">
+            <div class="one-third column">
+                <p class="footer-nav-header">teachfirstbyte.org</p>
+                <ul class="footer-nav-link-list">
+                    <li><a href="https://teachfirstbyte.org/">Home</a></li>
+                    <li><a href="https://teachfirstbyte.org/about/">About Us</a></li>
+                    <li><a href="https://teachfirstbyte.org/curriculum/">Curriculum</a></li>
+                    <li><a href="https://teachfirstbyte.org/contact/">Contact</a></li>
+                    <li><a href="https://teachfirstbyte.org/blog/">Blog</a></li>
+                    <li><a href="https://teachfirstbyte.org/surveys">Surveys</a></li>
+                </ul>
+            </div>
+            <div class="one-third column">
+                <p class="footer-nav-header">Curriculum</p>
+                <ul class="footer-nav-link-list">
+                    <li><a href="{% url 'create-lesson-plan' %}">Submit</a></li>
+                    <li><a href="{% url 'list-lesson-plan' %}">Find</a></li>
+                </ul>
+                <p class="footer-nav-header">User</p>
+                <ul class="footer-nav-link-list">
+                    <li><a href="{% url 'me' %}">My account</a></li>
+                    <li><a href="{% url 'logout' %}">Log out</a></li>
+                </ul>
+            </div>
+            <div class="one-third column">
+                <p class="footer-nav-header">Need materials?</p>
+                <p>We've got you covered! Email
+                    <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a>
+                </p>
+            </div>
+        </div>
+        <div class="row copyright-container free-width">
+            <div class="whole column copyright">
+                Copyright &copy; 2018 K. Yee, J. Lee, B. Zhang, B. Singer, L. Bialecki, F. Yusuf
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

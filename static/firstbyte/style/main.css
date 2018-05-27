@@ -1,13 +1,93 @@
-nav ul {
-    list-style-type: none;
-    margin:0;
+/* Header */
+header {
+    background-color: white;
 }
-nav ul li {
-    display:inline-block;
-    height:2.5em;
 
-    box-sizing:border-box;
-    border: 1px solid black;
-    padding: 2.5em 2em;
-    margin: 8px;
+#user-banner {
+    padding-bottom: 0;
+}
+
+#logo {
+    display: block;
+
+    width: 400px;
+    height: auto;
+
+    margin: auto;
+}
+
+/* Navigation Bar */
+nav {
+    margin: 0;
+    padding: 0;
+
+    background-color: #1C2C38;
+}
+
+nav div {
+    max-width: 800px !important;
+}
+
+nav a {
+    font-size: 1.2em;
+    color:white;
+    text-decoration: none;
+
+    border-left: 1px solid black;
+}
+nav a:last-child {
+    border-right: 1px solid black;
+}
+
+nav a:hover {
+    background-color: #436D4E;
+}
+
+/* Body content */
+body {
+    font-family: sans-serif;
+}
+
+.content {
+    background-color: white;
+}
+
+/* Footer */
+footer {
+    color: lightgray;
+    background-color: #436D4E;
+}
+
+.footer-nav-header {
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.footer-nav-link-list {
+    padding-left: 0;
+
+    list-style-type: none;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+footer a:visited {
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Copyright (below the footer) */
+.copyright-container {
+    background-color: #1C2C38;
+}
+
+.copyright {
+    text-align: center;
+    color: lightgray;
 }

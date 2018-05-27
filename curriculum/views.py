@@ -63,6 +63,3 @@ class LessonPlanView(View):
             form = forms.LessonPlanFeedback()
 
         return self.get_default_template_response(request, form)
-
-class LessonPlanList(ListView):
-    model = models.LessonPlan

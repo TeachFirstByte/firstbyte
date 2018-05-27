@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from tagging.registry import register
 
 
 def user_upload_directory(instance, filename):
@@ -35,10 +36,6 @@ class LessonResource(models.Model):
     file = models.FileField(upload_to=user_upload_directory)
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=60)
-
-
 class LessonPlan(models.Model):
     ELEMENTARY_SCHOOL_LEVEL = 'ES'
     MIDDLE_SCHOOL_LEVEL = 'MS'
@@ -55,10 +52,6 @@ class LessonPlan(models.Model):
     title = models.CharField(max_length=120, unique=True)
     grade_level = models.CharField(max_length=2, choices=GradeLevel)
 
-    # Tags will be used to represent prerequisites as well as general
-    # descriptors for search.
-    tags = models.ManyToManyField(Tag, blank=True)
-
     prep_time = models.DurationField()
     class_time = models.DurationField()
 
@@ -68,3 +61,8 @@ class LessonPlan(models.Model):
 
     # uploaded files!
     resources = models.ManyToManyField(LessonResource, blank=True)
+
+
+# Associate tags with LessonPlan
+register(LessonPlan)
+

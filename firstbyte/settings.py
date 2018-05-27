@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'curriculum.apps.CurriculumConfig',
+    'tagging',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -8,3 +8,9 @@ class LessonPlanForm(forms.ModelForm):
         model = LessonPlan
         fields = ['title', 'grade_level', 'prep_time',
                   'class_time', 'summary', 'materials',]
+
+
+class LessonPlanFeedback(forms.Form):
+    rating = forms.IntegerField(label="Rating", min_value=1, max_value=5)
+    success = forms.CharField(max_length=2500, widget=forms.Textarea, label="Successful parts")
+    failure = forms.CharField(max_length=2500, widget=forms.Textarea, label="Unsuccessful parts")

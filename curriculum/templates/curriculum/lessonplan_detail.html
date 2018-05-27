@@ -1,10 +1,27 @@
 {% extends "firstbyte/base.html" %}
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ lessonplan.title }}{% endblock %}
 {% block head %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "curriculum/style/time-box.css" %}" />
     <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
 {% endblock %}
 {% block body %}
-{% include "curriculum/lessonplan_template.html" with lessonplan=object %}
+    {% include "curriculum/lessonplan_template.html" %}
+    {% if lessonplan.feedback_enabled %}
+        {% if user.is_authenticated %}
+            Submit your own!
+            <form method="post">{% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit feedback"/>
+            </form>
+        {% endif %}
+        Viewing feedback for lesson plan {{ lessonplan.title }}:
+        {% for fb in lessonplan.lessonfeedback_set.all %}
+            {{ fb.overall_rating }}
+            {{ fb.strengths }}
+            {{ fb.weaknesses }}
+        {% endfor %}
+    {% else %}
+        Feedback disabled on lesson plan {{ lessonplan.title }}
+    {% endif %}
 {% endblock %}

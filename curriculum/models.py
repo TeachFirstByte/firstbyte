@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 from tagging.registry import register
 
 
@@ -62,7 +63,44 @@ class LessonPlan(models.Model):
     # uploaded files!
     resources = models.ManyToManyField(LessonResource, blank=True)
 
+    # enable feedback?
+    feedback_enabled = models.BooleanField(default=True)
+
 
 # Associate tags with LessonPlan
 register(LessonPlan)
 
+
+class FiveStarRatingField(models.SmallIntegerField):
+    ratings = (
+        (1, "One star"),
+        (2, "Two stars"),
+        (3, "Three stars"),
+        (4, "Four stars"),
+        (5, "Five stars"),
+    )
+
+    def __init__(self, *args, **kwargs):
+        kwargs['choices'] = kwargs.get('choices', self.ratings)
+        super().__init__(*args, **kwargs)
+
+
+class LessonFeedback(models.Model):
+    lesson = models.ForeignKey(LessonPlan, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+
+    # 1 star = complete failure; 5 stars = complete success
+    overall_rating = FiveStarRatingField()
+
+    # 2500 characters is appox. 2-3 meaty paragraphs.
+    strengths = models.TextField(max_length=2500)
+    weaknesses = models.TextField(max_length=2500)
+
+
+class WebsiteFeedback(models.Model):
+    # 1 star = complete failure; 5 stars = complete success
+    overall_rating = FiveStarRatingField()
+
+    # 2500 characters is appox. 2-3 meaty paragraphs.
+    strengths = models.TextField(max_length=2500)
+    weaknesses = models.TextField(max_length=2500)

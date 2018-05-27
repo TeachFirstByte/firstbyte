@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 from tagging.registry import register
 
 
@@ -65,6 +66,9 @@ class LessonPlan(models.Model):
 
     # enable feedback?
     feedback_enabled = models.BooleanField(default=True)
+
+    def get_absolute_url(self):
+        return reverse('detail-lesson-plan', kwargs={'pk': self.id})
 
 
 # Associate tags with LessonPlan

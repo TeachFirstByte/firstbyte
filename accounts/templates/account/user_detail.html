@@ -1,0 +1,26 @@
+{% extends "firstbyte/base.html" %}
+{% block title %}Me{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+    <div class="one-third column align-center">
+        <img src="https://www.gravatar.com/avatar/{{ email_hash }}?s=100">
+        <p>{{ user.get_full_name }}</p>
+    </div>
+    <div class="one-third column">
+        <p>Account management</p>
+        <ul>
+            <li><a href="{% url 'account_email' %}">Manage emails</a></li>
+            <li><a href="{% url 'account_change_password' %}">Change password</a></li>
+            <li><a href="">Delete my account</a></li>
+        </ul>
+    </div>
+    <div class="one-third column">
+        <p>Other helpful links</p>
+        <ul>
+            <li><a href="">See curriculum I've submitted</a></li>
+            <li><a href="">See my lesson plans</a></li>
+        </ul>
+
+    </div>
+{% endblock %}

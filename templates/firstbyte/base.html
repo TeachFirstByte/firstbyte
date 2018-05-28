@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %} - FirstByte Curriculum</title>
     {% load static %}
     <link rel="stylesheet" href="{% static "firstbyte/style/pills.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "firstbyte/style/main.css" %}" />
+    <link rel="stylesheet" href="{% static "firstbyte/style/forms.css" %}" type="text/css"/>
     {% block head %}{% endblock %}
 </head>
 <body>
     <header>
         <div class="row no-padding">
             <span class="whole column align-right" id="user-banner">
+                {% load account %}
                 {% if user.is_authenticated %}
-                   Hello, <a href="{% url 'me' %}">{{ user.first_name }}</a>
-                    (<a href="{% url 'logout' %}">Sign out</a>)
+                   Hello, <a href="{% url 'me' %}">{% user_display user %}</a>
+                    (<a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign out</a>)
                 {% else %}
-                    <a href="{% url 'login' %}">Log in</a>
-                    (<a href="{% url 'login' %}">Sign up</a>)
+                    <a href="{% url 'account_login' %}">Log in</a>
+                    (<a href="{% url 'account_signup'%}">Sign up</a>)
                 {% endif %}
             </span>
         </div>
@@ -65,7 +68,7 @@
                 <p class="footer-nav-header">User</p>
                 <ul class="footer-nav-link-list">
                     <li><a href="{% url 'me' %}">My account</a></li>
-                    <li><a href="{% url 'logout' %}">Log out</a></li>
+                    <li><a href="{% url 'account_logout' %}">Log out</a></li>
                 </ul>
             </div>
             <div class="one-third column">

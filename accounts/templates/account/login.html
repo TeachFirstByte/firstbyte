@@ -1,0 +1,23 @@
+{% extends "firstbyte/base.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+    <div class="half column">
+        <h1 class="align-center">Log in</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+    <div class="half column">
+        <h1 class="align-center">Need an account?</h1>
+        <ul>
+            <li>Join fellow teachers in the Greater Boston Area.</li>
+            <li>Submit your own curriculum.</li>
+            <li>Improve existing lesson plans by providing your feedback.</li>
+        </ul>
+        <h3 class="align-center"><a href="{% url 'account_signup' %}">Sign up here</a></h3>
+    </div>
+{% endblock %}

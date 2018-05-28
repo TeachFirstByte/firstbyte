@@ -1,0 +1,25 @@
+.errorlist {
+    background-color: #f7e4e1;
+    border: 1px solid #cacaca;
+    list-style-position: inside;
+    padding: 1em;
+}
+
+form label, form input {
+    display: block;
+}
+
+form input {
+    padding: .75em;
+    border-radius: 3px;
+    border: 1px solid #cacaca;
+    outline: none;
+}
+form input:focus {
+    box-shadow: 0 0 5px #cacaca;
+    border: 1px solid lightblue;
+}
+
+form input[type="submit"] {
+    padding: .5em 1em;
+}

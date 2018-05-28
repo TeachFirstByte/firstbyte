@@ -2,9 +2,13 @@ from django.views.generic.edit import CreateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.response import TemplateResponse
 from django.conf import settings
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from . import forms, models
+
+
+def index(request):
+    return render(request, 'curriculum/index.html', {'user': request.user})
 
 
 class CreateLessonPlanView(LoginRequiredMixin, CreateView):

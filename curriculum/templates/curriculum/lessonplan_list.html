@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "curriculum/style/time-box.css" %}" />
     <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
 {% endblock %}
-{% block body %}
+{% block content %}
      {% for lessonplan in object_list %}
          {% include "curriculum/lessonplan_template.html" %}
      {% endfor %}

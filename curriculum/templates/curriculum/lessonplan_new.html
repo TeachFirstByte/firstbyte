@@ -3,7 +3,7 @@
 {% block head %}
     {% load static %}
 {% endblock %}
-{% block body %}
+{% block content %}
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Create Lesson Plan"/>

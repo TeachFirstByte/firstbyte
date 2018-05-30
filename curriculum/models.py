@@ -28,8 +28,11 @@ class LessonResource(models.Model):
     # The original filename - or whatever is displayed.
     name = models.CharField(max_length=60)
 
-    # The type of document
-    type = models.SmallIntegerField(choices=FILE_TYPES)
+    # The mime type of the uploaded document
+    mime_type = models.CharField(max_length=129, blank=True)
+
+    # The semantic type of document (from options above)
+    semantic_type = models.SmallIntegerField(choices=FILE_TYPES)
 
     # The uploader of the file, should only be null if a user is deleted.
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)

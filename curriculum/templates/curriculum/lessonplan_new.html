@@ -2,10 +2,29 @@
 {% block title %}Create a Lesson Plan{% endblock %}
 {% block head %}
     {% load static %}
+    <script src="{% static 'curriculum/script/fileUpload.js' %}"></script>
 {% endblock %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create Lesson Plan"/>
-    </form>
+    <div class="row">
+        <div class="half column">
+            <h1>Fill out the boring details</h1>
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form.as_p }}
+            </form>
+        </div>
+        <div class="half column">
+            <h1>Upload supporting files</h1>
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" id="file-select" multiple />
+                <label for="file-select" class="file-upload-button">Upload files</label>
+            </form>
+            <div id="lesson-resource-forms"></div>
+        </div>
+    </div>
+    <div class="row">
+        <p class="lesson-submission-warning align-center">
+            I understand that I am signing away myself and my first-born by clickig this button.
+        </p>
+        <input class="whole column" type="submit" value="Create Lesson Plan"/>
+    </div>
 {% endblock %}

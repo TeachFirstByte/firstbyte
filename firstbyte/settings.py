@@ -37,7 +37,7 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.UserRegistrationForm',
 }
 
-LOGIN_URL = '/accounts/login'
+LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = 'me'
 
 # Email settings

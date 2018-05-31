@@ -64,6 +64,9 @@ class LessonPlan(models.Model):
     # enable feedback?
     feedback_enabled = models.BooleanField(default=True)
 
+    # Notify this user when someone leaves feedback?
+    notify_of_feedback = models.BooleanField(default=True)
+
     def get_absolute_url(self):
         return reverse('detail-lesson-plan', kwargs={'pk': self.id})
 
@@ -89,6 +92,9 @@ class FiveStarRatingField(models.SmallIntegerField):
 class LessonFeedback(models.Model):
     lesson = models.ForeignKey(LessonPlan, null=True, on_delete=models.SET_NULL)
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+
+    # Should we email the author of this feedback if the lesson plan gets updated?
+    notify_author_of_changes = models.BooleanField(default=True)
 
     # 1 star = complete failure; 5 stars = complete success
     overall_rating = FiveStarRatingField()

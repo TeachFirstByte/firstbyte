@@ -55,6 +55,9 @@ class LessonPlan(models.Model):
     summary = models.CharField(max_length=2000)
     materials = models.CharField(max_length=2000)
 
+    # Chromebooks only support web-only curriculums!
+    web_only = models.BooleanField()
+
     # uploaded files!
     resources = models.ManyToManyField(LessonResource, blank=True)
 

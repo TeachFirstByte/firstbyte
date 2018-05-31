@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from tagging.registry import register
+from accounts.models import GRADE_LEVEL_MAX_LENGTH, GradeLevels
 
 
 def user_upload_directory(instance, filename):
@@ -42,20 +43,10 @@ class LessonResource(models.Model):
 
 
 class LessonPlan(models.Model):
-    ELEMENTARY_SCHOOL_LEVEL = 'ES'
-    MIDDLE_SCHOOL_LEVEL = 'MS'
-    HIGH_SCHOOL_LEVEL = 'HS'
-
-    GradeLevel = (
-        (ELEMENTARY_SCHOOL_LEVEL, "Elementary School"),
-        (MIDDLE_SCHOOL_LEVEL, "Middle School"),
-        (HIGH_SCHOOL_LEVEL, "High School"),
-    )
-
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=120, unique=True)
-    grade_level = models.CharField(max_length=2, choices=GradeLevel)
+    grade_level = models.CharField(max_length=GRADE_LEVEL_MAX_LENGTH, choices=GradeLevels)
 
     prep_time = models.DurationField()
     class_time = models.DurationField()

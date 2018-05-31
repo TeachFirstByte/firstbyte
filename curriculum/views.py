@@ -67,3 +67,15 @@ class LessonPlanView(View):
             form = forms.LessonPlanFeedback()
 
         return self.get_default_template_response(request, form)
+
+
+class SubmitWebsiteFeedbackView(CreateView):
+    model = models.WebsiteFeedback
+    fields = ['overall_rating', 'strengths', 'weaknesses', 'email']
+
+    def get_success_url(self):
+        return reverse('website-feedback-done')
+
+
+def website_feedback_done(request):
+    return render(request, 'curriculum/websitefeedback_done.html')

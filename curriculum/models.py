@@ -111,3 +111,6 @@ class WebsiteFeedback(models.Model):
     # 2500 characters is appox. 2-3 meaty paragraphs.
     strengths = models.TextField(max_length=2500)
     weaknesses = models.TextField(max_length=2500)
+
+    # The form is anonymous, so we ask for an email so we can follow-up with the user
+    email = models.EmailField(blank=True)

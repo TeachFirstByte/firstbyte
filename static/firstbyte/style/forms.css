@@ -5,23 +5,28 @@
     padding: 1em;
 }
 
-form label, form input {
-    display: block;
-}
-
 form input, form select {
+    /* Show most input fields on their own line */
+    display: block;
+
     padding: .75em;
     border-radius: 3px;
     border: 1px solid #cacaca;
     outline: none;
 }
+
+form input[type='submit'] {
+    padding: .5em 1em;
+}
+
+form input[type='checkbox'] {
+    /* Checkboxes go on the same line as their label */
+    display: inline-block;
+}
+
 form input:focus, form select:focus{
     box-shadow: 0 0 5px #cacaca;
     border: 1px solid lightblue;
-}
-
-form input[type="submit"] {
-    padding: .5em 1em;
 }
 
 .align-center input {

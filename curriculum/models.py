@@ -12,13 +12,15 @@ def user_upload_directory(instance, filename):
 
 
 class LessonResource(models.Model):
-    STUDENT_HANDOUT = 0
-    TEACHER_REFERENCE = 1
-    SLIDES = 2
+    OTHER = 0
+    STUDENT_HANDOUT = 1
+    TEACHER_REFERENCE = 2
+    SLIDES = 3
     CODE = 3
-    SCHEMATIC = 4
+    SCHEMATIC = 5
 
     FILE_TYPES = (
+        (OTHER, "Other"),
         (STUDENT_HANDOUT, "Student handout"),
         (TEACHER_REFERENCE, "Teacher reference"),
         (SLIDES, "Slides"),
@@ -33,7 +35,7 @@ class LessonResource(models.Model):
     mime_type = models.CharField(max_length=129, blank=True)
 
     # The semantic type of document (from options above)
-    semantic_type = models.SmallIntegerField(choices=FILE_TYPES)
+    semantic_type = models.SmallIntegerField(choices=FILE_TYPES, default=OTHER)
 
     # The uploader of the file, should only be null if a user is deleted.
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)

@@ -25,11 +25,13 @@ function add_resource_form(file) {
     var typeInput = document.createElement('select');
     form.appendChild(typeInput);
 
-    typeInput.appendChild(createOption(0, "Student Handout"));
-    typeInput.appendChild(createOption(1, "Teacher Reference"));
-    typeInput.appendChild(createOption(2, "Slides"));
-    typeInput.appendChild(createOption(3, "Code"));
-    typeInput.appendChild(createOption(4, "Schematic"));
+    typeInput.appendChild(createOption(null, "------"));
+    typeInput.appendChild(createOption(1, "Student Handout"));
+    typeInput.appendChild(createOption(2, "Teacher Reference"));
+    typeInput.appendChild(createOption(3, "Slides"));
+    typeInput.appendChild(createOption(4, "Code"));
+    typeInput.appendChild(createOption(5, "Schematic"));
+    typeInput.appendChild(createOption(0, "Other"));
 }
 
 window.addEventListener('DOMContentLoaded', function(e) {

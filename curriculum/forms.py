@@ -15,3 +15,7 @@ class LessonPlanFeedback(forms.Form):
     rating = forms.IntegerField(label="Rating", min_value=1, max_value=5)
     success = forms.CharField(max_length=2500, widget=forms.Textarea, label="Successful parts")
     failure = forms.CharField(max_length=2500, widget=forms.Textarea, label="Unsuccessful parts")
+
+
+class MinimalLessonResource(forms.Form):
+    file = forms.FileField()

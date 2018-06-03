@@ -2,6 +2,7 @@
 {% block title %}Create a Lesson Plan{% endblock %}
 {% block head %}
     {% load static %}
+    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
     <script src="{% static 'curriculum/script/fileUpload.js' %}"></script>
 {% endblock %}
 {% block content %}

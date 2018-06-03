@@ -1,8 +1,11 @@
 from django.views.generic.edit import CreateView, View
+from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.template.response import TemplateResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from . import forms, models
 
@@ -79,3 +82,34 @@ class SubmitWebsiteFeedbackView(CreateView):
 
 def website_feedback_done(request):
     return render(request, 'curriculum/websitefeedback_done.html')
+
+
+@require_POST
+@login_required
+def create_lesson_resource(request):
+    form = forms.MinimalLessonResource(request.POST, request.FILES)
+    if form.is_valid():
+        # TODO: Verify the file is not malicious
+        uploaded_file = form.cleaned_data['file']
+        lesson_resource = models.LessonResource(
+            name=uploaded_file.name,
+            file=uploaded_file,
+            mime_type=uploaded_file.content_type,
+            owner=request.user
+        )
+        lesson_resource.save()
+        return JsonResponse({'id': lesson_resource.id})
+    return JsonResponse({'err': True})
+
+
+@login_required
+def lesson_resource(request, pk):
+    resource = get_object_or_404(models.LessonResource, id=pk)
+    if request.method == 'DELETE':
+        if resource.owner == request.user:
+            resource.delete()
+            return JsonResponse({'success': True})
+    elif request.method == 'GET':
+        return HttpResponse(resource.file.chunks(), resource.mime_type)
+
+    return HttpResponseForbidden()

@@ -7,7 +7,8 @@ class LessonPlanForm(forms.ModelForm):
     class Meta:
         model = LessonPlan
         fields = ['title', 'grade_level', 'prep_time',
-                  'class_time', 'summary', 'materials',]
+                  'class_time', 'summary', 'materials', 'web_only', 'feedback_enabled',
+                  'notify_of_feedback']
 
 
 class LessonPlanFeedback(forms.Form):

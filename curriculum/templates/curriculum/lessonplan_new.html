@@ -9,7 +9,7 @@
     <div class="row">
         <div class="half column">
             <h1>Fill out the boring details</h1>
-            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form method="post" enctype="multipart/form-data" id="lesson-plan-form">{% csrf_token %}
                 {{ form.as_p }}
             </form>
         </div>
@@ -26,6 +26,6 @@
         <p class="lesson-submission-warning align-center">
             I understand that I am signing away myself and my first-born by clickig this button.
         </p>
-        <input class="whole column" type="submit" value="Create Lesson Plan"/>
+        <input class="whole column" type="submit" form="lesson-plan-form" id="submit-lesson-plan" value="Create Lesson Plan"/>
     </div>
 {% endblock %}

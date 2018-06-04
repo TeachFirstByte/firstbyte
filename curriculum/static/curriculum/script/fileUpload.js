@@ -87,6 +87,28 @@ function addResourceForm(file, idPromise) {
     });
 }
 
+function submitLessonPlan(event) {
+    event.preventDefault();
+
+    var allowSubmission = true;
+
+    var resources = document.getElementsByClassName('lesson-resource-form');
+    for(var index = 0; index < resources.length; ++index) {
+        // Figure out a way to merge this form data to send as one big whole,
+        // or better yet do them separately, but in the background before
+        // submitting the main lesson plan form.
+        var resource = resources[index];
+        allowSubmission = allowSubmission && resource.reportValidity();
+    }
+
+    var lessonPlanForm = document.getElementById('lesson-plan-form');
+    allowSubmission = allowSubmission && lessonPlanForm.reportValidity();
+
+    if(allowSubmission) {
+        lessonPlanForm.submit();
+    }
+}
+
 window.addEventListener('DOMContentLoaded', function(e) {
     var fileSelect = document.getElementById('file-select');
     fileSelect.addEventListener('change', function(event) {
@@ -99,4 +121,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
             addResourceForm(files[index], idPromise);
         }
     });
+
+    var submitLessonPlanBtn = document.getElementById('submit-lesson-plan');
+    submitLessonPlanBtn.addEventListener('click', submitLessonPlan);
 });

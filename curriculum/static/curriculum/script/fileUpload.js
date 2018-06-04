@@ -1,8 +1,8 @@
 'use strict';
 
-function createOption(num, name) {
+function createOption(val, name) {
     var ret = document.createElement('option');
-    ret.setAttribute('value', num);
+    ret.value = val;
     ret.textContent = name;
     return ret;
 }
@@ -55,8 +55,9 @@ function addResourceForm(file, idPromise) {
     form.appendChild(typeInput);
 
     typeInput.className = 'four column';
+    typeInput.required = true;
 
-    typeInput.appendChild(createOption(null, "------"));
+    typeInput.appendChild(createOption("", "---------"));
     typeInput.appendChild(createOption(1, "Student Handout"));
     typeInput.appendChild(createOption(2, "Teacher Reference"));
     typeInput.appendChild(createOption(3, "Slides"));

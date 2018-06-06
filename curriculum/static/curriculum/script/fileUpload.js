@@ -80,7 +80,7 @@ function addResourceForm(file, idPromise) {
                 }
             };
 
-            xhr.open('DELETE', '/lesson-resource/' + id);
+            xhr.open('DELETE', '/lesson-resource/' + id + '/');
             xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
             xhr.send();
         });

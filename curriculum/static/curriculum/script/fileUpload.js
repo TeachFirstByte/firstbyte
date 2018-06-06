@@ -37,6 +37,8 @@ function addResourceForm(file, idPromise) {
     var formDiv = document.getElementById('lesson-resource-forms');
 
     var form = document.createElement('form');
+    form.dataset.resourceId = undefined;
+
     formDiv.appendChild(form);
     form.setAttribute('method', 'post');
     form.setAttribute('enctype', 'multipart/form-data');
@@ -85,6 +87,32 @@ function addResourceForm(file, idPromise) {
             xhr.send();
         });
     });
+
+    idPromise.then(function (id) {
+       form.dataset.resourceId = id;
+    });
+}
+
+function patchResource(id, data) {
+    return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function(event) {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.response.hasOwnProperty('success')) {
+                    resolve(data);
+                } else {
+                    reject(xhr.response['err']);
+                }
+            }
+        };
+
+        xhr.open('PUT', '/lesson-resource/' + id + '/', true);
+        xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.responseType = 'json';
+        xhr.send(JSON.stringify(data));
+    });
 }
 
 function submitLessonPlan(event) {
@@ -94,18 +122,31 @@ function submitLessonPlan(event) {
 
     var resources = document.getElementsByClassName('lesson-resource-form');
     for(var index = 0; index < resources.length; ++index) {
-        // Figure out a way to merge this form data to send as one big whole,
-        // or better yet do them separately, but in the background before
-        // submitting the main lesson plan form.
-        var resource = resources[index];
-        allowSubmission = allowSubmission && resource.reportValidity();
+        var form = resources[index];
+        if(form.dataset.resourceId === undefined) {
+            // Upload not finished, or failed!
+            allowSubmission = false;
+        }
+        allowSubmission = allowSubmission && form.reportValidity();
     }
 
     var lessonPlanForm = document.getElementById('lesson-plan-form');
     allowSubmission = allowSubmission && lessonPlanForm.reportValidity();
 
     if(allowSubmission) {
-        lessonPlanForm.submit();
+        var promises = [];
+        for(var index = 0; index < resources.length; ++index) {
+            var form = resources[index];
+            // Make a request to the server, given ID
+            var resourcePatch = {
+                name: form.elements[0].value,
+                type: form.elements[1].value
+            };
+            promises.push(patchResource(form.dataset.resourceId, resourcePatch));
+        }
+        Promise.all(promises).then(function(values) {
+            lessonPlanForm.submit();
+        });
     }
 }
 

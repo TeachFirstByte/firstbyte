@@ -1,3 +1,4 @@
+import json
 from django.views.generic.edit import CreateView, View
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -111,5 +112,16 @@ def lesson_resource(request, pk):
             return JsonResponse({'success': True})
     elif request.method == 'GET':
         return HttpResponse(resource.file.chunks(), resource.mime_type)
+    elif request.method == 'PUT':
+        patch = json.loads(request.body)
+
+        try:
+            resource.name = str(patch['name'])
+            resource.semantic_type = patch['type']
+        except KeyError:
+            return JsonResponse({'err': True}, status=422)
+
+        resource.save()
+        return JsonResponse({'success': True})
 
     return HttpResponseForbidden()

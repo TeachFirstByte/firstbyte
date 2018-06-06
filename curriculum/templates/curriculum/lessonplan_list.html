@@ -7,6 +7,8 @@
 {% endblock %}
 {% block content %}
      {% for lessonplan in object_list %}
-         {% include "curriculum/lessonplan_template.html" %}
+         <a href="{% url 'detail-lesson-plan' pk=lessonplan.id %}" class="lesson-plan-container one-third column">
+             {% include "curriculum/lessonplan_template.html" %}
+         </a>
      {% endfor %}
 {% endblock %}

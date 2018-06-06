@@ -6,7 +6,9 @@
     <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
 {% endblock %}
 {% block content %}
-    {% include "curriculum/lessonplan_template.html" %}
+    <div class="whole column">
+        {% include "curriculum/lessonplan_template.html" %}
+    </div>
     {% if lessonplan.feedback_enabled %}
         {% if user.is_authenticated %}
             Submit your own!

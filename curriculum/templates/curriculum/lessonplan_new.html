@@ -3,7 +3,8 @@
 {% block head %}
     {% load static %}
     <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
-    <script src="{% static 'curriculum/script/fileUpload.js' %}"></script>
+    {% load render_bundle from webpack_loader %}
+    {% render_bundle 'uploadLessonResource' %}
 {% endblock %}
 {% block content %}
     <div class="row">

@@ -1,0 +1,19 @@
+{
+  "name": "firstbyte",
+  "version": "0.1.0",
+  "description": "A curriculum collaboration tool for teachers",
+  "repository": "git@github.com:lukesanantonio/firstbyte.git",
+  "author": "Luke San Antonio Bialecki <lukesanantonio@gmail.com>",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "webpack": "^4.12.0",
+    "webpack-bundle-tracker": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "jasmine": "^3.1.0",
+    "webpack-cli": "^3.0.3"
+  }
+}

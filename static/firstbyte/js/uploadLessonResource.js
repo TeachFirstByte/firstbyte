@@ -1,5 +1,7 @@
 'use strict';
 
+import $ from 'jquery';
+
 function createOption(val, name) {
     var ret = document.createElement('option');
     ret.value = val;
@@ -150,7 +152,7 @@ function submitLessonPlan(event) {
     }
 }
 
-window.addEventListener('DOMContentLoaded', function(e) {
+$(function(e) {
     var fileSelect = document.getElementById('file-select');
     fileSelect.addEventListener('change', function(event) {
         var files = fileSelect.files;
@@ -158,6 +160,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
             var idPromise = startResourceUpload(files[index]);
             idPromise.then(function(id) {
                 console.log(id);
+
             });
             addResourceForm(files[index], idPromise);
         }

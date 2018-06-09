@@ -9,3 +9,14 @@ media
 
 ### PyCharm ###
 .idea/
+
+### VSCode ###
+.vscode/
+
+### Virtualenv ###
+env/
+
+### Node / JS ###
+node_modules/
+static/firstbyte/webpack_bundles/
+webpack-stats.json

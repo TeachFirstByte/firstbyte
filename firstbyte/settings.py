@@ -52,6 +52,7 @@ ACCOUNT_USER_DISPLAY = 'accounts.views.user_display'
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'curriculum.apps.CurriculumConfig',
+    'webpack_loader',
     'tagging',
     'allauth',
     'allauth.account',
@@ -159,3 +160,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'firstbyte/webpack_bundles/', # must end with slash
+    }
+}

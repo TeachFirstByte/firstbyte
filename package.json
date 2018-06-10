@@ -7,6 +7,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.1",
     "jquery": "^3.3.1",
     "webpack": "^4.12.0",
     "webpack-bundle-tracker": "^0.3.0"

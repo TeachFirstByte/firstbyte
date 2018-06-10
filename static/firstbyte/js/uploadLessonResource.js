@@ -1,6 +1,7 @@
 'use strict';
 
 import $ from 'jquery';
+import Promise from 'bluebird';
 
 function createOption(val, name) {
     var ret = document.createElement('option');

@@ -1,5 +1,7 @@
 'use strict';
 
+require('../style/time-box.css');
+
 function addTimeBoxChild(container, className, flexGrow) {
     var box = document.createElement('div');
     box.className = className;

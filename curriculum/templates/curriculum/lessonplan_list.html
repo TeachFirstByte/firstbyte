@@ -1,9 +1,8 @@
 {% extends "firstbyte/base.html" %}
 {% block title %}List of Lesson Plans{% endblock %}
 {% block head %}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static "curriculum/style/time-box.css" %}" />
-    <script type="text/javascript" src="{% static "curriculum/script/initTimeBoxes.js" %}"></script>
+    {% load render_bundle from webpack_loader %}
+    {% render_bundle 'timeBox' %}
 {% endblock %}
 {% block content %}
      {% for lessonplan in object_list %}

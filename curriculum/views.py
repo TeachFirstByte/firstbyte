@@ -1,5 +1,5 @@
 import json
-from django.views.generic.edit import CreateView, View
+from django.views.generic.edit import CreateView, FormView, View
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -19,8 +19,20 @@ class CreateLessonPlanView(LoginRequiredMixin, CreateView):
     template_name = 'curriculum/lessonplan_new.html'
     form_class = forms.LessonPlanForm
 
-    def get_success_url(self):
-        return reverse('detail-lesson-plan', kwargs={'pk': self.object.pk })
+    def __init__(self):
+        self.object = None;
+        super().__init__()
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+
+        for resource_id in form.cleaned_data['resources']:
+            self.object.resources.add(models.LessonResource.objects.get(pk=resource_id))
+
+        self.object.save()
+        # Don't let ModelFormMixin save the object
+        return FormView.form_valid(self, form)
 
 
 class LessonPlanView(View):

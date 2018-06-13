@@ -8,6 +8,20 @@
     <div class="whole column">
         {% include "curriculum/lessonplan_template.html" %}
     </div>
+    {% if lessonplan.resources.all %}
+        <h1>Supporting files:</h1>
+        {% for resource in lessonplan.resources.all %}
+            {% spaceless %}
+                <p>
+                    <a href="{% url 'detail-lesson-resource' pk=resource.id %}">{{ resource.name }}</a>
+                    <span> ({{ resource.get_semantic_type_display }})</span>
+                </p>
+            {% endspaceless %}
+        {% endfor %}
+    {% else %}
+        <p>There are no files associated with this lesson plan</p>
+    {% endif %}
+
     {% if lessonplan.feedback_enabled %}
         {% if user.is_authenticated %}
             Submit your own!
@@ -18,11 +32,11 @@
         {% endif %}
         Viewing feedback for lesson plan {{ lessonplan.title }}:
         {% for fb in lessonplan.lessonfeedback_set.all %}
-            {{ fb.overall_rating }}
-            {{ fb.strengths }}
-            {{ fb.weaknesses }}
+            <p class="feedback-rating">Overall Rating: {{ fb.overall_rating }}</p>
+            <p class="feedback-strengths">{{ fb.strengths }}</p>
+            <p class="feedback-weeknesses">{{ fb.weaknesses }}</p>
         {% endfor %}
     {% else %}
-        Feedback disabled on lesson plan {{ lessonplan.title }}
+        Feedback has been disabled
     {% endif %}
 {% endblock %}

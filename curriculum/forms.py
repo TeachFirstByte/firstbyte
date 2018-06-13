@@ -3,6 +3,14 @@ from .models import LessonPlan
 
 
 class LessonPlanForm(forms.ModelForm):
+    resources = forms.CharField(required=False, widget=forms.HiddenInput)
+
+    def clean_resources(self):
+        resources = self.cleaned_data['resources']
+        if resources:
+            return list([int(str_id) for str_id in resources.split(',')])
+        else:
+            return []
 
     class Meta:
         model = LessonPlan

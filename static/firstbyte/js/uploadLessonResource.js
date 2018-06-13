@@ -3,97 +3,68 @@
 import $ from 'jquery';
 import Promise from 'bluebird';
 
-function createOption(val, name) {
+import { CurriculumClient } from './restClient.js';
+
+function _createOption(val, name) {
     var ret = document.createElement('option');
     ret.value = val;
     ret.textContent = name;
     return ret;
 }
 
-function startResourceUpload(file) {
-    return new Promise(function(resolve, reject) {
-        var formData = new FormData();
-        formData.append('file', file, file.name);
-
-        var xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function(ev) {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                var lessonResourceId = xhr.response['id'];
-                if (lessonResourceId !== undefined) {
-                    resolve(lessonResourceId);
-                } else {
-                    reject(xhr.response['err']);
-                }
-            }
-        };
-
-        // Requires that CSRF_TOKEN has been set. This is done in lessonplan_new.html.
-        xhr.open('POST', '/lesson-resource/', true);
-        xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-        xhr.responseType = 'json';
-        xhr.send(formData);
-    });
-}
-
-function addResourceForm(file, idPromise) {
-    var formDiv = document.getElementById('lesson-resource-forms');
+function ResourceForm(filename, onRemove) {
+    this.onRemove = onRemove || (function(_) { return Promise.resolve(true); });
 
     var form = document.createElement('form');
-    form.dataset.resourceId = undefined;
-
-    formDiv.appendChild(form);
+    form.className = 'lesson-resource-form';
     form.setAttribute('method', 'post');
     form.setAttribute('enctype', 'multipart/form-data');
-    form.className = 'lesson-resource-form';
 
     var filenameInput = document.createElement('input');
     form.appendChild(filenameInput);
-
     filenameInput.className = 'six column';
-
+    filenameInput.value = filename;
     filenameInput.setAttribute('type', 'text');
     filenameInput.setAttribute('name', 'name');
-    filenameInput.value = file.name;
 
     var typeInput = document.createElement('select');
     form.appendChild(typeInput);
-
     typeInput.className = 'four column';
     typeInput.required = true;
 
-    typeInput.appendChild(createOption("", "---------"));
-    typeInput.appendChild(createOption(1, "Student Handout"));
-    typeInput.appendChild(createOption(2, "Teacher Reference"));
-    typeInput.appendChild(createOption(3, "Slides"));
-    typeInput.appendChild(createOption(4, "Code"));
-    typeInput.appendChild(createOption(5, "Schematic"));
-    typeInput.appendChild(createOption(0, "Other"));
+    typeInput.appendChild(_createOption("", "---------"));
+    typeInput.appendChild(_createOption(1, "Student Handout"));
+    typeInput.appendChild(_createOption(2, "Teacher Reference"));
+    typeInput.appendChild(_createOption(3, "Slides"));
+    typeInput.appendChild(_createOption(4, "Code"));
+    typeInput.appendChild(_createOption(5, "Schematic"));
+    typeInput.appendChild(_createOption(0, "Other"));
 
     var removeIcon = document.createElement('i');
     form.appendChild(removeIcon);
-
     removeIcon.className = 'one column icon-remove';
 
-    removeIcon.addEventListener('click', function (event) {
-        idPromise.then(function (id) {
-            var xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = function(event) {
-                if(xhr.readyState === XMLHttpRequest.DONE) {
-                    formDiv.removeChild(form);
-                }
-            };
-
-            xhr.open('DELETE', '/lesson-resource/' + id + '/');
-            xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-            xhr.send();
+    var that = this;
+    $(removeIcon).click(function(ev) {
+        that.onRemove(ev).then(function(_) {
+            $(form).remove();
         });
     });
 
-    idPromise.then(function (id) {
-       form.dataset.resourceId = id;
-    });
+    var progressBar = document.createElement('progress');
+    form.appendChild(progressBar);
+    progressBar.className = 'progress-bar whole column';
+
+    this.progressBar = progressBar;
+    this.form = form;
+}
+
+ResourceForm.prototype.setParent = function(element) {
+    $(element).append(this.form);
+};
+
+ResourceForm.prototype.getProgressBar = function() {
+    return this.progressBar;
 }
 
 function patchResource(id, data) {
@@ -136,6 +107,7 @@ function submitLessonPlan(event) {
     var lessonPlanForm = document.getElementById('lesson-plan-form');
     allowSubmission = allowSubmission && lessonPlanForm.reportValidity();
 
+    var resourceIds = [];
     if(allowSubmission) {
         var promises = [];
         for(var index = 0; index < resources.length; ++index) {
@@ -145,25 +117,44 @@ function submitLessonPlan(event) {
                 name: form.elements[0].value,
                 type: form.elements[1].value
             };
+            resourceIds.push(form.dataset.resourceId);
             promises.push(patchResource(form.dataset.resourceId, resourcePatch));
         }
         Promise.all(promises).then(function(values) {
+            var resourceIdsInput = document.createElement('input');
+            resourceIdsInput.setAttribute('name', 'resources');
+            resourceIdsInput.setAttribute('type', 'hidden');
+            resourceIdsInput.setAttribute('value', resourceIds.join(','));
+            lessonPlanForm.appendChild(resourceIdsInput);
             lessonPlanForm.submit();
         });
     }
 }
 
 $(function(e) {
+    var curriculumClient = new CurriculumClient(window.CSRF_TOKEN);
     var fileSelect = document.getElementById('file-select');
     fileSelect.addEventListener('change', function(event) {
         var files = fileSelect.files;
         for(var index = 0; index < files.length; ++index) {
-            var idPromise = startResourceUpload(files[index]);
-            idPromise.then(function(id) {
-                console.log(id);
+            var file = files[index];
+            let form = new ResourceForm(file.name);
 
+            var idPromise = curriculumClient.uploadResource(file, {
+                progress: form.getProgressBar()
             });
-            addResourceForm(files[index], idPromise);
+
+            idPromise.then(function(id) {
+                form.form.dataset.resourceId = id;
+            })
+
+            form.onRemove = function(_) {
+                return idPromise.then(function(id) {
+                    return curriculumClient.deleteResource(id);                
+                });
+            };
+
+            form.setParent('#lesson-resource-forms');
         }
     });
 

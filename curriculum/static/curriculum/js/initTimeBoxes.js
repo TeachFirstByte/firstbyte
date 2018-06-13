@@ -1,5 +1,7 @@
 'use strict';
 
+import $ from 'jquery';
+
 require('../style/time-box.css');
 
 function addTimeBoxChild(container, className, flexGrow) {
@@ -12,7 +14,7 @@ function addTimeBoxChild(container, className, flexGrow) {
     container.appendChild(box);
 }
 
-window.addEventListener('DOMContentLoaded', function() {
+$(function() {
     // Fill in all time box containers
     var res = document.getElementsByClassName("time-box-container");
     for(var i = 0; i < res.length; ++i) {

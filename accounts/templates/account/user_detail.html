@@ -18,8 +18,7 @@
     <div class="one-third column">
         <p>Other helpful links</p>
         <ul>
-            <li><a href="">See curriculum I've submitted</a></li>
-            <li><a href="">See my lesson plans</a></li>
+            <li><a href="{% url 'user-lesson-plans' pk=user.id %}">See curriculum I've submitted</a></li>
         </ul>
 
     </div>

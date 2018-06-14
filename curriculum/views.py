@@ -1,5 +1,6 @@
 import json
 from django.views.generic.edit import CreateView, FormView, View
+from django.views.generic.list import ListView
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -83,6 +84,13 @@ class LessonPlanView(View):
             form = forms.LessonPlanFeedback()
 
         return self.get_default_template_response(request, form)
+
+
+class LessonPlanUserList(ListView):
+    model = models.LessonPlan
+
+    def get_queryset(self):
+        return models.LessonPlan.objects.filter(owner=self.kwargs['pk'])
 
 
 class SubmitWebsiteFeedbackView(CreateView):

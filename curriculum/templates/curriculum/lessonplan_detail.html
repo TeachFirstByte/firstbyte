@@ -13,7 +13,7 @@
         {% for resource in lessonplan.resources.all %}
             {% spaceless %}
                 <p>
-                    <a href="{% url 'detail-lesson-resource' pk=resource.id %}">{{ resource.name }}</a>
+                    <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
                     <span> ({{ resource.get_semantic_type_display }})</span>
                 </p>
             {% endspaceless %}

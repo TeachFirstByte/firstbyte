@@ -14,35 +14,28 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    <header>
-        <div class="row no-padding">
-            <span class="whole column align-right" id="user-banner">
+    <div id="header-container">
+        <header class="row">
+            <img id="logo" src="{% static "firstbyte/img/logo.png" %}"/>
+            <nav>
+                {% spaceless %}
+                    <a href={% url 'index' %}>About us</a>
+                    <a href={% url 'list-lesson-plan' %}>Find Curriculum</a>
+                    <a href={% url 'create-lesson-plan' %}>Submit Curriculum</a>
+                {% endspaceless %}
+            </nav>
+            <span id="user-banner">
                 {% load account %}
                 {% if user.is_authenticated %}
-                   Hello, <a href="{% url 'me' %}">{% user_display user %}</a>
+                Hello, <a href="{% url 'me' %}">{% user_display user %}</a>
                     (<a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign out</a>)
                 {% else %}
                     <a href="{% url 'account_login' %}">Log in</a>
                     (<a href="{% url 'account_signup'%}">Sign up</a>)
                 {% endif %}
             </span>
-        </div>
-        <div class="row">
-            <a class="whole column" href="https://teachfirstbyte.org/">
-                <img id="logo" src="{% static "firstbyte/img/logo.png" %}"/>
-            </a>
-        </div>
-    </header>
-    <nav>
-        <div class="row">
-            {% spaceless %}
-                <a class="one-fourth column align-center" href="http://teachfirstbyte.org/">teachfirstbyte.org</a>
-                <a class="one-fourth column align-center" href={% url 'index' %}>About us</a>
-                <a class="one-fourth column align-center" href={% url 'list-lesson-plan' %}>Find Curriculum</a>
-                <a class="one-fourth column align-center" href={% url 'create-lesson-plan' %}>Submit Curriculum</a>
-            {% endspaceless %}
-        </div>
-    </nav>
+        </header>
+    </div>
     <section id="content">
         <div class="row">
             {% block content %} {% endblock %}

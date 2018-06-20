@@ -1,56 +1,75 @@
-/* Header */
-header {
-    background-color: white;
-}
-
-#user-banner {
-    padding-bottom: 0;
-}
-
-#logo {
-    display: block;
-
-    width: 400px;
-    height: auto;
-
-    margin: auto;
-}
-
 /* Fonts */
 
 * {
     font-family: 'Open Sans', sans-serif;
 }
-nav a, footer {
+header, footer {
     font-family: 'Montserrat', sans-serif;
+}
+
+/* Header */
+#header-container {
+    width: 100%;
+    background-color: #212529;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: top 0.2s ease-in-out;
+}
+
+.header-up {
+    top: -64px !important;
+}
+
+header {
+    display: flex !important;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 64px;
+}
+
+@media only screen and (max-width: 650px) {
+    header {
+        height: auto;
+    }
+}
+
+header a {
+    font-size: 0.9em;
+    color:white;
+    text-decoration: none;
+}
+header a:hover {
+    color: #436D4E;
+}
+
+#logo {
+    height: 40px;
+    width: auto;
+}
+
+#user-banner {
+    padding-bottom: 0;
+    color: white;
 }
 
 /* Navigation Bar */
 nav {
-    margin: 0;
-    padding: 0;
+    display: inline-flex;
+    flex-grow: 1;
 
-    background-color: #212529;
-}
-
-nav div {
-    max-width: 800px !important;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 nav a {
-    font-size: 1.0em;
-    font-weight: bold;
-    color:white;
-    text-decoration: none;
-
-    border-left: 1px solid black;
-}
-nav a:last-child {
-    border-right: 1px solid black;
-}
-
-nav a:hover {
-    color: #436D4E;
+    padding: 1em;
 }
 
 /* Body content */
@@ -61,6 +80,7 @@ body {
 #content {
     background-color: white;
     margin: 1em 0;
+    margin-top: 64px;
 }
 
 /* Footer */
@@ -86,16 +106,13 @@ footer a {
     text-decoration: none;
 }
 
-footer a:visited {
-}
-
 footer a:hover {
     text-decoration: underline;
 }
 
 /* Copyright (below the footer) */
 .copyright-container {
-    background-color: #1C2C38;
+    background-color: #212529;
 }
 
 .copyright {

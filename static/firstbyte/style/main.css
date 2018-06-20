@@ -16,12 +16,21 @@ header {
     margin: auto;
 }
 
+/* Fonts */
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+nav a, footer {
+    font-family: 'Montserrat', sans-serif;
+}
+
 /* Navigation Bar */
 nav {
     margin: 0;
     padding: 0;
 
-    background-color: #1C2C38;
+    background-color: #212529;
 }
 
 nav div {
@@ -29,7 +38,8 @@ nav div {
 }
 
 nav a {
-    font-size: 1.2em;
+    font-size: 1.0em;
+    font-weight: bold;
     color:white;
     text-decoration: none;
 
@@ -40,7 +50,7 @@ nav a:last-child {
 }
 
 nav a:hover {
-    background-color: #436D4E;
+    color: #436D4E;
 }
 
 /* Body content */

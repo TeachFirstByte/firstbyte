@@ -5,8 +5,7 @@ module.exports = {
   context: __dirname,
   entry: {
       uploadLessonResource: './static/firstbyte/js/uploadLessonResource.js',
-      timeBox: './curriculum/static/curriculum/js/initTimeBoxes.js',
-      header: './static/firstbyte/js/header.js'
+      timeBox: './curriculum/static/curriculum/js/initTimeBoxes.js'
   },
   output: {
       path: path.resolve('./static/firstbyte/webpack_bundles/'),

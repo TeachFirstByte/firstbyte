@@ -6,13 +6,11 @@
     {% block meta %}{% endblock %}
     <title>{% block title %}{% endblock %} - FirstByte Curriculum</title>
     {% load static %}
-    {% load render_bundle from webpack_loader %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="{% static "firstbyte/style/pills.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "firstbyte/style/main.css" %}" />
     <link rel="stylesheet" href="{% static "firstbyte/style/forms.css" %}" type="text/css"/>
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    {% render_bundle 'header' %}
     {% block head %}{% endblock %}
 </head>
 <body>

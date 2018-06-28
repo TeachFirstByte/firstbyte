@@ -6,6 +6,9 @@ body {
 header, footer {
     font-family: 'Montserrat', sans-serif;
 }
+footer {
+    font-size: .9em;
+}
 
 /* Header */
 #header-container {
@@ -93,11 +96,14 @@ footer {
     color: white;
     font-size: 1.1em;
     font-weight: bold;
+    margin-bottom: .2em;
 }
 
-.footer-nav-link-list {
+.footer-nav-content {
     padding-left: 0;
-
+    margin-top: 0;
+}
+ul.footer-nav-content {
     list-style-type: none;
 }
 

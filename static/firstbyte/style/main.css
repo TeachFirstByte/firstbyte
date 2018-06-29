@@ -76,10 +76,6 @@ nav a {
 }
 
 /* Body content */
-body {
-    font-family: sans-serif;
-}
-
 #content {
     background-color: white;
     margin: 1em 0;

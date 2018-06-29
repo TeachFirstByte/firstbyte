@@ -3,11 +3,19 @@
 {% block head %}
     {% load render_bundle from webpack_loader %}
     {% render_bundle 'timeBox' %}
+    {% load static %}
+    <link href="{% static 'firstbyte/style/cards.css' %}" rel="stylesheet" type="text/css" />
+
 {% endblock %}
 {% block content %}
-     {% for lessonplan in object_list %}
-         <a href="{% url 'detail-lesson-plan' pk=lessonplan.id %}" class="lesson-plan-container one-third column">
-             {% include "curriculum/lessonplan_template.html" %}
-         </a>
-     {% endfor %}
+    <div class="row lesson-plan-cards">
+        {% for lessonplan in object_list %}
+            <div class="one-third column lesson-plan-card-container">
+                <a href="{% url 'detail-lesson-plan' pk=lessonplan.id %}" class="lesson-plan-card">
+                        {% include "curriculum/lessonplan_card.html" %}
+                </a>
+            </div>
+
+        {% endfor %}
+    </div>
 {% endblock %}

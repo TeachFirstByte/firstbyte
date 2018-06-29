@@ -121,10 +121,3 @@ footer a:hover {
     text-align: center;
     color: lightgray;
 }
-
-.lesson-plan-container {
-    display: block;
-    border: 1px solid #cacaca;
-    text-decoration: none;
-    color: inherit;
-}

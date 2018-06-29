@@ -1,0 +1,12 @@
+{% extends "firstbyte/base.html" %}
+{% block title %}Delete {{ lessonplan.title }}{% endblock %}
+{% block content %}
+    <form class="align-center" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.title }}"?</p>
+        <p>
+            The lesson plan will no longer be accessible to others.<br/>
+            If you would rather disable feedback (or stop being notified) this is not the way to do it!
+        </p>
+        <input type="submit" value="Confirm" />
+    </form>
+{% endblock %}

@@ -7,6 +7,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('lesson-plan/new/', views.CreateLessonPlanView.as_view(), name='create-lesson-plan'),
     path('lesson-plan/<int:pk>/', views.LessonPlanView.as_view(), name='detail-lesson-plan'),
+    path('lesson-plan/<int:pk>/edit', views.UpdateLessonPlanView.as_view(), name='update-lesson-plan'),
+    path('lesson-plan/<int:pk>/delete', views.DeleteLessonPlanView.as_view(), name='delete-lesson-plan'),
     path('lesson-plan/all/', ListView.as_view(model=models.LessonPlan), name='list-lesson-plan'),
     path('lesson-plan/by-user/<int:pk>', views.LessonPlanUserList.as_view(), name='user-lesson-plans'),
     path('submit-website-feedback/', views.SubmitWebsiteFeedbackView.as_view(), name='submit-website-feedback'),

@@ -1,5 +1,5 @@
 import json
-from django.views.generic.edit import CreateView, FormView, View
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView, View
 from django.views.generic.list import ListView
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,7 +17,7 @@ def index(request):
 
 
 class CreateLessonPlanView(LoginRequiredMixin, CreateView):
-    template_name = 'curriculum/lessonplan_new.html'
+    template_name = 'curriculum/lessonplan_form.html'
     form_class = forms.LessonPlanForm
 
     def __init__(self):
@@ -35,6 +35,18 @@ class CreateLessonPlanView(LoginRequiredMixin, CreateView):
         # Don't let ModelFormMixin save the object
         return FormView.form_valid(self, form)
 
+class MustOwnLessonPlanMixin(object):
+    model = models.LessonPlan
+    def dispatch(self, request, *args, **kwargs):
+        if super().get_object().owner == request.user or request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        return HttpResponseForbidden("Not allowed!")
+
+class UpdateLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, UpdateView):
+    form_class = forms.LessonPlanForm
+
+class DeleteLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, DeleteView):
+    success_url = reverse_lazy('list-lesson-plan')
 
 class LessonPlanView(View):
     template_name = 'curriculum/lessonplan_detail.html'

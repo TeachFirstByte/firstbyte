@@ -8,7 +8,7 @@ from django.template.response import TemplateResponse
 from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse_lazy
 from . import forms, models
 
 
@@ -96,9 +96,7 @@ class LessonPlanUserList(ListView):
 class SubmitWebsiteFeedbackView(CreateView):
     model = models.WebsiteFeedback
     fields = ['overall_rating', 'strengths', 'weaknesses', 'email']
-
-    def get_success_url(self):
-        return reverse('website-feedback-done')
+    success_url = reverse_lazy('website-feedback-done')
 
 
 def website_feedback_done(request):

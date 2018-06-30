@@ -1,0 +1,63 @@
+{% extends "firstbyte/base.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+    <h1>Create a new account</h1>
+    <form method="post" class="row" id="user-registration-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="half column">
+            <p>
+                {{ form.first_name.errors }}
+                {{ form.first_name.label_tag }}
+                {{ form.first_name }}
+            </p>
+            <p>
+                {{ form.last_name.errors }}
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+            </p>
+            <p>
+                {{ form.email.errors }}
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </p>
+            <p>
+                {{ form.password1.errors }}
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+            </p>
+            <p>
+                {{ form.password2.errors }}
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </p>
+        </div>
+        <div class="half column">
+            <p>
+                {{ form.school.errors }}
+                {{ form.school.label_tag }}
+                {{ form.school }}
+            </p>
+            <p>
+                {{ form.grade_level.errors }}
+                {{ form.grade_level.label_tag }}
+                {{ form.grade_level }}
+            </p>
+            <p>
+                {{ form.proficiency_description.errors }}
+                {{ form.proficiency_description.label_tag }}
+                {{ form.proficiency_description }}
+            </p>
+            <p>
+                {{ form.wants_email.errors }}
+                {{ form.wants_email.label_tag }}
+                {{ form.wants_email }}
+            </p>
+        </div>
+    </form>
+    <div class="row">
+        <input class="whole column" type="submit" form="user-registration-form" value="Submit"/>
+    </div>
+{% endblock %}

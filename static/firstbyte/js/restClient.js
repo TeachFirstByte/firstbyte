@@ -42,9 +42,13 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
                 if(myXhr.upload && defined(progress)) {
                     myXhr.upload.addEventListener('progress', function(progressEvent) {
                         if(progressEvent.lengthComputable) {
+                            var current = progressEvent.loaded;
+                            var max = progressEvent.total;
+                            var currentPercentage = current / max * 100.0;
                             $(progress).attr({
-                                value: progressEvent.loaded,
-                                max: progressEvent.total,
+                                'aria-valuenow': progressEvent.loaded,
+                                'aria-valuemax': progressEvent.total,
+                                style: 'width: ' + currentPercentage + '%;'
                             });
                         }
                     });
@@ -54,8 +58,10 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
         })
         .done(function(response, textStatus, jqXHR) {
             if(defined(response.id)) {
+                $(progress).removeClass('bg-info').addClass('bg-success');
                 resolve(response.id);
             } else {
+                $(progress).removeClass('bg-info').addClass('bg-danger');
                 reject(response.err);
             }
         })

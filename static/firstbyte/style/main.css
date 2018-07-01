@@ -6,101 +6,31 @@ body {
 header, footer {
     font-family: 'Montserrat', sans-serif;
 }
-footer {
-    font-size: .9em;
+
+/* Main layout */
+body {
+    min-height: 100vh;
 }
 
-/* Header */
-#header-container {
-    width: 100%;
-    background-color: #212529;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: top 0.2s ease-in-out;
-}
-
-.header-up {
-    top: -64px !important;
-}
-
-header {
-    display: flex !important;
-
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-
-    height: 64px;
-}
-
-@media only screen and (max-width: 650px) {
-    header {
-        height: auto;
-    }
-}
-
-header a {
-    font-size: 0.9em;
-    color:white;
-    text-decoration: none;
-}
-header a:hover {
-    color: #436D4E;
-}
-
-#logo {
-    height: 40px;
-    width: auto;
-}
-
-#user-banner {
-    padding-bottom: 0;
-    color: white;
-}
-
-/* Navigation Bar */
-nav {
-    display: inline-flex;
-    flex-grow: 1;
-
-    flex-direction: row;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-}
-
-nav a {
-    padding: 1em;
-}
-
-/* Body content */
-#content {
-    background-color: white;
-    margin: 1em 0;
-    margin-top: 64px;
-}
-
-/* Footer */
-footer {
-    color: lightgray;
+.bg-green {
     background-color: #436D4E;
 }
 
-.footer-nav-header {
-    color: white;
-    font-size: 1.1em;
-    font-weight: bold;
-    margin-bottom: .2em;
+.flex-wrap {
+    flex-wrap: wrap;
 }
 
-.footer-nav-content {
-    padding-left: 0;
-    margin-top: 0;
+footer {
+    width: 100%;
+    font-size: .9rem;
 }
-ul.footer-nav-content {
-    list-style-type: none;
+.footer-bg-container {
+    width: 100%;
+}
+
+.footer-nav-header {
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 footer a {
@@ -109,15 +39,71 @@ footer a {
 }
 
 footer a:hover {
+    color: inherit;
     text-decoration: underline;
 }
 
-/* Copyright (below the footer) */
-.copyright-container {
-    background-color: #212529;
+.errorlist {
+    background-color: #f7e4e1;
+    border: 1px solid #cacaca;
+    list-style-position: inside;
+    padding: 1em;
 }
 
-.copyright {
-    text-align: center;
-    color: lightgray;
+form input, form select, form textarea {
+    /* Show most input fields on their own line */
+    display: block;
+
+    padding: .75em;
+    border-radius: 3px;
+    border: 1px solid #cacaca;
+    outline: none;
+}
+
+form input[type='submit'] {
+    padding: .5em 1em;
+}
+
+form input[type='checkbox'] {
+    /* Checkboxes go on the same line as their label */
+    display: inline-block;
+}
+
+form input:focus, form select:focus, form textarea:focus{
+    box-shadow: 0 0 5px #cacaca;
+    border: 1px solid lightblue;
+}
+
+.align-center input {
+    margin: auto;
+}
+
+#file-select {
+    display: none;
+}
+
+.lesson-submission-warning {
+    font-size: .75em;
+}
+
+.progress {
+    height: 4px;
+}
+
+.star-filled {
+    color: orange;
+}
+
+.align-items-center {
+    align-items: center;
+}
+.align-items-flex-start {
+    align-items: flex-start;
+}
+
+#delete-lesson-plan-form {
+    display: inline-block;
+}
+.color-white {
+    color: white !important;
 }

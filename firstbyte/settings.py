@@ -35,6 +35,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_FORMS = {
     'signup': 'accounts.forms.UserRegistrationForm',
+    'login': 'accounts.forms.LoginForm'
 }
 
 LOGIN_URL = '/user/login'
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -166,3 +168,6 @@ WEBPACK_LOADER = {
         'BUNDLE_DIR_NAME': 'firstbyte/webpack_bundles/', # must end with slash
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_FAIL_SILENTLY = not DEBUG

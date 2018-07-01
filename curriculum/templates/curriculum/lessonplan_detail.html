@@ -1,42 +1,94 @@
 {% extends "firstbyte/base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}{{ lessonplan.title }}{% endblock %}
 {% block head %}
     {% load render_bundle from webpack_loader %}
     {% render_bundle 'timeBox' %}
 {% endblock %}
 {% block content %}
-    <div class="whole column">
-        {% include "curriculum/lessonplan_template.html" %}
+    <div class="container">
+        <div class="card mb-3">
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                    <div class="d-flex align-items-flex-start flex-wrap justify-content-end">
+                        <h1 class="display-4 flex-fill">{{ lessonplan.title }}</h1>
+                        <div class="btn-group" role="group" aria-label="Actions for lesson plan author">
+                            <a href="{% url 'update-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-info">Update</a>
+                            <a href="{% url 'delete-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-danger">Delete</a>
+                        </div>
+                    </div>
+                    <p class="lead">{{ lessonplan.summary }}</p>
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <div>
+                            <i class="far fa-calendar-alt"></i>
+                            <span class="sr-only">Timeline: </span>
+                            <span>{{ lessonplan.prep_time }} prep time {{ lessonplan.class_time }} class time</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-thermometer-half"></i>
+                            <span class="sr-only">Works best for </span>
+                            <span>{{ lessonplan.get_grade_level_display }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <h1 class="lead">Materials:</h1>
+                    <p>{{ lessonplan.materials }}</p>
+                    <h1 class="lead">Digital Files:</h1>
+                    {% if lessonplan.resources.all %}
+                        {% for resource in lessonplan.resources.all %}
+                            {% spaceless %}
+                                <p>
+                                    <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
+                                    <span> ({{ resource.get_semantic_type_display }})</span>
+                                </p>
+                            {% endspaceless %}
+                        {% endfor %}
+                    {% else %}
+                        <span>There are no files associated with this lesson plan</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="list-group list-group-flush">
+                {% if lessonplan.lessonfeedback_set.all %}
+                    <div class="list-group-item d-flex flex-wrap align-items-center">
+                        <p class="flex-fill my-0" >
+                            <span>Average Rating:</span>
+                            <span class="fa fa-star star-filled"></span>
+                            <span class="fa fa-star star-filled"></span>
+                            <span class="fa fa-star star-filled"></span>
+                            <span class="fa fa-star star-filled"></span>
+                            <span class="fa fa-star"></span>
+                        </p>
+                        <a class="flex-fill btn btn-outline-primary my-0" data-toggle="collapse" href="#feedback" role="button" aria-expanded="false" aria-controls="feedback">
+                            See Detailed Feedback
+                        </a>
+                    </div>
+                    <div class="list-group-item collapse" id="feedback">
+                        {% for fb in lessonplan.lessonfeedback_set.all %}
+                            <p class="feedback-rating">Overall Rating: {{ fb.overall_rating }}</p>
+                            <p class="feedback-strengths">{{ fb.strengths }}</p>
+                            <p class="feedback-weeknesses">{{ fb.weaknesses }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="list-group-item">
+                        <p class="my-0 lead">This lesson plan has not been rated yet</p>
+                    </div>
+                {% endif %}
+                <div class="list-group-item">
+                    {% if lessonplan.feedback_enabled %}
+                        {% if user.is_authenticated %}
+                            <h1 class="lead">Submit your own feedback</h1>
+                            {% crispy form form.helper %}
+                        {% endif %}
+                    {% else %}
+                        <h1 class="lead">Feedback has been disabled</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% if lessonplan.resources.all %}
-        <h1>Supporting files:</h1>
-        {% for resource in lessonplan.resources.all %}
-            {% spaceless %}
-                <p>
-                    <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
-                    <span> ({{ resource.get_semantic_type_display }})</span>
-                </p>
-            {% endspaceless %}
-        {% endfor %}
-    {% else %}
-        <p>There are no files associated with this lesson plan</p>
-    {% endif %}
-
-    {% if lessonplan.feedback_enabled %}
-        {% if user.is_authenticated %}
-            Submit your own!
-            <form method="post">{% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit feedback"/>
-            </form>
-        {% endif %}
-        Viewing feedback for lesson plan {{ lessonplan.title }}:
-        {% for fb in lessonplan.lessonfeedback_set.all %}
-            <p class="feedback-rating">Overall Rating: {{ fb.overall_rating }}</p>
-            <p class="feedback-strengths">{{ fb.strengths }}</p>
-            <p class="feedback-weeknesses">{{ fb.weaknesses }}</p>
-        {% endfor %}
-    {% else %}
-        Feedback has been disabled
-    {% endif %}
 {% endblock %}

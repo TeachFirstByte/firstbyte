@@ -4,18 +4,35 @@
     {% load render_bundle from webpack_loader %}
     {% render_bundle 'timeBox' %}
     {% load static %}
-    <link href="{% static 'firstbyte/style/cards.css' %}" rel="stylesheet" type="text/css" />
-
 {% endblock %}
 {% block content %}
-    <div class="row lesson-plan-cards">
+    <div class="container">
         {% for lessonplan in object_list %}
-            <div class="one-third column lesson-plan-card-container">
-                <a href="{% url 'detail-lesson-plan' pk=lessonplan.id %}" class="lesson-plan-card">
-                        {% include "curriculum/lessonplan_card.html" %}
-                </a>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ lessonplan.title }}</h4>
+                            <p class="card-text">{{ lessonplan.summary }}</p>
+                        </div>
+                        <div class="card-footer d-flex flex-wrap align-items-center justify-content-between">
+                            <div>
+                                <i class="far fa-calendar-alt"></i>
+                                <span class="sr-only">Timeline: </span>
+                                <span>{{ lessonplan.prep_time }} prep time {{ lessonplan.class_time }} class time</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-thermometer-half"></i>
+                                <span class="sr-only">Works best for </span>
+                                <span>{{ lessonplan.get_grade_level_display }}</span>
+                            </div>
+                            <div>
+                                <a class="btn btn-primary" href="{% url 'detail-lesson-plan' pk=lessonplan.id %}">Detailed View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         {% endfor %}
     </div>
 {% endblock %}

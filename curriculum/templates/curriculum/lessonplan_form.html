@@ -6,27 +6,30 @@
     {% load render_bundle from webpack_loader %}
     {% render_bundle 'uploadLessonResource' %}
 {% endblock %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="row">
-        <div class="half column">
-            <h1>Fill out the boring details</h1>
-            <form method="post" enctype="multipart/form-data" id="lesson-plan-form">{% csrf_token %}
-                {{ form.as_p }}
-            </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Fill out the boring details</h4>
+                {% crispy form form.helper %}
+            </div>
+            <div class="col-sm">
+                <h4>Upload supporting files</h4>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" id="file-select" multiple />
+                    <label for="file-select" class="btn btn-secondary">Upload files</label>
+                </form>
+                <div id="lesson-resource-forms"></div>
+            </div>
         </div>
-        <div class="half column">
-            <h1>Upload supporting files</h1>
-            <form method="post" enctype="multipart/form-data">
-                <input type="file" id="file-select" multiple />
-                <label for="file-select" class="file-upload-button">Upload files</label>
-            </form>
-            <div id="lesson-resource-forms"></div>
+        <div class="row w-100 text-center">
+            <div class="col">
+                <p class="lesson-submission-warning align-center">
+                    I understand that I am signing away myself and my first-born by clickig this button.
+                </p>
+                <input type="submit" form="lesson-plan-form" class="btn btn-primary" id="submit-lesson-plan" value="Submit Lesson Plan"/>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <p class="lesson-submission-warning align-center">
-            I understand that I am signing away myself and my first-born by clickig this button.
-        </p>
-        <input class="whole column" type="submit" form="lesson-plan-form" id="submit-lesson-plan" value="Submit Lesson Plan"/>
-    </div>
+    </container>
 {% endblock %}

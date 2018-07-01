@@ -1,89 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% block meta %}{% endblock %}
+
     <title>{% block title %}{% endblock %} - FirstByte Curriculum</title>
 
-    <script src="https://use.fontawesome.com/1c8a717877.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
     {% load static %}
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "firstbyte/style/pills.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "firstbyte/style/main.css" %}" />
-    <link rel="stylesheet" href="{% static "firstbyte/style/forms.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "firstbyte/style/main.css" %}" />
     {% block head %}{% endblock %}
 </head>
-<body>
-    <div id="header-container">
-        <header class="row">
-            <img id="logo" src="{% static "firstbyte/img/logo.png" %}"/>
-            <nav>
-                {% spaceless %}
-                    <a href={% url 'index' %}>About Us</a>
-                    <a href={% url 'list-lesson-plan' %}>Find Curriculum</a>
-                    <a href={% url 'create-lesson-plan' %}>Submit Curriculum</a>
-                {% endspaceless %}
-            </nav>
-            <span id="user-banner">
+<body class="d-flex flex-column">
+    <nav class="sticky-top navbar navbar-expand-md navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand py-0" href="#" >
+            <img class="py-0" src="{% static "firstbyte/img/logo.png" %}" height="40px" />
+        </a>
+
+        <div id="navbar-links" class="collapse navbar-collapse">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href={% url 'index' %}>About Us</a>
+                <a class="nav-item nav-link" href={% url 'list-lesson-plan' %}>Find Curriculum</a>
+                <a class="nav-item nav-link" href={% url 'create-lesson-plan' %}>Submit Curriculum</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href={% url 'me' %}>My Profile</a>
+                {% endif %}
+            </div>
+
+            <div class="navbar-nav ml-auto justify-content-end">
                 {% load account %}
                 {% if user.is_authenticated %}
-                Hello, <a href="{% url 'me' %}">{% user_display user %}</a>
-                    (<a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign out</a>)
+                    <a class="nav-item nav-link" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign out</a>
                 {% else %}
-                    <a href="{% url 'account_login' %}">Log in</a>
-                    (<a href="{% url 'account_signup'%}">Sign up</a>)
+                    <a class="nav-item nav-link" href="{% url 'account_login' %}">Log in</a>
+                    <a class="nav-item nav-link" href="{% url 'account_signup'%}">Sign up</a>
                 {% endif %}
-            </span>
-        </header>
-    </div>
-    <section id="content">
-        <div class="row" id="content-row">
-            {% block content %} {% endblock %}
+            </div>
         </div>
-    </section>
+    </nav>
+
+    <main class="flex-fill d-flex flex-column justify-content-center align-items-stretch py-3">
+        {% block content %} {% endblock %}
+    </main>
+
     <footer>
-        <div class="row footer-nav">
-            <div class="one-third column">
-                <p class="footer-nav-header">TeachFirstByte.org</p>
-                <ul class="footer-nav-content">
-                    <li><a href="https://teachfirstbyte.org/">Home</a></li>
-                    <li><a href="https://teachfirstbyte.org/about/">About Us</a></li>
-                    <li><a href="https://teachfirstbyte.org/curriculum/">Curriculum</a></li>
-                    <li><a href="https://teachfirstbyte.org/contact/">Contact</a></li>
-                    <li><a href="https://teachfirstbyte.org/blog/">Blog</a></li>
-                    <li><a href="https://teachfirstbyte.org/surveys">Surveys</a></li>
-                </ul>
-            </div>
-            <div class="one-third column">
-                <p class="footer-nav-header">Curriculum</p>
-                <ul class="footer-nav-content">
-                    <li><a href="{% url 'create-lesson-plan' %}">Submit</a></li>
-                    <li><a href="{% url 'list-lesson-plan' %}">Find</a></li>
-                </ul>
-                <p class="footer-nav-header">User</p>
-                <ul class="footer-nav-content">
-                    <li><a href="{% url 'me' %}">My account</a></li>
-                    <li><a href="{% url 'account_logout' %}">Log out</a></li>
-                </ul>
-            </div>
-            <div class="one-third column">
-                <p class="footer-nav-header">Need materials?</p>
-                <p class="footer-nav-content">We've got you covered! Email
-                    <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a>
-                </p>
-                <p class="footer-nav-header">Additional Links</p>
-                <ul class="footer-nav-content">
-                    <li><a href="{% url 'submit-website-feedback' %}">Give us feedback</a></li>
-                    <li><a href="https://github.com/lukesanantonio/firstbyte">View project on Github</a></li>
-                </ul>
+        <div class="footer-bg-container bg-green text-light pt-3">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-sm" >
+                        <h6 class="footer-nav-header mb-0">TeachFirstByte.org</h6>
+                        <ul class="list-unstyled mb-2">
+                            <li><a href="https://teachfirstbyte.org/">Home</a></li>
+                            <li><a href="https://teachfirstbyte.org/about/">About Us</a></li>
+                            <li><a href="https://teachfirstbyte.org/curriculum/">Curriculum</a></li>
+                            <li><a href="https://teachfirstbyte.org/contact/">Contact</a></li>
+                            <li><a href="https://teachfirstbyte.org/blog/">Blog</a></li>
+                            <li><a href="https://teachfirstbyte.org/surveys">Surveys</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <h6 class="footer-nav-header mb-0">Curriculum</h6>
+                        <ul class="list-unstyled mb-2">
+                            <li><a href="{% url 'create-lesson-plan' %}">Submit</a></li>
+                            <li><a href="{% url 'list-lesson-plan' %}">Find</a></li>
+                        </ul>
+                        <h6 class="footer-nav-header mb-0">User</h6>
+                        <ul class="list-unstyled mb-2">
+                            <li><a href="{% url 'me' %}">My account</a></li>
+                            <li><a href="{% url 'account_logout' %}">Log out</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <h6 class="footer-nav-header mb-0">Need materials?</h6>
+                        <p class="mb-2">We've got you covered! Email
+                            <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a>
+                        </p>
+                        <h6 class="footer-nav-header mb-0">Additional Links</h6>
+                        <ul class="list-unstyled mb-2">
+                            <li><a href="{% url 'submit-website-feedback' %}">Give us feedback</a></li>
+                            <li><a href="https://github.com/lukesanantonio/firstbyte">View project on Github</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row copyright-container free-width">
-            <div class="whole column copyright">
-                Copyright &copy; 2018 K. Yee, J. Lee, B. Zhang, B. Singer, L. Bialecki, F. Yusuf
+        <div class="footer-bg-container bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center text-muted">Copyright &copy; 2018 K. Yee, J. Lee, B. Zhang, B. Singer, L. Bialecki, F. Yusuf</span>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>

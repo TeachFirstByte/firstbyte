@@ -16,20 +16,25 @@ function ResourceForm(filename, onRemove) {
     this.onRemove = onRemove || (function(_) { return Promise.resolve(true); });
 
     var form = document.createElement('form');
-    form.className = 'lesson-resource-form';
+    form.className = 'mb-2 lesson-resource-form';
     form.setAttribute('method', 'post');
     form.setAttribute('enctype', 'multipart/form-data');
 
-    var filenameInput = document.createElement('input');
-    form.appendChild(filenameInput);
-    filenameInput.className = 'six column';
-    filenameInput.value = filename;
-    filenameInput.setAttribute('type', 'text');
-    filenameInput.setAttribute('name', 'name');
+    var firstRow = document.createElement('div');
+    firstRow.className = 'row';
+    form.appendChild(firstRow);
+
+    var secondRow = document.createElement('div');
+    secondRow.className = 'row';
+    form.appendChild(secondRow);
+
+    var inputGroup = document.createElement('div');
+    firstRow.appendChild(inputGroup);
+    inputGroup.className = 'input-group col';
 
     var typeInput = document.createElement('select');
-    form.appendChild(typeInput);
-    typeInput.className = 'four column';
+    inputGroup.appendChild(typeInput);
+    typeInput.className = 'form-control rounded-left';
     typeInput.required = true;
 
     typeInput.appendChild(_createOption("", "---------"));
@@ -40,20 +45,44 @@ function ResourceForm(filename, onRemove) {
     typeInput.appendChild(_createOption(5, "Schematic"));
     typeInput.appendChild(_createOption(0, "Other"));
 
-    var removeIcon = document.createElement('i');
-    form.appendChild(removeIcon);
-    removeIcon.className = 'one column icon-remove';
+    var filenameInput = document.createElement('input');
+    inputGroup.appendChild(filenameInput);
+    filenameInput.className = 'form-control';
+    filenameInput.value = filename;
+    filenameInput.setAttribute('type', 'text');
+    filenameInput.setAttribute('name', 'name');
+
+    var btnContainer = document.createElement('div');
+    inputGroup.appendChild(btnContainer);
+    btnContainer.className = 'input-group-append';
+
+    var removeBtn = document.createElement('button');
+    btnContainer.appendChild(removeBtn);
+    removeBtn.className = 'btn btn-outline-danger';
+    removeBtn.innerText = "Remove";
 
     var that = this;
-    $(removeIcon).click(function(ev) {
+    $(removeBtn).click(function(ev) {
         that.onRemove(ev).then(function(_) {
             $(form).remove();
         });
     });
 
-    var progressBar = document.createElement('progress');
-    form.appendChild(progressBar);
-    progressBar.className = 'progress-bar whole column';
+    var progressCol = document.createElement('div');
+    secondRow.appendChild(progressCol);
+    progressCol.className = 'col';
+
+    var progress = document.createElement('div');
+    progressCol.appendChild(progress);
+    progress.className = 'progress';
+
+    var progressBar = document.createElement('div');
+    progress.append(progressBar);
+    progressBar.className = 'progress-bar bg-info';
+    progressBar.setAttribute('role', 'progressbar');
+    progressBar.setAttribute('aria-valuenow', '0');
+    progressBar.setAttribute('aria-valuemin', '0');
+    progressBar.setAttribute('aria-valuemax', '100');
 
     this.progressBar = progressBar;
     this.form = form;
@@ -114,8 +143,8 @@ function submitLessonPlan(event) {
             var form = resources[index];
             // Make a request to the server, given ID
             var resourcePatch = {
-                name: form.elements[0].value,
-                type: form.elements[1].value
+                name: form.elements[1].value,
+                type: form.elements[0].value
             };
             resourceIds.push(form.dataset.resourceId);
             promises.push(patchResource(form.dataset.resourceId, resourcePatch));
@@ -150,7 +179,7 @@ $(function(e) {
 
             form.onRemove = function(_) {
                 return idPromise.then(function(id) {
-                    return curriculumClient.deleteResource(id);                
+                    return curriculumClient.deleteResource(id);
                 });
             };
 

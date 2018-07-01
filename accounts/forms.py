@@ -1,9 +1,11 @@
 from django import forms
-from allauth.account.forms import SignupForm
+from allauth.account import forms as account_forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, ButtonHolder, Button, Submit, HTML
 from . import models, fields
 
 
-class UserRegistrationForm(SignupForm):
+class UserRegistrationForm(account_forms.SignupForm):
     first_name = forms.CharField(required=True, max_length=30,
                                  widget=forms.TextInput(attrs={'placeholder': "First name"}))
     last_name = forms.CharField(required=True, max_length=150,
@@ -27,12 +29,29 @@ class UserRegistrationForm(SignupForm):
         choices=models.TeacherProficiencies,
     )
     wants_email = forms.BooleanField(
-        label="Would you like to receive occasional updates from FirstByte?",
+        label="I want to receive occasional updates from FirstByte",
         required=True
     )
 
-    field_order = ['first_name', 'last_name', 'email', 'password1', 'password2',
-                   'school', 'grade_level', 'proficiency_description', 'wants_email']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Div(
+                Div('first_name', 'last_name', 'email', 'password1', 'password2', css_class='col'),
+                Div('school', 'grade_level', 'proficiency_description', 'wants_email', css_class='col'),
+                css_class='row'
+            ),
+            Div(
+                Div(
+                    Submit('submit', 'Create Account'),
+                    css_class='col text-center'
+                ),
+                css_class='row'
+            )
+        )
+
 
     def save(self, request):
         user = super().save(request)
@@ -47,3 +66,22 @@ class UserRegistrationForm(SignupForm):
         user_profile.save()
 
         return user
+
+
+class LoginForm(account_forms.LoginForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Div('login', 'password'),
+            Div(
+                Div('remember', css_class='col'),
+                HTML('<a class="col text-right" href="{% url \'account_reset_password\' %}">Forgot password?</a>'),
+                css_class='row'
+            ),
+            Div(
+                Submit('submit', 'Log in'),
+                css_class='text-center'
+            )
+        )

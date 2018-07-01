@@ -1,10 +1,10 @@
 {% extends "firstbyte/base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}Submit Website Feedback{% endblock %}
 {% block head %}
 {% endblock %}
 {% block content %}
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit feedback"/>
-    </form>
+    <h1>Submit website feedback</h1>
+    <p>If you would rather give feedback on a specific lesson plan, this is not the place to do it</p>
+    {% crispy form form.helper %}
 {% endblock %}

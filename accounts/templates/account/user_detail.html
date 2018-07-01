@@ -3,23 +3,26 @@
 {% block head %}
 {% endblock %}
 {% block content %}
-    <div class="one-third column align-center">
-        <img src="https://www.gravatar.com/avatar/{{ email_hash }}?s=100">
-        <p>{{ user.get_full_name }}</p>
-    </div>
-    <div class="one-third column">
-        <p>Account management</p>
-        <ul>
-            <li><a href="{% url 'account_email' %}">Manage emails</a></li>
-            <li><a href="{% url 'account_change_password' %}">Change password</a></li>
-            <li><a href="">Delete my account</a></li>
-        </ul>
-    </div>
-    <div class="one-third column">
-        <p>Other helpful links</p>
-        <ul>
-            <li><a href="{% url 'user-lesson-plans' pk=user.id %}">See curriculum I've submitted</a></li>
-        </ul>
-
+    <div class="container">
+        <div class="row">
+            <div class="col text-left">
+                <p class="lead mb-0">{{ user.get_full_name }}</p>
+                <img class="border" src="https://www.gravatar.com/avatar/{{ email_hash }}?s=100">
+            </div>
+            <div class="col">
+                <p>Account management</p>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'account_email' %}">Manage emails</a></li>
+                    <li><a href="{% url 'account_change_password' %}">Change password</a></li>
+                    <li><a href="">Delete my account</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <p>Other helpful links</p>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'user-lesson-plans' pk=user.id %}">See curriculum I've submitted</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}

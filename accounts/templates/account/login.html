@@ -1,24 +1,24 @@
 {% extends "firstbyte/base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}Login{% endblock %}
 {% block head %}
 {% endblock %}
 {% block content %}
-    <div class="half column">
-        <h1 class="align-center">Log in</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit" />
-        </form>
-        <a href="{% url 'account_reset_password' %}">Forgot password?</a>
-    </div>
-    <div class="half column">
-        <h1 class="align-center">Need an account?</h1>
-        <ul>
-            <li>Join fellow teachers in the Greater Boston Area.</li>
-            <li>Submit your own curriculum.</li>
-            <li>Improve existing lesson plans by providing your feedback.</li>
-        </ul>
-        <h3 class="align-center"><a href="{% url 'account_signup' %}">Sign up here</a></h3>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Log in</h1>
+                {% crispy form form.helper %}
+            </div>
+            <div class="col">
+                <h1 class="text-center">Need an account?</h1>
+                <ul>
+                    <li>Join fellow teachers in the Greater Boston Area.</li>
+                    <li>Submit your own curriculum.</li>
+                    <li>Improve existing lesson plans by providing your feedback.</li>
+                </ul>
+                <h3 class="text-center"><a href="{% url 'account_signup' %}">Sign up here</a></h3>
+            </div>
+        </div>
     </div>
 {% endblock %}

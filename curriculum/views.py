@@ -10,13 +10,14 @@ from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from . import forms, models
+from .errorlist import BootstrapErrorList, FormBootstrapErrorListMixin
 
 
 def index(request):
     return render(request, 'curriculum/index.html', {'user': request.user})
 
 
-class CreateLessonPlanView(LoginRequiredMixin, CreateView):
+class CreateLessonPlanView(LoginRequiredMixin, FormBootstrapErrorListMixin, CreateView):
     template_name = 'curriculum/lessonplan_form.html'
     form_class = forms.LessonPlanForm
 
@@ -35,6 +36,7 @@ class CreateLessonPlanView(LoginRequiredMixin, CreateView):
         # Don't let ModelFormMixin save the object
         return FormView.form_valid(self, form)
 
+
 class MustOwnLessonPlanMixin(object):
     model = models.LessonPlan
     def dispatch(self, request, *args, **kwargs):
@@ -42,10 +44,12 @@ class MustOwnLessonPlanMixin(object):
             return super().dispatch(request, *args, **kwargs)
         return HttpResponseForbidden("Not allowed!")
 
-class UpdateLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, UpdateView):
+
+class UpdateLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, UpdateView):
     form_class = forms.LessonPlanForm
 
-class DeleteLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, DeleteView):
+
+class DeleteLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, DeleteView):
     success_url = reverse_lazy('list-lesson-plan')
 
 class LessonPlanView(View):
@@ -72,7 +76,7 @@ class LessonPlanView(View):
         return self.get_default_template_response(request)
 
     def post(self, request, **kwargs):
-        form = forms.LessonPlanFeedback(request.POST)
+        form = forms.LessonPlanFeedback(request.POST, error_class=BootstrapErrorList)
 
         if not request.user.is_authenticated:
             # User must log in before posting
@@ -105,9 +109,9 @@ class LessonPlanUserList(ListView):
         return models.LessonPlan.objects.filter(owner=self.kwargs['pk'])
 
 
-class SubmitWebsiteFeedbackView(CreateView):
+class SubmitWebsiteFeedbackView(FormBootstrapErrorListMixin, CreateView):
     model = models.WebsiteFeedback
-    fields = ['overall_rating', 'strengths', 'weaknesses', 'email']
+    form_class = forms.SubmitWebsiteFeedbackForm
     success_url = reverse_lazy('website-feedback-done')
 
 

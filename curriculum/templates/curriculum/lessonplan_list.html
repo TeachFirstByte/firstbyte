@@ -1,4 +1,5 @@
 {% extends "firstbyte/base.html" %}
+{% load formatting_extras %}
 {% block title %}List of Lesson Plans{% endblock %}
 {% block head %}
     {% load render_bundle from webpack_loader %}
@@ -19,12 +20,12 @@
                             <div>
                                 <i class="far fa-calendar-alt"></i>
                                 <span class="sr-only">Timeline: </span>
-                                <span>{{ lessonplan.num_classes }} {{ lessonplan.single_class_time }} classes</span>
+                                <span>{% number_to_words lessonplan.num_classes True %} {% format_duration lessonplan.single_class_time %} classes</span>
                             </div>
                             <div>
                                 <i class="fas fa-search"></i>
                                 <span class="sr-only">Preparation timeline: </span>
-                                <span>{{ lessonplan.total_prep_time }} total prep time</span>
+                                <span>{% format_duration lessonplan.total_prep_time %} total prep time</span>
                             </div>
                             <div>
                                 <i class="fas fa-thermometer-half"></i>

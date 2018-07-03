@@ -21,8 +21,13 @@
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <div>
                             <i class="far fa-calendar-alt"></i>
-                            <span class="sr-only">Timeline: </span>
-                            <span>{{ lessonplan.prep_time }} prep time {{ lessonplan.class_time }} class time</span>
+                            <span class="sr-only">In-class timeline: </span>
+                            <span>{{ lessonplan.num_classes }} {{ lessonplan.single_class_time }} classes</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-search"></i>
+                            <span class="sr-only">Preparation timeline: </span>
+                            <span>{{ lessonplan.total_prep_time }} total prep time</span>
                         </div>
                         <div>
                             <i class="fas fa-thermometer-half"></i>

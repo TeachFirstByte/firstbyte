@@ -50,8 +50,9 @@ class LessonPlan(models.Model):
     title = models.CharField(max_length=120, unique=True)
     grade_level = models.CharField(max_length=GRADE_LEVEL_MAX_LENGTH, choices=GradeLevels)
 
-    prep_time = models.DurationField()
-    class_time = models.DurationField()
+    total_prep_time = models.DurationField()
+    num_classes = models.IntegerField()
+    single_class_time = models.DurationField()
 
     # Summary and materials listing
     summary = models.CharField(max_length=2000)

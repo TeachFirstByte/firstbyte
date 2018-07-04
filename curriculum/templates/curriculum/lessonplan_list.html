@@ -1,11 +1,7 @@
 {% extends "firstbyte/base.html" %}
 {% load formatting_extras %}
+{% load static %}
 {% block title %}List of Lesson Plans{% endblock %}
-{% block head %}
-    {% load render_bundle from webpack_loader %}
-    {% render_bundle 'timeBox' %}
-    {% load static %}
-{% endblock %}
 {% block content %}
     <div class="container">
         {% for lessonplan in object_list %}

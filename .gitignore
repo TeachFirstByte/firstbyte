@@ -23,3 +23,8 @@ env/
 node_modules/
 firstbyte/static/firstbyte/webpack_bundles/
 webpack-stats.json
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

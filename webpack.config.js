@@ -4,10 +4,10 @@ var BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
   context: __dirname,
   entry: {
-      uploadLessonResource: './static/firstbyte/js/uploadLessonResource.js',
+      uploadLessonResource: './firstbyte/static/firstbyte/js/uploadLessonResource.js',
   },
   output: {
-      path: path.resolve('./static/firstbyte/webpack_bundles/'),
+      path: path.resolve('./firstbyte/static/firstbyte/webpack_bundles/'),
       filename: "[name]-[hash].js"
   },
   mode: 'development',

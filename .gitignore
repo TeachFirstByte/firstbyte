@@ -7,6 +7,9 @@ local_settings.py
 db.sqlite3
 media
 
+# Static root
+/static/
+
 ### PyCharm ###
 .idea/
 
@@ -18,5 +21,5 @@ env/
 
 ### Node / JS ###
 node_modules/
-static/firstbyte/webpack_bundles/
+firstbyte/static/firstbyte/webpack_bundles/
 webpack-stats.json

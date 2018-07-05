@@ -4,6 +4,15 @@
 {% block title %}{{ lessonplan.title }}{% endblock %}
 {% block content %}
     <div class="container">
+        {% if lessonplan.draft %}
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-warning text-center">
+                        <span>This lesson plan is not published. It is only accessible via direct link.</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="card mb-3">
             <div class="list-group list-group-flush">
                 <div class="list-group-item">

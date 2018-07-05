@@ -24,7 +24,7 @@ class LessonPlanForm(forms.ModelForm):
         model = LessonPlan
         fields = ['title', 'grade_level', 'total_prep_time', 'num_classes',
                   'single_class_time', 'summary', 'materials', 'web_only', 'feedback_enabled',
-                  'notify_of_feedback']
+                  'notify_of_feedback', 'draft']
 
 
 class LessonPlanFeedback(forms.Form):

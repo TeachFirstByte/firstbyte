@@ -70,6 +70,9 @@ class LessonPlan(models.Model):
     # Notify this user when someone leaves feedback?
     notify_of_feedback = models.BooleanField(default=True)
 
+    # Drafts are available via detailed view, but not listed with all published lesson plans.
+    draft = models.BooleanField(default=False)
+
     def get_absolute_url(self):
         return reverse('detail-lesson-plan', kwargs={'pk': self.id})
 

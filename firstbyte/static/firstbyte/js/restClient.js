@@ -18,7 +18,7 @@ export function CurriculumClient(csrfToken) {
 
 CurriculumClient.prototype.uploadResource = function (file, options) {
     options = options || {};
-    const endpoint = defaultValue(options.endpoint, '/lesson-resource/');
+    const endpoint = defaultValue(options.endpoint, '/lesson-resources/');
     const progress = options.progress;
 
     const formData = new FormData();
@@ -73,7 +73,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
 
 CurriculumClient.prototype.deleteResource = function(id, options) {
     options = options || {};
-    const endpoint = defaultValue(options.endpoint, '/lesson-resource/' + id + '/');
+    const endpoint = defaultValue(options.endpoint, '/lesson-resources/' + id + '/');
 
     var that = this;
     return new Promise(function(resolve, reject) {

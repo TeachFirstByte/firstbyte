@@ -52,12 +52,23 @@ class UpdateLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, FormBoots
 class DeleteLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, DeleteView):
     success_url = reverse_lazy('list-lesson-plan')
 
+
+def slug_redirect_view(klass, to=None, permanent=True, *args, **kwargs):
+    def view_fn(request, pk):
+        obj = get_object_or_404(klass, id=pk)
+        target = to or klass
+        return redirect(target, *args, pk=pk, slug=obj.slug, permanent=permanent, **kwargs)
+    return view_fn
+
 class LessonPlanView(View):
     template_name = 'curriculum/lessonplan_detail.html'
 
     @property
     def lesson_plan(self):
         return models.LessonPlan.objects.get(id=self.kwargs['pk'])
+
+    def get_object(self):
+        return self.lesson_plan
 
     def get_context_data(self, request, form=None, success=False):
         return {
@@ -73,6 +84,14 @@ class LessonPlanView(View):
         return response
 
     def get(self, request, **kwargs):
+        obj = self.get_object()
+
+        pk = self.kwargs['pk']
+        slug = self.kwargs['slug']
+        if slug != obj.slug:
+            # Replace old slug with correct one
+            return redirect(obj.get_absolute_url(), permanent=True)
+
         return self.get_default_template_response(request)
 
     def post(self, request, **kwargs):

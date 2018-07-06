@@ -5,14 +5,20 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('lesson-plan/new/', views.CreateLessonPlanView.as_view(), name='create-lesson-plan'),
-    path('lesson-plan/<int:pk>/', views.LessonPlanView.as_view(), name='detail-lesson-plan'),
-    path('lesson-plan/<int:pk>/update', views.UpdateLessonPlanView.as_view(), name='update-lesson-plan'),
-    path('lesson-plan/<int:pk>/delete', views.DeleteLessonPlanView.as_view(), name='delete-lesson-plan'),
-    path('lesson-plan/all/', ListView.as_view(model=models.LessonPlan), name='list-lesson-plan'),
-    path('lesson-plan/by-user/<int:pk>', views.LessonPlanUserList.as_view(), name='user-lesson-plans'),
-    path('submit-website-feedback/', views.SubmitWebsiteFeedbackView.as_view(), name='submit-website-feedback'),
-    path('website-feedback-done/', views.website_feedback_done, name='website-feedback-done'),
-    path('lesson-resource/', views.create_lesson_resource, name='create-lesson-resource'),
-    path('lesson-resource/<int:pk>/', views.lesson_resource, name='detail-lesson-resource')
+    path('lesson-plans/new/', views.CreateLessonPlanView.as_view(), name='create-lesson-plan'),
+
+    path('lesson-plans/<int:pk>/', views.slug_redirect_view(models.LessonPlan)),
+    path('lesson-plans/<int:pk>/<slug:slug>/', views.LessonPlanView.as_view(), name='detail-lesson-plan'),
+
+    path('lesson-plans/update/<int:pk>/', views.UpdateLessonPlanView.as_view(), name='update-lesson-plan'),
+    path('lesson-plans/delete/<int:pk>/', views.DeleteLessonPlanView.as_view(), name='delete-lesson-plan'),
+
+    path('lesson-plans/all/', ListView.as_view(model=models.LessonPlan), name='list-lesson-plan'),
+    path('lesson-plans/by-user/<int:pk>', views.LessonPlanUserList.as_view(), name='user-lesson-plans'),
+
+    path('website-feedbacks/new', views.SubmitWebsiteFeedbackView.as_view(), name='submit-website-feedback'),
+    path('website-feedbacks/thank-you/', views.website_feedback_done, name='website-feedback-done'),
+
+    path('lesson-resources/', views.create_lesson_resource, name='create-lesson-resource'),
+    path('lesson-resources/<int:pk>/', views.lesson_resource, name='detail-lesson-resource')
 ]

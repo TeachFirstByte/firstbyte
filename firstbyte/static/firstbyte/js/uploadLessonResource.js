@@ -110,7 +110,7 @@ function patchResource(id, data) {
             }
         };
 
-        xhr.open('PUT', '/lesson-resource/' + id + '/', true);
+        xhr.open('PUT', '/lesson-resources/' + id + '/', true);
         xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.responseType = 'json';

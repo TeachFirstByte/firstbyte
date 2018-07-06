@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
+from django.utils.text import slugify
+
 from tagging.registry import register
 from accounts.models import GRADE_LEVEL_MAX_LENGTH, GradeLevels
 
@@ -73,8 +75,15 @@ class LessonPlan(models.Model):
     # Drafts are available via detailed view, but not listed with all published lesson plans.
     draft = models.BooleanField(default=False)
 
+    @property
+    def slug(self):
+        return slugify(self.title)
+
     def get_absolute_url(self):
-        return reverse('detail-lesson-plan', kwargs={'pk': self.id})
+        return reverse('detail-lesson-plan', kwargs={
+            'pk': self.id,
+            'slug': self.slug
+        })
 
 
 # Associate tags with LessonPlan

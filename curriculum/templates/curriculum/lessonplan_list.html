@@ -29,7 +29,7 @@
                                 <span>{{ lessonplan.get_grade_level_display }}</span>
                             </div>
                             <div>
-                                <a class="btn btn-primary" href="{% url 'detail-lesson-plan' pk=lessonplan.id %}">Detailed View</a>
+                                <a class="btn btn-primary" href="{{ lessonplan.get_absolute_url }}">Detailed View</a>
                             </div>
                         </div>
                     </div>

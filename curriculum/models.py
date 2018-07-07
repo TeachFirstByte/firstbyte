@@ -45,6 +45,8 @@ class LessonResource(models.Model):
     # The actual reference to the file on the filesystem.
     file = models.FileField(upload_to=user_upload_directory)
 
+    create_time = models.DateTimeField(auto_now_add=True)
+
 
 class LessonPlan(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
@@ -74,6 +76,9 @@ class LessonPlan(models.Model):
 
     # Drafts are available via detailed view, but not listed with all published lesson plans.
     draft = models.BooleanField(default=False)
+
+    last_modified_time = models.DateTimeField(auto_now=True)
+    create_time = models.DateTimeField(auto_now_add=True)
 
     @property
     def slug(self):
@@ -118,6 +123,8 @@ class LessonFeedback(models.Model):
     strengths = models.TextField(max_length=2500)
     weaknesses = models.TextField(max_length=2500)
 
+    create_time = models.DateTimeField(auto_now_add=True)
+
 
 class WebsiteFeedback(models.Model):
     # 1 star = complete failure; 5 stars = complete success
@@ -129,3 +136,5 @@ class WebsiteFeedback(models.Model):
 
     # The form is anonymous, so we ask for an email so we can follow-up with the user
     email = models.EmailField(blank=True)
+
+    create_time = models.DateTimeField(auto_now_add=True)

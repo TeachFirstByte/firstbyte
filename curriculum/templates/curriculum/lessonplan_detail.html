@@ -59,6 +59,12 @@
                         <span>There are no files associated with this lesson plan</span>
                     {% endif %}
                 </div>
+                <div class="list-group-item">
+                    <div class="d-flex text-muted">
+                        <span class="flex-fill text-left">Last modified {{ lessonplan.last_modified_time }}</span>
+                        <span class="flex-fill text-right">Created {{ lessonplan.create_time }}</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card">

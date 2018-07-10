@@ -30,6 +30,7 @@ TeacherProficiencies = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    location = models.CharField(blank=True, max_length=200)
     school = models.CharField(blank=True, max_length=200)
     grade_level = models.CharField(blank=True, max_length=GRADE_LEVEL_MAX_LENGTH, choices=GradeLevels)
     proficiency_description = models.CharField(blank=True, max_length=TEACHER_PROFICIENCY_MAX_LENGTH, choices=TeacherProficiencies)

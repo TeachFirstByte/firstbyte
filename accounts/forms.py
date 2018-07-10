@@ -11,12 +11,19 @@ class UserRegistrationForm(account_forms.SignupForm):
     last_name = forms.CharField(required=True, max_length=150,
                                 widget=forms.TextInput(attrs={'placeholder': "Last name"}))
 
-    school = forms.CharField(
+    location = forms.CharField(
         label="Where do you teach?",
+        max_length=200,
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': "City / Town"})
+    )
+    school = forms.CharField(
+        label="At what educational institution?",
         max_length=200,
         required=False,
         widget=forms.TextInput(attrs={'placeholder': "Name of school"})
     )
+
     grade_level = fields.EmptyChoiceField(
         required=False,
         empty_label="N/A",
@@ -39,8 +46,8 @@ class UserRegistrationForm(account_forms.SignupForm):
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Div(
-                Div('first_name', 'last_name', 'email', 'password1', 'password2', css_class='col'),
-                Div('school', 'grade_level', 'proficiency_description', 'wants_email', css_class='col'),
+                Div(HTML('<h2>Required Information</h2>'), 'first_name', 'last_name', 'email', 'password1', 'password2', css_class='col'),
+                Div(HTML('<h2>Optional Information</h2>'), 'location', 'school', 'grade_level', 'proficiency_description', 'wants_email', css_class='col'),
                 css_class='row'
             ),
             Div(
@@ -58,6 +65,7 @@ class UserRegistrationForm(account_forms.SignupForm):
 
         user_profile = models.Profile(
             user=user,
+            location=self.cleaned_data['location'],
             school=self.cleaned_data['school'],
             grade_level=self.cleaned_data['grade_level'],
             proficiency_description=self.cleaned_data['proficiency_description'],

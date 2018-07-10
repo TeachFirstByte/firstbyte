@@ -30,7 +30,7 @@ class UserRegistrationForm(account_forms.SignupForm):
     )
     wants_email = forms.BooleanField(
         label="I want to receive occasional updates from FirstByte",
-        required=True
+        required=False
     )
 
     def __init__(self, *args, **kwargs):

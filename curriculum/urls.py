@@ -4,7 +4,6 @@ from . import models
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
     path('lesson-plans/new/', views.CreateLessonPlanView.as_view(), name='create-lesson-plan'),
 
     path('lesson-plans/<int:pk>/', views.slug_redirect_view(models.LessonPlan)),

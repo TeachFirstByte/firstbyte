@@ -13,10 +13,6 @@ from . import forms, models
 from .errorlist import BootstrapErrorList, FormBootstrapErrorListMixin
 
 
-def index(request):
-    return render(request, 'curriculum/index.html', {'user': request.user})
-
-
 class CreateLessonPlanView(LoginRequiredMixin, FormBootstrapErrorListMixin, CreateView):
     template_name = 'curriculum/lessonplan_form.html'
     form_class = forms.LessonPlanForm

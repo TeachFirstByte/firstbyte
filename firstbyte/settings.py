@@ -53,6 +53,7 @@ ACCOUNT_USER_DISPLAY = 'accounts.views.user_display'
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'curriculum.apps.CurriculumConfig',
+    'landing.apps.LandingConfig',
     'webpack_loader',
     'tagging',
     'allauth',

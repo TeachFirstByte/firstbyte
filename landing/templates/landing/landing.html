@@ -1,0 +1,151 @@
+{% extends "firstbyte/base.html" %}
+{% load static %}
+{% block title %}About us{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'landing/style/landing.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Tinos:400i" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <section class="pt-4 mb-6">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="text-uppercase font-weight-bold">Our mission</h2>
+                <p class="text-muted font-italic font-serif quote-text">
+                    We are building an online library of curricula to enrich
+                    middle school computer science classes.<br>FirstByte strives to equip educators with the resources
+                    to teach students engineering and computer science. By building a database of unique curricula and
+                    strong resources, teachers will find it easier to teach new lessons that work for their classrooms.
+                </p>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x mb-3">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-chart-line fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="font-weight-bold mb-3">The state of K-8 computer science standards</h4>
+                <p class="text-muted">Only 18 states have created K-8 computer science standards. Momentum is building, but we still have a long way to go.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x mb-3">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-users fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="font-weight-bold mb-3">Solving the diversity problem begins in K-12</h4>
+                <p class="text-muted">Women who try computer science in high school are 10x more likely to major in it, and Black and Latinx students are 7x more likely.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x mb-3">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="font-weight-bold mb-3">Computer science is foundational</h4>
+                <p class="text-muted">Every 21st century student deserves the opportunity to learn about algorithms, how to make an app, or how the Internet works.</p>
+            </div>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="text-uppercase font-weight-bold">Curriculum</h2>
+                <a class="text-muted" href="{% url 'list-lesson-plan' %}">Click here to view all curriculum!</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 text-center">
+                <a href="{% url 'list-lesson-plan' %}">
+                    <img class="img-fluid mb-3 border border-dark" src="{% static 'landing/img/curriculum/makeymakey.jpg' %}" alt="">
+                </a>
+                <div class="curriculum-caption">
+                    <h4 class="font-weight-bold"> MaKey MaKey</h4>
+                    <p class="text-muted">Five 40-minute lessons</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 text-center">
+                <a href="{% url 'list-lesson-plan' %}">
+                    <img class="img-fluid mb-3 border border-dark" src="{% static 'landing/img/curriculum/circuitplayground.jpg' %}" alt="">
+                </a>
+                <div class="curriculum-caption">
+                    <h4 class="font-weight-bold"> Circuit Playground</h4>
+                    <p class="text-muted">Eight 45-minute lessons</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 text-center">
+                <a href="{% url 'list-lesson-plan' %}">
+                    <img class="img-fluid mb-3 border border-dark" src="{% static 'landing/img/curriculum/lilypad.jpg' %}" alt="">
+                </a>
+                <div class="curriculum-caption">
+                    <h4 class="font-weight-bold"> LilyPad Arduino</h4>
+                    <p class="text-muted">Ten 2-hour lessons</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="text-uppercase font-weight-bold">Our Team</h2>
+                <p class="text-muted font-italic font-serif quote-text">We are a team of undergraduate students at Northeastern University.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 offset-md-2">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/kasandra.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Kasandra Yee</h4>
+                    <p class="text-muted mt-0">Electrical Engineering | 2021</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/jaedyn.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Jaedyn Lee</h4>
+                    <p class="text-muted mt-0">Computer Science | 2020</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/luke.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Luke San Antonio Bialecki</h4>
+                    <p class="text-muted mt-0">Computer Science | 2022</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/toyin.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Toyin Yusuf</h4>
+                    <p class="text-muted mt-0">Computer Engineering | 2020</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/brenna.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Brenna Singer</h4>
+                    <p class="text-muted mt-0">Bioengineering | 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center font-italic font-serif quote-text">
+                <p class="large text-muted">Hi! Co-founders Jaedyn and Kasandra here.
+                    We were friends in high school, and we had some amazing computer science teachers.
+                    Now, it’s our turn to give back to the community of educators building up our generation.
+                    We began teaching computer science together in high school, at a middle-school ArtBotics club. The
+                    following summer, we developed and instructed a girls-only coding class funded by an
+                    NCWIT AspireIT grant. With funds from a HERlead grant, we were fortunate enough to run the same
+                    curriculum again, a few months later. In 2017, we attended the Clinton Global Initiative
+                    University with our commitment to STEM education.</p>
+                <p class="large text-muted">Our experiences working with students and teachers has made us aware of
+                    the computer science and engineering education gap that exists at the middle school level. Many
+                    teachers lack the support and resources they need to bring coding and engineering lessons into
+                    their classrooms. With FirstByte, we hope to make technology education possible for every student.</p>
+                <p class="large text-muted">Thank you!</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

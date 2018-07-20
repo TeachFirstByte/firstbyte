@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from django.utils.text import slugify
 
-from tagging.registry import register
 from accounts.models import GRADE_LEVEL_MAX_LENGTH, GradeLevels
 
 
@@ -89,10 +88,6 @@ class LessonPlan(models.Model):
             'pk': self.id,
             'slug': self.slug
         })
-
-
-# Associate tags with LessonPlan
-register(LessonPlan)
 
 
 class FiveStarRatingField(models.SmallIntegerField):

@@ -2,7 +2,7 @@ from django import forms
 from django.urls import reverse
 from .models import LessonPlan, WebsiteFeedback
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Div, Field
 
 class LessonPlanForm(forms.ModelForm):
     resources = forms.CharField(required=False, widget=forms.HiddenInput)
@@ -12,6 +12,28 @@ class LessonPlanForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_id = 'lesson-plan-form'
         self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Div(Div(Field('title'), css_class='col'), css_class='row'),
+            Div(Div(Field('summary'), css_class='col'), css_class='row'),
+            Div(
+                Div(Field('grade_level'), css_class='col'),
+                Div(Field('total_prep_time'), css_class='col'),
+                css_class='row'
+            ),
+            Div(
+                Div(Field('single_class_time'), css_class='col'),
+                Div(Field('num_classes'), css_class='col'),
+                css_class='row'
+            ),
+            Div(Div(Field('materials'), css_class='col'), css_class='row'),
+            Div(
+                Div(Field('web_only'), css_class='col'),
+                Div(Field('feedback_enabled'), css_class='col'),
+                Div(Field('notify_of_feedback'), css_class='col'),
+                Div(Field('draft'), css_class='col'),
+                css_class='row'
+            )
+        )
 
     def clean_resources(self):
         resources = self.cleaned_data['resources']

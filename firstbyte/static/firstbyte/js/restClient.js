@@ -71,6 +71,31 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
     });
 };
 
+CurriculumClient.prototype.putResource = function(id, data, options) {
+    options = options || {};
+    const endpoint = defaultValue(options.endpoint, '/lesson-resources/' + id + '/');
+
+    var that = this;
+    return new Promise(function(resolve, reject) {
+        $.ajax(endpoint, {
+            method: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            processData: false,
+            cache: false,
+            headers: {
+                'X-CSRFToken': that.csrfToken
+            },
+            data: JSON.stringify(data)
+        })
+        .then(function(response, textStatus, jqXHR) {
+            resolve(response);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            _rejectJqueryAjax(reject, errorThrown, textStatus);
+        });
+    });
+}
 CurriculumClient.prototype.deleteResource = function(id, options) {
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/lesson-resources/' + id + '/');

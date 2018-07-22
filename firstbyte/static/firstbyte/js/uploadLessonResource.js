@@ -96,27 +96,7 @@ ResourceForm.prototype.getProgressBar = function() {
     return this.progressBar;
 }
 
-function patchResource(id, data) {
-    return new Promise(function(resolve, reject) {
-        var xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function(event) {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.response.hasOwnProperty('success')) {
-                    resolve(data);
-                } else {
-                    reject(xhr.response['err']);
-                }
-            }
-        };
-
-        xhr.open('PUT', '/lesson-resources/' + id + '/', true);
-        xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.responseType = 'json';
-        xhr.send(JSON.stringify(data));
-    });
-}
+var curriculumClient;
 
 function submitLessonPlan(event) {
     event.preventDefault();
@@ -147,7 +127,7 @@ function submitLessonPlan(event) {
                 type: form.elements[0].value
             };
             resourceIds.push(form.dataset.resourceId);
-            promises.push(patchResource(form.dataset.resourceId, resourcePatch));
+            promises.push(curriculumClient.putResource(form.dataset.resourceId, resourcePatch));
         }
         Promise.all(promises).then(function(values) {
             var resourceIdsInput = document.createElement('input');
@@ -161,7 +141,7 @@ function submitLessonPlan(event) {
 }
 
 $(function(e) {
-    var curriculumClient = new CurriculumClient(window.CSRF_TOKEN);
+    curriculumClient = new CurriculumClient(window.CSRF_TOKEN);
     var fileSelect = document.getElementById('file-select');
     fileSelect.addEventListener('change', function(event) {
         var files = fileSelect.files;

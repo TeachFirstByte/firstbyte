@@ -42,7 +42,10 @@ LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = 'me'
 
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG == True:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django_ses.SESBackend'
 
 SITE_ID = 1
 

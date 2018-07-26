@@ -19,10 +19,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+5g7fzm222v(v(_^glw#v%$bg^&-fc2w+u)^zdf1js)!#uro84'
+SECRET_KEY = os.environ.get('FIRSTBYTE_SECRET_KEY', 'I better not see this in production!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+try:
+    from .dev_settings import DEBUG
+except ImportError:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'curriculum.teachfirstbyte.org', 'django-env.tarjp9idec.us-east-1.elasticbeanstalk.com']
 
@@ -41,11 +44,12 @@ ACCOUNT_FORMS = {
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = 'me'
 
-# Email settings
-if DEBUG == True:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
+DEFAULT_FROM_EMAIL = 'noreply@teachfirstbyte.org'
+
+if (os.environ.get('AWS_ACCESS_KEY_ID') is not None) and (os.environ.get('AWS_SECRET_ACCESS_KEY') is not None):
     EMAIL_BACKEND = 'django_ses.SESBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
 

@@ -28,3 +28,7 @@ webpack-stats.json
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+
+# Development config
+firstbyte/dev_settings.py

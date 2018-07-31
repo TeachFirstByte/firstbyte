@@ -4,6 +4,7 @@ from django.views.generic.list import ListView
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 from django.template.response import TemplateResponse
 from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.conf import settings
@@ -72,6 +73,7 @@ class LessonPlanView(View):
             'form': form or forms.LessonPlanFeedback(),
             'user': request.user,
             'success': success,
+            'average_rating': self.lesson_plan.lessonfeedback_set.aggregate(rating=Avg('overall_rating')).get('rating')
         }
 
     def get_default_template_response(self, request, *args):

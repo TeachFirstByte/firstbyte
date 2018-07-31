@@ -1,7 +1,12 @@
 {% extends "firstbyte/base.html" %}
+{% load humanize %}
 {% load crispy_forms_tags %}
 {% load formatting_extras %}
 {% block title %}{{ lessonplan.title }}{% endblock %}
+{% block head %}
+    {% load render_bundle from webpack_loader %}
+    {% render_bundle 'starRating' %}
+{% endblock %}
 {% block content %}
     <div class="container">
         {% if lessonplan.draft %}
@@ -71,13 +76,13 @@
             <div class="list-group list-group-flush">
                 {% if lessonplan.lessonfeedback_set.all %}
                     <div class="list-group-item d-flex flex-wrap align-items-center">
-                        <p class="flex-fill my-0" >
-                            <span>Average Rating:</span>
-                            <span class="fa fa-star star-filled"></span>
-                            <span class="fa fa-star star-filled"></span>
-                            <span class="fa fa-star star-filled"></span>
-                            <span class="fa fa-star star-filled"></span>
-                            <span class="fa fa-star"></span>
+                        <p class="my-0">Average Rating: {{ average_rating|floatformat:2 }}</p>
+                        <p class="flex-fill my-0 text-center stars text-primary" data-average-rating="{{ average_rating }}" >
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
                         </p>
                         <a class="flex-fill btn btn-outline-primary my-0" data-toggle="collapse" href="#feedback" role="button" aria-expanded="false" aria-controls="feedback">
                             See Detailed Feedback

@@ -1,0 +1,46 @@
+{% extends "firstbyte/base.html" %}
+{% load static %}
+{% block title %}Frequently Asked Question{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'landing/style/landing.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Tinos:400i" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center display-4 mb-5">Frequently Asked Questions</h2>
+    <h3 class="font-weight-bold">I don’t have a lot of experience with tech... can I do this?</h3>
+    <p class="answer">
+        Yes! FirstByte’s goal is to bring together educators of all backgrounds, and make technology more accessible for teachers and their students. We encourage curriculum authors to include guides for educators, to help clarify and expand on the information in notes and slideshows and provide solutions for classwork problems.
+    </p>
+    <h3 class="question font-weight-bold">Can you provide the electronics supplies for the curricula?</h3>
+    <p class="answer">
+        Loaner program info.
+    </p>
+    <h3 class="question font-weight-bold">Who owns the curricula on FirstByte?</h3>
+    <p class="answer">
+        When you share your curricula on teachfirstbyte.org, you remain the owner of your content. Your material will be licensed under a Creative Commons license, which allows others to freely share and adapt your curricula as long as they give you credit and do not use the material for commercial purposes. View our Privacy Policy.
+    </p>
+    <h3 class="question font-weight-bold">What can/can’t I do with curricula I find on FirstByte?</h3>
+    <div class="answer">
+        <p>All curricula on teachfirstbyte.org is licensed under a Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0).</p>
+        <p>Under the following terms:
+            <ul>
+                <li><b>Attribution</b>: You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</li>
+                <li><b>NonCommercial</b>: You may not use the material for commercial purposes.</li>
+                <li><b>No additional restrictions</b>: You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li>
+            </ul>
+        </p>
+        <p>You are free to:
+            <ul>
+                <li><b>Share</b>: copy and redistribute the material in any medium or format.</li>
+                <li><b>Adapt</b>: remix, transform, and build upon the material.</li>
+            </ul>
+        </p>
+        <p>The uploader of curriculum cannot revoke these freedoms as long as you follow the license terms.</p>
+        <p>Read more about the CC BY-NC license here: <a href="https://creativecommons.org/licenses/by-nc/4.0/legalcode">https://creativecommons.org/licenses/by-nc/4.0/legalcode</a></p>
+    </div>
+</div>
+
+    </p>
+</div>
+{% endblock %}

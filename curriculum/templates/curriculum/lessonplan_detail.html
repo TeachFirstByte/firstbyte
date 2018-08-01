@@ -67,7 +67,17 @@
                 <div class="list-group-item">
                     <div class="d-flex text-muted">
                         <span class="flex-fill text-left">Last modified {{ lessonplan.last_modified_time }}</span>
-                        <span class="flex-fill text-right">Created {{ lessonplan.create_time }}</span>
+                        <span class="flex-fill text-right">
+                            Created {{ lessonplan.create_time }} by
+                            {% if not lessonplan.owner.profile.hide_profile %}
+                                <a href="{{ lessonplan.owner.profile.get_absolute_url }}">
+                            {% endif %}
+                                    {{ lessonplan.owner.first_name }}
+                            {% if not lessonplan.owner.profile.hide_profile %}
+                                </a>
+                            {% endif %}
+                            from {{ lessonplan.owner.profile.school }}</span>
+                        </span>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 ELEMENTARY_SCHOOL_LEVEL = 'ES'
 MIDDLE_SCHOOL_LEVEL = 'MS'
@@ -27,7 +28,6 @@ TeacherProficiencies = (
     (VETERAN_PROFICIENCY, "Very familiar with STEM and its use in the classroom.")
 )
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(blank=True, max_length=200)
@@ -35,3 +35,7 @@ class Profile(models.Model):
     grade_level = models.CharField(blank=True, max_length=GRADE_LEVEL_MAX_LENGTH, choices=GradeLevels)
     proficiency_description = models.CharField(blank=True, max_length=TEACHER_PROFICIENCY_MAX_LENGTH, choices=TeacherProficiencies)
     wants_email = models.BooleanField(default=False)
+    hide_profile = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('user-detail', kwargs={'pk': self.user.id})

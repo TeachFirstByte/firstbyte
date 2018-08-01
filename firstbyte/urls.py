@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import index, faq
+from landing.views import index, faq, privacy_policy
 
 urlpatterns = [
 
@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('frequently-asked-questions/', faq, name='faq'),
+    path('privacy-policy/', privacy_policy, name='privacy-policy'),
     path('', include('curriculum.urls')),
 ]

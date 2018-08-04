@@ -2,6 +2,10 @@
 {% load formatting_extras %}
 {% load static %}
 {% block title %}List of Lesson Plans{% endblock %}
+{% block head %}
+    {% load render_bundle from webpack_loader %}
+    {% render_bundle 'starRating' %}
+{% endblock %}
 {% block content %}
     <div class="container">
         <form method="get">
@@ -59,7 +63,29 @@
                 <div class="col">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h4 class="card-title">{{ lessonplan.title }}</h4>
+                            <div class="d-flex align-items-center">
+                                <h4 class="flex-fill card-title">{{ lessonplan.title }}</h4>
+                                {% if lessonplan.web_only %}
+                                    <p class="pr-4"><i class="text-right fab fa-chrome"></i></p>
+                                {% endif %}
+                                {% if lessonplan.average_rating %}
+                                    <p class="stars text-primary text-right" data-average-rating="{{ lessonplan.average_rating }}" >
+                                        <i class="fa-star" aria-hidden="true"></i>
+                                        <i class="fa-star" aria-hidden="true"></i>
+                                        <i class="fa-star" aria-hidden="true"></i>
+                                        <i class="fa-star" aria-hidden="true"></i>
+                                        <i class="fa-star" aria-hidden="true"></i>
+                                    </p>
+                                {% else %}
+                                    <p class="stars text-primary text-right" data-average-rating="{{ lessonplan.average_rating }}" >
+                                        <i class="far fa-star" aria-hidden="true"></i>
+                                        <i class="far fa-star" aria-hidden="true"></i>
+                                        <i class="far fa-star" aria-hidden="true"></i>
+                                        <i class="far fa-star" aria-hidden="true"></i>
+                                        <i class="far fa-star" aria-hidden="true"></i>
+                                    </p>
+                                {% endif %}
+                            </div>
                             <p class="card-text">{{ lessonplan.summary }}</p>
                         </div>
                         <div class="card-footer d-flex flex-wrap align-items-center justify-content-between">

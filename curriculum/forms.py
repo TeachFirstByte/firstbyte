@@ -1,6 +1,7 @@
 from django import forms
 from django.urls import reverse
 from .models import LessonPlan, WebsiteFeedback
+from accounts.models import GradeLevels
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field
 
@@ -77,3 +78,26 @@ class SubmitWebsiteFeedbackForm(forms.ModelForm):
 
 class MinimalLessonResource(forms.Form):
     file = forms.FileField()
+
+
+SORT_BY_AVERAGE_RATING='AR'
+SORT_BY_MOST_RECENTLY_MODIFIED='RM'
+SORT_BY_NUMBER_OF_CLASSES='NC'
+SORT_BY_SINGLE_CLASS_TIME='SC'
+SORT_BY_TOTAL_PREP_TIME='TP'
+SortByChoices=(
+    (SORT_BY_AVERAGE_RATING, 'Average Rating'),
+    (SORT_BY_MOST_RECENTLY_MODIFIED, 'Newest'),
+    (SORT_BY_NUMBER_OF_CLASSES, 'Number of classes'),
+    (SORT_BY_SINGLE_CLASS_TIME, 'Single class time'),
+    (SORT_BY_TOTAL_PREP_TIME, 'Total prep time')
+)
+
+class LessonPlanAdvancedSearchForm(forms.Form):
+    q = forms.CharField(required=False)
+    sort_by = forms.ChoiceField(required=False, choices=SortByChoices, widget=forms.Select(attrs={'class': 'custom-select'}))
+    grade_level = forms.MultipleChoiceField(required=False, choices=GradeLevels, widget=forms.CheckboxSelectMultiple)
+    web_only = forms.BooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

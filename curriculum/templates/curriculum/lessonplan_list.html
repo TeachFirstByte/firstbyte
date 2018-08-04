@@ -4,6 +4,56 @@
 {% block title %}List of Lesson Plans{% endblock %}
 {% block content %}
     <div class="container">
+        <form method="get">
+            <div class="row mb-3">
+                <div class="col d-flex form-inline">
+                    <div class="flex-fill pr-4">
+                        <div class="input-group">
+                            <input name="q" type="text" class="form-control" placeholder="Search Curricula" value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pr-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ form.sort_by.label }}</span>
+                            </div>
+                            {{ form.sort_by }}
+                        </div>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-primary" data-toggle="collapse" href="#advancedSearchControls" role="button" aria-expanded="false" aria-controls="collaadvancedSearchControlspseExample">Advanced Search Options</a>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse {% if show_advanced_search_options %}show{% endif %} row" id="advancedSearchControls">
+                <div class="col mb-3">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary {% if 'ES' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="ES" autocomplete="off" {% if 'ES' in form.grade_level.value %}checked{% endif %} /> Elementary School
+                        </label>
+                        <label class="btn btn-primary {% if 'MS' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="MS" autocomplete="off" {% if 'MS' in form.grade_level.value %}checked{% endif %} /> Middle School
+                        </label>
+                        <label class="btn btn-primary {% if 'HS' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="HS" autocomplete="off" {% if 'HS' in form.grade_level.value %}checked{% endif %} /> High School
+                        </label>
+                        <label class="btn btn-primary {% if 'U' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="U" autocomplete="off" {% if 'U' in form.grade_level.value %}checked{% endif %} /> Post-secondary
+                        </label>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary {% if form.web_only.value %}active{% endif %}" for="{{ form.web_only.id_for_label }}">
+                            <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}" {% if form.web_only.value %}checked{% endif %} /> {{ form.web_only.label }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
         {% for lessonplan in object_list %}
             <div class="row">
                 <div class="col">

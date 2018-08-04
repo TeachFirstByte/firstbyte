@@ -12,8 +12,7 @@ urlpatterns = [
     path('lesson-plans/update/<int:pk>/', views.UpdateLessonPlanView.as_view(), name='update-lesson-plan'),
     path('lesson-plans/delete/<int:pk>/', views.DeleteLessonPlanView.as_view(), name='delete-lesson-plan'),
 
-    path('lesson-plans/all/', ListView.as_view(model=models.LessonPlan), name='list-lesson-plan'),
-    path('lesson-plans/by-user/<int:pk>', views.LessonPlanUserList.as_view(), name='user-lesson-plans'),
+    path('lesson-plans/', views.list_lessonplans, name='list-lesson-plan'),
 
     path('website-feedbacks/new', views.SubmitWebsiteFeedbackView.as_view(), name='submit-website-feedback'),
     path('website-feedbacks/thank-you/', views.website_feedback_done, name='website-feedback-done'),

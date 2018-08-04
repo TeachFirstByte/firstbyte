@@ -1,10 +1,10 @@
 import json
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView, View
 from django.views.generic.list import ListView
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.template.response import TemplateResponse
 from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.conf import settings
@@ -119,11 +119,44 @@ class LessonPlanView(View):
         return self.get_default_template_response(request, form)
 
 
-class LessonPlanUserList(ListView):
-    model = models.LessonPlan
+@require_GET
+def list_lessonplans(request):
+    queryset = models.LessonPlan.objects.all()
+    form = forms.LessonPlanAdvancedSearchForm(request.GET)
 
-    def get_queryset(self):
-        return models.LessonPlan.objects.filter(owner=self.kwargs['pk'])
+    show_advanced_search_options = False
+    if not form.is_valid():
+        form = forms.LessonPlanAdvancedSearchForm()
+
+    if len(form.cleaned_data['grade_level']) != 0:
+        queryset = queryset.filter(grade_level__in=form.cleaned_data['grade_level'])
+        show_advanced_search_options = True
+
+    if form.cleaned_data['web_only']:
+        queryset = queryset.filter(web_only=form.cleaned_data['web_only'])
+        show_advanced_search_options = True
+
+    if form.cleaned_data['sort_by'] == forms.SORT_BY_AVERAGE_RATING:
+        queryset = queryset.annotate(average_rating=Avg('lessonfeedback__overall_rating')).order_by('-average_rating', 'title')
+    elif form.cleaned_data['sort_by'] == forms.SORT_BY_MOST_RECENTLY_MODIFIED:
+        queryset = queryset.order_by('-last_modified_time', 'title')
+    elif form.cleaned_data['sort_by'] == forms.SORT_BY_NUMBER_OF_CLASSES:
+        queryset = queryset.order_by('-num_classes', 'title')
+    elif form.cleaned_data['sort_by'] == forms.SORT_BY_SINGLE_CLASS_TIME:
+        queryset = queryset.order_by('-single_class_time', 'title')
+    elif form.cleaned_data['sort_by'] == forms.SORT_BY_TOTAL_PREP_TIME:
+        queryset = queryset.order_by('-total_prep_time', 'title')
+
+    query = form.cleaned_data['q']
+    if len(query) != 0:
+        queryset = queryset.filter(Q(title__icontains=query) | Q(summary__icontains=query))
+
+    return render(request, 'curriculum/lessonplan_list.html', {
+        'user': request.user,
+        'form': form,
+        'show_advanced_search_options': show_advanced_search_options,
+        'object_list': queryset
+    })
 
 
 class SubmitWebsiteFeedbackView(FormBootstrapErrorListMixin, CreateView):

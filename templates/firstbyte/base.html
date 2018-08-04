@@ -15,6 +15,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static "firstbyte/style/main.css" %}" />
     {% block head %}{% endblock %}
+    {% block ga %}{% if GA_TRACKING_ID %}{% include 'firstbyte/ga.html' %}{% endif %}{% endblock %}
 </head>
 <body class="d-flex flex-column">
     <nav class="sticky-top navbar navbar-expand-md navbar-dark bg-dark">

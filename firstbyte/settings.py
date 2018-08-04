@@ -103,6 +103,9 @@ TEMPLATES = [
 
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
+
+                # adds Google Analytics tracking id from environment
+                'firstbyte.google_analytics.ga_tracking_id',
             ],
         },
     },

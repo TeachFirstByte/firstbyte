@@ -48,7 +48,7 @@
                 <div class="col mb-3">
                     <div class="btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary {% if form.web_only.value %}active{% endif %}" for="{{ form.web_only.id_for_label }}">
-                            <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}" {% if form.web_only.value %}checked{% endif %} /> {{ form.web_only.label }}
+                            <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}" {% if form.web_only.value %}checked{% endif %} /><i class="fab fa-chrome"></i> {{ form.web_only.label }}
                         </label>
                     </div>
                 </div>

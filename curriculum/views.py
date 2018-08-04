@@ -136,9 +136,7 @@ def list_lessonplans(request):
         queryset = queryset.filter(web_only=form.cleaned_data['web_only'])
         show_advanced_search_options = True
 
-    if form.cleaned_data['sort_by'] == forms.SORT_BY_AVERAGE_RATING:
-        queryset = queryset.annotate(average_rating=Avg('lessonfeedback__overall_rating')).order_by('-average_rating', 'title')
-    elif form.cleaned_data['sort_by'] == forms.SORT_BY_MOST_RECENTLY_MODIFIED:
+    if form.cleaned_data['sort_by'] == forms.SORT_BY_MOST_RECENTLY_MODIFIED:
         queryset = queryset.order_by('-last_modified_time', 'title')
     elif form.cleaned_data['sort_by'] == forms.SORT_BY_NUMBER_OF_CLASSES:
         queryset = queryset.order_by('-num_classes', 'title')
@@ -146,6 +144,8 @@ def list_lessonplans(request):
         queryset = queryset.order_by('-single_class_time', 'title')
     elif form.cleaned_data['sort_by'] == forms.SORT_BY_TOTAL_PREP_TIME:
         queryset = queryset.order_by('-total_prep_time', 'title')
+    else: # SORT_BY_AVERAGE_RATING and none
+        queryset = queryset.annotate(average_rating=Avg('lessonfeedback__overall_rating')).order_by('-average_rating', 'title')
 
     query = form.cleaned_data['q']
     if len(query) != 0:

@@ -45,6 +45,12 @@
                             <span class="sr-only">Works best for </span>
                             <span>{{ lessonplan.get_grade_level_display }}</span>
                         </div>
+                        {% if lessonplan.web_only %}
+                        <div>
+                            <i class="fab fa-chrome"></i>
+                            <span>Chromebook Compatible</span>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="list-group-item">

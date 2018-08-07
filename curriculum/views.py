@@ -151,6 +151,10 @@ def list_lessonplans(request):
     if len(query) != 0:
         queryset = queryset.filter(Q(title__icontains=query) | Q(summary__icontains=query))
 
+    restricted_user_id = form.cleaned_data.get('user_id')
+    if restricted_user_id:
+        queryset = queryset.filter(owner__id=restricted_user_id)
+
     return render(request, 'curriculum/lessonplan_list.html', {
         'user': request.user,
         'form': form,

@@ -20,7 +20,7 @@
             <div class="col">
                 <p>Other helpful links</p>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'user-lesson-plans' pk=user.id %}">See curriculum I've submitted</a></li>
+                    <li><a href="{% url 'list-lesson-plan' %}?user_id={{ user.id }}">See curriculum I've submitted</a></li>
                 </ul>
             </div>
         </div>

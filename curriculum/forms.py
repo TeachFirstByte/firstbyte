@@ -98,6 +98,7 @@ class LessonPlanAdvancedSearchForm(forms.Form):
     sort_by = forms.ChoiceField(required=False, choices=SortByChoices, widget=forms.Select(attrs={'class': 'custom-select'}))
     grade_level = forms.MultipleChoiceField(required=False, choices=GradeLevels, widget=forms.CheckboxSelectMultiple)
     web_only = forms.BooleanField(required=False)
+    user_id = forms.IntegerField(required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

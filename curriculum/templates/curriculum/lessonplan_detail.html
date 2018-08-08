@@ -104,11 +104,21 @@
                             See Detailed Feedback
                         </a>
                     </div>
-                    <div class="list-group-item collapse" id="feedback">
+                    <div class="collapse" id="feedback">
                         {% for fb in lessonplan.lessonfeedback_set.all %}
-                            <p class="feedback-rating">Overall Rating: {{ fb.overall_rating }}</p>
-                            <p class="feedback-strengths">{{ fb.strengths }}</p>
-                            <p class="feedback-weeknesses">{{ fb.weaknesses }}</p>
+                        <div class="list-group-item">
+                            <div class="d-flex">
+                                <p class="text-muted flex-fill">Submitted by {{ fb.author.first_name }} from {{ fb.author.profile.school }}.</p>
+                                <p class="text-right text-primary" data-average-rating="{{ fb.overall_rating }}" >
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <p class="feedback-comments">{{ fb.comments }}</p>
+                        </div>
                         {% endfor %}
                     </div>
                 {% else %}

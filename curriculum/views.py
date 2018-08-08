@@ -19,7 +19,7 @@ class CreateLessonPlanView(LoginRequiredMixin, FormBootstrapErrorListMixin, Crea
     form_class = forms.LessonPlanForm
 
     def __init__(self):
-        self.object = None;
+        self.object = None
         super().__init__()
 
     def form_valid(self, form):

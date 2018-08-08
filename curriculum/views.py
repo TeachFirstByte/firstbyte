@@ -108,8 +108,8 @@ class LessonPlanView(View):
                 lesson=self.lesson_plan,
                 author=request.user,
                 overall_rating=form.cleaned_data['rating'],
-                strengths=form.cleaned_data['success'],
-                weaknesses=form.cleaned_data['failure']
+                comments=form.cleaned_data['comments'],
+                notify_author_of_changes=form.cleaned_data['notify_author_of_changes']
             )
             feedback.save()
 

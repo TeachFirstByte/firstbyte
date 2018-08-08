@@ -52,8 +52,9 @@ class LessonPlanForm(forms.ModelForm):
 
 class LessonPlanFeedback(forms.Form):
     rating = forms.IntegerField(label="Rating", min_value=1, max_value=5)
-    success = forms.CharField(max_length=2500, widget=forms.Textarea, label="Successful parts")
-    failure = forms.CharField(max_length=2500, widget=forms.Textarea, label="Unsuccessful parts")
+    comments = forms.CharField(max_length=2500, widget=forms.Textarea(attrs={'rows': 10}),
+                               label="Comments ~ What was effective about this lesson? What wasn't?")
+    notify_author_of_changes = forms.BooleanField(required=False, label="Notify me if this lesson plan is updated", initial=True)
 
     def __init__(self, *args, **kargs):
         super().__init__(*args, **kargs)

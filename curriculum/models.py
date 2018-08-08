@@ -115,8 +115,7 @@ class LessonFeedback(models.Model):
     overall_rating = FiveStarRatingField()
 
     # 2500 characters is appox. 2-3 meaty paragraphs.
-    strengths = models.TextField(max_length=2500)
-    weaknesses = models.TextField(max_length=2500)
+    comments = models.TextField(max_length=2500)
 
     create_time = models.DateTimeField(auto_now_add=True)
 

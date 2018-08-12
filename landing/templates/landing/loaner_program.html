@@ -1,0 +1,29 @@
+{% extends "firstbyte/base.html" %}
+{% load static %}
+{% block title %}Loaner Program{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'landing/style/loaner.css'%}" type="text/css" />
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 class="display-4 text-center">FirstByte Loaner Program</h2>
+            <p>If you're in the Boston area and need materials, we're here to help. Email us at <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a> to reserve!</p>
+            <p>Our inventory is as follows:
+            <ul>
+                <li>Lilypad Arduinos x10</li>
+                <li>MaKey MaKey x12</li>
+                <li>Circuit playground classic x15</li>
+                <li>Circuit playground express x15</li>
+            </ul></p>
+            <p class="text-center">Use the calendar below to determine if enough materials will be available.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="calendar-container">
+            <iframe src="https://calendar.google.com/calendar/embed?showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=o09l9igq3r6qqmr1joojhbm7i0%40group.calendar.google.com&amp;color=%23125A12&amp;ctz=America%2FNew_York" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+</div>
+{% endblock %}

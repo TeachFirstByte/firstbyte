@@ -1,5 +1,5 @@
 astroid==2.0
-awsebcli==3.14.2
+awsebcli==3.14.3
 blessed==1.15.0
 boto==2.49.0
 botocore==1.10.59

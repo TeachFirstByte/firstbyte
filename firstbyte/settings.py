@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('FIRSTBYTE_SECRET_KEY', 'I better not see this in pr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('FIRSTBYTE_ENABLE_DEBUG', False))
 
-ALLOWED_HOSTS = ['localhost', 'curriculum.teachfirstbyte.org', 'django-env.tarjp9idec.us-east-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['localhost', 'teachfirstbyte.org', 'curriculum.teachfirstbyte.org', 'django-env.tarjp9idec.us-east-1.elasticbeanstalk.com']
 
 # FirstByte settings
 

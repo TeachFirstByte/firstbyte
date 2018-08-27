@@ -213,6 +213,8 @@ def list_lessonplans(request):
     restricted_user_id = form.cleaned_data.get('user_id')
     if restricted_user_id:
         queryset = queryset.filter(owner__id=restricted_user_id)
+    else:
+        queryset = queryset.filter(draft=False)
 
     return render(request, 'curriculum/lessonplan_list.html', {
         'user': request.user,

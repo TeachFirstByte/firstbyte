@@ -23,10 +23,12 @@
                 <div class="list-group-item">
                     <div class="d-flex align-items-flex-start flex-wrap justify-content-end">
                         <h1 class="display-4 flex-fill">{{ lessonplan.title }}</h1>
+                        {% if user == lessonplan.owner or user.is_superuser %}
                         <div class="btn-group" role="group" aria-label="Actions for lesson plan author">
                             <a href="{% url 'update-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-info">Update</a>
                             <a href="{% url 'delete-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-danger">Delete</a>
                         </div>
+                        {% endif %}
                     </div>
                     <p class="lead">{{ lessonplan.summary }}</p>
                     <div class="d-flex flex-wrap align-items-center justify-content-between">

@@ -1,12 +1,20 @@
 from django import forms
 from django.urls import reverse
 from .models import LessonPlan, WebsiteFeedback
+from .util import int_or_none
 from accounts.models import GradeLevels
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field
 
 class LessonPlanForm(forms.ModelForm):
-    resources = forms.CharField(required=False, widget=forms.HiddenInput)
+    resource_ids = forms.CharField(required=False, widget=forms.HiddenInput)
+    filetypes = forms.CharField(required=False, widget=forms.HiddenInput)
+    filenames = forms.CharField(required=False, widget=forms.HiddenInput)
+    files = forms.FileField(required=False, widget=forms.HiddenInput)
+
+    jsonResponse = forms.BooleanField(required=True, initial=False, widget=forms.HiddenInput)
+
+    agree = forms.BooleanField(required=True, label="I am the sole author or I have permission to license this work under the CC BY-NC 4.0 license")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -33,21 +41,32 @@ class LessonPlanForm(forms.ModelForm):
                 Div(Field('notify_of_feedback'), css_class='col'),
                 Div(Field('draft'), css_class='col'),
                 css_class='row'
-            )
+            ),
+            Div(Div(Field('agree'), css_class='col'), css_class='row'),
+            Field('jsonResponse')
         )
 
-    def clean_resources(self):
-        resources = self.cleaned_data['resources']
-        if resources:
-            return list([int(str_id) for str_id in resources.split(',')])
-        else:
-            return []
+    def clean_resource_ids(self):
+        data = self.cleaned_data['resource_ids']
+        return [int_or_none(num) for num in data.split(',')]
+
+    def clean_filetypes(self):
+        data = self.cleaned_data['filetypes']
+        return data.split(',')
+
+    def clean_filenames(self):
+        data = self.cleaned_data['filenames']
+        return data.split(',')
 
     class Meta:
         model = LessonPlan
         fields = ['title', 'grade_level', 'total_prep_time', 'num_classes',
                   'single_class_time', 'summary', 'materials', 'web_only', 'feedback_enabled',
                   'notify_of_feedback', 'draft']
+        widgets = {
+            'summary': forms.Textarea(),
+            'materials': forms.Textarea(attrs={'rows': 5}),
+        }
 
 
 class LessonPlanFeedback(forms.Form):

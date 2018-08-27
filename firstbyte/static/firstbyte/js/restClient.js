@@ -16,6 +16,38 @@ export function CurriculumClient(csrfToken) {
     this.csrfToken = csrfToken;
 }
 
+CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options) {
+    options = options || {};
+    const endpoint = defaultValue(options.endpoint, '/lesson-plans/new/');
+
+    var that = this;
+    return new Promise(function(resolve, reject) {
+        $.ajax(endpoint, {
+            method: 'POST',
+            dataType: 'json',
+            headers: {
+                'X-CSRFToken': that.csrfToken
+            },
+            contentType: false,
+            processData: false,
+            cache: false,
+            data: combinedFormData,
+        })
+        .done(function(response, textStatus, jqXHR) {
+            resolve(response);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            _rejectJqueryAjax(reject, errorThrown, textStatus);
+        });
+    });
+}
+
+CurriculumClient.prototype.updateLessonPlan = function(combinedFormData, id, options) {
+    options = options || {};
+    options.endpoint = defaultValue(options.endpoint, '/lesson-plans/update/' + id + '/');
+    return this.submitLessonPlan(combinedFormData, options);
+};
+
 CurriculumClient.prototype.uploadResource = function (file, options) {
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/lesson-resources/');
@@ -109,6 +141,23 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
             headers: {
                 'X-CSRFToken': that.csrfToken
             }
+        })
+        .then(function(response, textStatus, jqXHR) {
+            resolve(response);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            _rejectJqueryAjax(reject, errorThrown, textStatus);
+        });
+    });
+}
+
+CurriculumClient.prototype.getLessonPlan = function(id, options) {
+    options = options || {};
+    const endpoint = defaultValue(options.endpoint, '/api/v1/lesson-plans/' + id + '/');
+
+    return new Promise(function(resolve, reject) {
+        $.ajax(endpoint, {
+            dataType: 'json',
         })
         .then(function(response, textStatus, jqXHR) {
             resolve(response);

@@ -3,100 +3,40 @@
 import $ from 'jquery';
 import Promise from 'bluebird';
 
+import FileUpload from './fileUpload.js';
 import { CurriculumClient } from './restClient.js';
+import Droparea from './droparea.js';
 
-function _createOption(val, name) {
-    var ret = document.createElement('option');
-    ret.value = val;
-    ret.textContent = name;
-    return ret;
-}
-
-function ResourceForm(filename, onRemove) {
-    this.onRemove = onRemove || (function(_) { return Promise.resolve(true); });
-
-    var form = document.createElement('form');
-    form.className = 'mb-2 lesson-resource-form';
-    form.setAttribute('method', 'post');
-    form.setAttribute('enctype', 'multipart/form-data');
-
-    var firstRow = document.createElement('div');
-    firstRow.className = 'row';
-    form.appendChild(firstRow);
-
-    var secondRow = document.createElement('div');
-    secondRow.className = 'row';
-    form.appendChild(secondRow);
-
-    var inputGroup = document.createElement('div');
-    firstRow.appendChild(inputGroup);
-    inputGroup.className = 'input-group col';
-
-    var typeInput = document.createElement('select');
-    inputGroup.appendChild(typeInput);
-    typeInput.className = 'form-control rounded-left';
-    typeInput.required = true;
-
-    typeInput.appendChild(_createOption("", "---------"));
-    typeInput.appendChild(_createOption(1, "Student Handout"));
-    typeInput.appendChild(_createOption(2, "Teacher Reference"));
-    typeInput.appendChild(_createOption(3, "Slides"));
-    typeInput.appendChild(_createOption(4, "Code"));
-    typeInput.appendChild(_createOption(5, "Schematic"));
-    typeInput.appendChild(_createOption(0, "Other"));
-
-    var filenameInput = document.createElement('input');
-    inputGroup.appendChild(filenameInput);
-    filenameInput.className = 'form-control';
-    filenameInput.value = filename;
-    filenameInput.setAttribute('type', 'text');
-    filenameInput.setAttribute('name', 'name');
-
-    var btnContainer = document.createElement('div');
-    inputGroup.appendChild(btnContainer);
-    btnContainer.className = 'input-group-append';
-
-    var removeBtn = document.createElement('button');
-    btnContainer.appendChild(removeBtn);
-    removeBtn.className = 'btn btn-outline-danger';
-    removeBtn.innerText = "Remove";
-
-    var that = this;
-    $(removeBtn).click(function(ev) {
-        that.onRemove(ev).then(function(_) {
-            $(form).remove();
-        });
-    });
-
-    var progressCol = document.createElement('div');
-    secondRow.appendChild(progressCol);
-    progressCol.className = 'col';
-
-    var progress = document.createElement('div');
-    progressCol.appendChild(progress);
-    progress.className = 'progress';
-
-    var progressBar = document.createElement('div');
-    progress.append(progressBar);
-    progressBar.className = 'progress-bar bg-info';
-    progressBar.setAttribute('role', 'progressbar');
-    progressBar.setAttribute('aria-valuenow', '0');
-    progressBar.setAttribute('aria-valuemin', '0');
-    progressBar.setAttribute('aria-valuemax', '100');
-
-    this.progressBar = progressBar;
-    this.form = form;
-}
-
-ResourceForm.prototype.setParent = function(element) {
-    $(element).append(this.form);
-};
-
-ResourceForm.prototype.getProgressBar = function() {
-    return this.progressBar;
-}
+var resourceForm = '\
+<form data-lr-form method="post" enctype="multipart/form-data"> \
+    <div class="row"> \
+        <div class="col"> \
+            <span data-lr-error-message></span> \
+        </div> \
+    </div> \
+    <div class="row mb-2"> \
+        <div class="input-group col"> \
+            <select required name="type" class="form-control rounded-left" data-lr-type-value> \
+                <option value="">---------</option> \
+                <option value="1">Student Handout</option> \
+                <option value="2">Teacher Reference</option> \
+                <option value="3">Slides</option> \
+                <option value="4">Code</option> \
+                <option value="5">Schematic</option> \
+                <option value="0">Other</option> \
+            </select> \
+            <input required type="text" name="name" class="form-control text-left" data-lr-name-value > \
+            <div class="input-ground-append"> \
+                <button class="btn btn-outline-danger" data-lr-remove>Remove</button> \
+            </div> \
+        </div> \
+    </div> \
+    <input type="hidden" name="resourceId" value="" data-lr-resource-id />\
+</form>';
 
 var curriculumClient;
+var fileUpload;
+var droparea;
 
 function submitLessonPlan(event) {
     event.preventDefault();
@@ -142,31 +82,119 @@ function submitLessonPlan(event) {
 
 $(function(e) {
     curriculumClient = new CurriculumClient(window.CSRF_TOKEN);
-    var fileSelect = document.getElementById('file-select');
-    fileSelect.addEventListener('change', function(event) {
-        var files = fileSelect.files;
-        for(var index = 0; index < files.length; ++index) {
-            var file = files[index];
-            let form = new ResourceForm(file.name);
+    fileUpload = new FileUpload({
+        container: '#lesson-resources',
+        template: resourceForm,
+    });
 
-            var idPromise = curriculumClient.uploadResource(file, {
-                progress: form.getProgressBar()
-            });
+    var updatingLessonPlan = false;
+    if(window.LESSON_PLAN_ID !== undefined) {
+        updatingLessonPlan = true;
+    }
 
-            idPromise.then(function(id) {
-                form.form.dataset.resourceId = id;
-            })
+    if(updatingLessonPlan) {
+        curriculumClient.getLessonPlan(window.LESSON_PLAN_ID).then(function(lessonplan) {
+            for (var i = 0; i < lessonplan.resources.length; ++i) {
+                var resource = lessonplan.resources[i];
+                fileUpload.addExistingSlot(resource.id, resource.semantic_type, resource.name);
+            }
+        }).catch(function(err) {
+            console.log(err);
+        });
+    }
 
-            form.onRemove = function(_) {
-                return idPromise.then(function(id) {
-                    return curriculumClient.deleteResource(id);
-                });
-            };
+    // Set up all the ways the user can add a file:
+    // 1. Drag and drop area
+    droparea = new Droparea('.lr-droparea', fileUpload.addFileSlot.bind(fileUpload));
 
-            form.setParent('#lesson-resource-forms');
+    // 2. By clicking the dropzone
+    droparea.element.on('click', function(event) {
+        if($(this).is(event.target)) {
+            $('.lr-file-input').trigger('click');
         }
     });
 
-    var submitLessonPlanBtn = document.getElementById('submit-lesson-plan');
-    submitLessonPlanBtn.addEventListener('click', submitLessonPlan);
+    // 3. By clicking on the message above the droparea (in case the marked off area gets full).
+    $('.lr-additional-clickarea').on('click', function(event) {
+        if($(this).is(event.target)) {
+            $('.lr-file-input').trigger('click');
+        }
+    });
+
+    // Helper for making clicks open up a file dialog
+    $('.lr-file-input').on('change', function(event) {
+        var files = event.currentTarget.files;
+        for(var index = 0; index < files.length; ++index) {
+            var file = files[index];
+            fileUpload.addFileSlot(file);
+        }
+    });
+
+    $('#submit-lesson-plan').on('click', function(event) {
+        event.preventDefault();
+
+        var form = document.getElementById('lesson-plan-form');
+
+        if(!form.reportValidity()) {
+            return;
+        }
+
+        var allFormsAreValid = true;
+        fileUpload.forEach(function(_, resourceForm){
+            allFormsAreValid = allFormsAreValid && resourceForm.reportValidity();
+        });
+        if(!allFormsAreValid) {
+            return;
+        }
+
+        var resourceIds = [];
+        var filetypes = [];
+        var filenames = [];
+        var files = [];
+        fileUpload.forEach(function(file, form) {
+            var formData = new FormData(form);
+            resourceIds.push(formData.get('resourceId') || '')
+            filetypes.push(formData.get('type'));
+            filenames.push(formData.get('name'));
+            files.push(file);
+        });
+
+        // At this point we have three arrays with lesson resource info split between them.
+        // We have a lot of options:
+        // - Add these arrays to the <form> and submit (browser handles redirect)
+        //   - Doesn't work - can't construct an <input type="file"> and populate it with our arbitrary list.
+        // - Build our own formData (starting from the main lesson plan form as a base)
+        // then add lesson resources and submit as one form via AJAX, then redirect the user.
+        // This way we could probably have some sort of loading bar for the entire form as a whole
+        // (to represent all the lesson resource files that are being uploaded, I'm not sure if we can do each file individually).
+        // - Submit lesson plan and request a certain number of lesson resource slots, then upload those files individually and redirect via JS
+
+        var lessonPlanFormData = new FormData(form);
+        lessonPlanFormData.append('resource_ids', resourceIds.join());
+        lessonPlanFormData.append('filetypes', filetypes.join());
+
+        // Better make sure filenames don't have a comma, otherwise this will break badly.
+        lessonPlanFormData.append('filenames', filenames.join());
+
+        for(var i = 0; i < files.length; ++i) {
+            lessonPlanFormData.append('files[]', files[i]);
+        }
+
+        // Request a json response
+        lessonPlanFormData.set('jsonResponse', true);
+
+        var submissionPromise;
+        if (updatingLessonPlan) {
+            submissionPromise = curriculumClient.updateLessonPlan(lessonPlanFormData, window.LESSON_PLAN_ID);
+        } else {
+            submissionPromise = curriculumClient.submitLessonPlan(lessonPlanFormData);
+        }
+
+        submissionPromise.then(function(response) {
+            window.location.href = '/lesson-plans/' + response.id;
+        }).catch(function(error) {
+            // Post this error for the user.
+            console.error(error);
+        });
+    });
 });

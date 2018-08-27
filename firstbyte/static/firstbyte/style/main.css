@@ -73,9 +73,6 @@ footer a:hover {
     align-items: flex-start;
 }
 
-#delete-lesson-plan-form {
-    display: inline-block;
-}
 .color-white {
     color: white !important;
 }
@@ -90,4 +87,13 @@ footer a:hover {
 
 .mb-6 {
     margin-bottom: 5em;
+}
+
+.lr-droparea {
+    height: 100%;
+    min-height: 10em;
+    border: 1px dashed #cacaca;
+}
+.lr-pending-drop {
+    background-color: lightskyblue;
 }

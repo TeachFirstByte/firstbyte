@@ -6,47 +6,106 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, Q
 from django.template.response import TemplateResponse
-from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponse, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseNotAllowed
 from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
-from . import forms, models
-from .errorlist import BootstrapErrorList, FormBootstrapErrorListMixin
+from . import forms, models, mixins
+from bootstrap.mixins import FormBootstrapErrorListMixin
+from bootstrap.errorlist import BootstrapErrorList
 
+@login_required
+def create_lesson_plan_view(request):
+    if request.method == 'POST':
+        form = forms.LessonPlanForm(request.POST, request.FILES)
+        if form.is_valid():
+            filetypes = form.cleaned_data['filetypes']
+            filenames = form.cleaned_data['filenames']
+            files = request.FILES.getlist('files[]')
 
-class CreateLessonPlanView(LoginRequiredMixin, FormBootstrapErrorListMixin, CreateView):
-    template_name = 'curriculum/lessonplan_form.html'
-    form_class = forms.LessonPlanForm
+            if len(filetypes) != len(filenames) or len(filetypes) != len(files):
+                # BAD!
+                return HttpResponseBadRequest()
 
-    def __init__(self):
-        self.object = None
-        super().__init__()
+            # Create lesson plan
+            lessonplan = form.save()
+            lessonplan.owner = request.user
 
-    def form_valid(self, form):
-        self.object = form.save()
-        self.object.owner = self.request.user
+            # Create new files
+            for index, file in enumerate(files):
+                resource = models.LessonResource(
+                    owner=lessonplan.owner,
+                    semantic_type=filetypes[index],
+                    name=filenames[index],
+                    file=file)
+                resource.save()
+                lessonplan.resources.add(resource)
 
-        for resource_id in form.cleaned_data['resources']:
-            self.object.resources.add(models.LessonResource.objects.get(pk=resource_id))
+            lessonplan.save()
+            if form.cleaned_data['jsonResponse']:
+                return JsonResponse({'id': lessonplan.id})
 
-        self.object.save()
-        # Don't let ModelFormMixin save the object
-        return FormView.form_valid(self, form)
+            return redirect(lessonplan.get_absolute_url())
+    else:
+        form = forms.LessonPlanForm()
 
+    return render(request, 'curriculum/lessonplan_form.html', context={ 'form': form })
 
-class MustOwnLessonPlanMixin(object):
-    model = models.LessonPlan
-    def dispatch(self, request, *args, **kwargs):
-        if super().get_object().owner == request.user or request.user.is_superuser:
-            return super().dispatch(request, *args, **kwargs)
-        return HttpResponseForbidden("Not allowed!")
+@login_required
+def update_lesson_plan_view(request, pk):
+    lessonplan = get_object_or_404(models.LessonPlan, id=pk)
 
+    if lessonplan.owner != request.user and not request.user.is_superuser:
+        # If someone owns a lesson plan they can modify resources that aren't theirs.
+        # Is this an issue?
+        return HttpResponseForbidden()
 
-class UpdateLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, UpdateView):
-    form_class = forms.LessonPlanForm
+    if request.method == 'POST':
+        form = forms.LessonPlanForm(request.POST, request.FILES, instance=lessonplan)
+        if form.is_valid():
+            resource_ids = form.cleaned_data['resource_ids']
+            filetypes = form.cleaned_data['filetypes']
+            filenames = form.cleaned_data['filenames']
+            files = request.FILES.getlist('files[]')
 
+            if len(filetypes) != len(filenames):
+                # BAD!
+                return HttpResponseBadRequest()
 
-class DeleteLessonPlanView(LoginRequiredMixin, MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, DeleteView):
+            resources = []
+            for index, id in enumerate(resource_ids):
+                if id is not None:
+                    resource = models.LessonResource.objects.get(id=id)
+                    resource.semantic_type = filetypes[index]
+                    resource.name = filenames[index]
+                    resources.append(resource)
+                else:
+                    file = files.pop(0)
+                    resource = models.LessonResource(
+                        owner=lessonplan.owner,
+                        semantic_type=filetypes[index],
+                        name=filenames[index],
+                        file=file
+                    )
+                    resources.append(resource)
+
+            lessonplan = form.save()
+            lessonplan.resources.clear()
+            for resource in resources:
+                lessonplan.resources.add(resource)
+                resource.save()
+
+            lessonplan.save()
+            if form.cleaned_data['jsonResponse']:
+                return JsonResponse({'id': lessonplan.id})
+
+            return redirect(lessonplan.get_absolute_url())
+    else:
+        form = forms.LessonPlanForm(instance=lessonplan)
+
+    return render(request, 'curriculum/lessonplan_form.html', context={'LESSON_PLAN_ID': pk, 'form': form })
+
+class DeleteLessonPlanView(LoginRequiredMixin, mixins.MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, DeleteView):
     success_url = reverse_lazy('list-lesson-plan')
 
 

@@ -1,2 +1,12 @@
 {% extends 'firstbyte/base.html' %}
 {% block title %}{% block head_title %}{% endblock %}{% endblock %}
+{% block outer_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

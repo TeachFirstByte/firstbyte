@@ -112,9 +112,9 @@ class DeleteLessonPlanView(LoginRequiredMixin, mixins.MustOwnLessonPlanMixin, Fo
 def slug_redirect_view(klass, to=None, permanent=True, *args, **kwargs):
     def view_fn(request, pk):
         obj = get_object_or_404(klass, id=pk)
-        target = to or klass
         return redirect(obj, *args, pk=pk, slug=obj.slug, permanent=permanent, **kwargs)
     return view_fn
+
 
 class LessonPlanView(View):
     template_name = 'curriculum/lessonplan_detail.html'
@@ -143,7 +143,6 @@ class LessonPlanView(View):
     def get(self, request, **kwargs):
         obj = self.get_object()
 
-        pk = self.kwargs['pk']
         slug = self.kwargs['slug']
         if slug != obj.slug:
             # Replace old slug with correct one

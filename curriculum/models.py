@@ -70,8 +70,9 @@ class LessonPlan(models.Model):
     # enable feedback?
     feedback_enabled = models.BooleanField(default=True)
 
+    # Temporarily removed while this is implemented
     # Notify this user when someone leaves feedback?
-    notify_of_feedback = models.BooleanField(default=True)
+    # notify_of_feedback = models.BooleanField(default=True)
 
     # Drafts are available via detailed view, but not listed with all published lesson plans.
     draft = models.BooleanField(default=False)
@@ -108,8 +109,9 @@ class LessonFeedback(models.Model):
     lesson = models.ForeignKey(LessonPlan, null=True, on_delete=models.SET_NULL)
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
+    # Temporarily removed while this is implemented!
     # Should we email the author of this feedback if the lesson plan gets updated?
-    notify_author_of_changes = models.BooleanField(default=True)
+    # notify_author_of_changes = models.BooleanField(default=True)
 
     # 1 star = complete failure; 5 stars = complete success
     overall_rating = FiveStarRatingField()

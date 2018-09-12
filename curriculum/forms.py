@@ -38,7 +38,6 @@ class LessonPlanForm(forms.ModelForm):
             Div(
                 Div(Field('web_only'), css_class='col'),
                 Div(Field('feedback_enabled'), css_class='col'),
-                Div(Field('notify_of_feedback'), css_class='col'),
                 Div(Field('draft'), css_class='col'),
                 css_class='row'
             ),
@@ -62,7 +61,7 @@ class LessonPlanForm(forms.ModelForm):
         model = LessonPlan
         fields = ['title', 'grade_level', 'total_prep_time', 'num_classes',
                   'single_class_time', 'summary', 'materials', 'web_only', 'feedback_enabled',
-                  'notify_of_feedback', 'draft']
+                  'draft']
         widgets = {
             'summary': forms.Textarea(),
             'materials': forms.Textarea(attrs={'rows': 5}),
@@ -73,7 +72,7 @@ class LessonPlanFeedback(forms.Form):
     rating = forms.IntegerField(label="Rating", min_value=1, max_value=5)
     comments = forms.CharField(max_length=2500, widget=forms.Textarea(attrs={'rows': 10}),
                                label="Comments ~ What was effective about this lesson? What wasn't?")
-    notify_author_of_changes = forms.BooleanField(required=False, label="Notify me if this lesson plan is updated", initial=True)
+    #notify_author_of_changes = forms.BooleanField(required=False, label="Notify me if this lesson plan is updated", initial=True)
 
     def __init__(self, *args, **kargs):
         super().__init__(*args, **kargs)

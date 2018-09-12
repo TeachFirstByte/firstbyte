@@ -17,7 +17,7 @@ class LessonResource(models.Model):
     STUDENT_HANDOUT = 1
     TEACHER_REFERENCE = 2
     SLIDES = 3
-    CODE = 3
+    CODE = 4
     SCHEMATIC = 5
 
     FILE_TYPES = (

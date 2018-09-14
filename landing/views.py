@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 def index(request):
     return render(request, 'landing/landing.html', {'user': request.user})
@@ -11,3 +11,6 @@ def privacy_policy(request):
 
 def loaner_program(request):
     return render(request, 'landing/loaner_program.html', {'user': request.user})
+
+def volunteer_redirect(request):
+    return redirect('https://goo.gl/forms/TOgxhucxMKVaPFqD3')

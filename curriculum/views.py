@@ -251,25 +251,25 @@ def create_lesson_resource(request):
     return JsonResponse({'err': True})
 
 
-@login_required
 def lesson_resource(request, pk):
     resource = get_object_or_404(models.LessonResource, id=pk)
-    if request.method == 'DELETE':
-        if resource.owner == request.user:
+    if request.method == 'GET':
+        return HttpResponse(resource.file.chunks(), resource.mime_type)
+
+    if request.user.is_authenticated and (resource.owner == request.user or request.user.is_superuser):
+        if request.method == 'DELETE':
             resource.delete()
             return JsonResponse({'success': True})
-    elif request.method == 'GET':
-        return HttpResponse(resource.file.chunks(), resource.mime_type)
-    elif request.method == 'PUT':
-        patch = json.loads(request.body)
+        elif request.method == 'PUT':
+            patch = json.loads(request.body)
 
-        try:
-            resource.name = str(patch['name'])
-            resource.semantic_type = patch['type']
-        except KeyError:
-            return JsonResponse({'err': True}, status=422)
+            try:
+                resource.name = str(patch['name'])
+                resource.semantic_type = patch['type']
+            except KeyError:
+                return JsonResponse({'err': True}, status=422)
 
-        resource.save()
-        return JsonResponse({'success': True})
+            resource.save()
+            return JsonResponse({'success': True})
 
     return HttpResponseForbidden()

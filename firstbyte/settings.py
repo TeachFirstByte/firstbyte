@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
+    'storages',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -169,6 +170,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Uploaded files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_DEFAULT_ACL = 'public-read'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

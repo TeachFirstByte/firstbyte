@@ -2,7 +2,8 @@ astroid==2.0
 awsebcli==3.14.3
 blessed==1.15.0
 boto==2.49.0
-botocore==1.10.59
+boto3==1.9.7
+botocore==1.12.7
 cached-property==1.4.3
 cement==2.8.2
 certifi==2018.4.16
@@ -13,6 +14,7 @@ Django==2.0.7
 django-allauth==0.36.0
 django-crispy-forms==1.7.2
 django-ses==0.8.5
+django-storages==1.7.1
 django-webpack-loader==0.6.0
 docker==3.4.1
 docker-compose==1.21.2
@@ -38,6 +40,7 @@ pytz==2018.5
 PyYAML==3.12
 requests==2.18.4
 requests-oauthlib==1.0.0
+s3transfer==0.1.13
 semantic-version==2.5.0
 six==1.11.0
 tabulate==0.7.5

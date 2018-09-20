@@ -28,6 +28,7 @@ ALLOWED_HOSTS = ['localhost', 'www.teachfirstbyte.org', 'teachfirstbyte.org', 'c
 
 # FirstByte settings
 ADMINS = [('Luke', 'lukesanantonio@gmail.com')]
+SERVER_EMAIL = 'server@teachfirstbyte.org'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True

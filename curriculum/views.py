@@ -14,6 +14,11 @@ from . import forms, models, mixins
 from bootstrap.mixins import FormBootstrapErrorListMixin
 from bootstrap.errorlist import BootstrapErrorList
 
+forbidden = {'err': 'forbidden' }
+forbidden_status = 403
+bad_request = {'err': 'bad_request' }
+bad_request_status = 400
+
 @login_required
 def create_lesson_plan_view(request):
     if request.method == 'POST':
@@ -25,7 +30,7 @@ def create_lesson_plan_view(request):
 
             if len(filetypes) != len(filenames) or len(filetypes) != len(files):
                 # BAD!
-                return HttpResponseBadRequest()
+                return JsonResponse(bad_request, status=bad_request_status)
 
             # Create lesson plan
             lessonplan = form.save()
@@ -46,9 +51,13 @@ def create_lesson_plan_view(request):
                 return JsonResponse({'id': lessonplan.id})
 
             return redirect(lessonplan.get_absolute_url())
-    else:
-        form = forms.LessonPlanForm()
 
+        return JsonResponse({
+            'err': 'form invalid',
+            'form_errors': dict(form.errors.items())
+        }, status=bad_request_status)
+
+    form = forms.LessonPlanForm()
     return render(request, 'curriculum/lessonplan_form.html', context={ 'form': form })
 
 @login_required
@@ -58,7 +67,10 @@ def update_lesson_plan_view(request, pk):
     if lessonplan.owner != request.user and not request.user.is_superuser:
         # If someone owns a lesson plan they can modify resources that aren't theirs.
         # Is this an issue?
-        return HttpResponseForbidden()
+        if request.method == 'POST':
+            return JsonResponse(forbidden, status=forbidden_status)
+        else:
+            return HttpResponseForbidden()
 
     if request.method == 'POST':
         form = forms.LessonPlanForm(request.POST, request.FILES, instance=lessonplan)
@@ -70,7 +82,7 @@ def update_lesson_plan_view(request, pk):
 
             if len(filetypes) != len(filenames):
                 # BAD!
-                return HttpResponseBadRequest()
+                return JsonResponse(bad_request, status=bad_request_status)
 
             resources = []
             for index, id in enumerate(resource_ids):

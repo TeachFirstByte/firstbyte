@@ -37,7 +37,9 @@ CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options
             resolve(response);
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            _rejectJqueryAjax(reject, errorThrown, textStatus);
+            // Form errors can be found in the response.
+            // Just parse the JSON and check the form_errors field.
+            _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
 }
@@ -98,7 +100,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-           _rejectJqueryAjax(reject, errorThrown, textStatus);
+           _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
 };
@@ -124,7 +126,7 @@ CurriculumClient.prototype.putResource = function(id, data, options) {
             resolve(response);
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            _rejectJqueryAjax(reject, errorThrown, textStatus);
+            _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
 }
@@ -146,7 +148,7 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
             resolve(response);
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            _rejectJqueryAjax(reject, errorThrown, textStatus);
+            _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
 }
@@ -163,14 +165,14 @@ CurriculumClient.prototype.getLessonPlan = function(id, options) {
             resolve(response);
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            _rejectJqueryAjax(reject, errorThrown, textStatus);
+            _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
 }
 
 function _rejectJqueryAjax(reject, errorThrown, textStatus) {
     if(defined(errorThrown)) {
-        reject(new Error(errorThrown));
+        reject(new Error(errorThrown + ' | ' + textStatus));
     } else {
         reject(new Error(textStatus));
     }

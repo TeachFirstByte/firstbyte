@@ -27,6 +27,7 @@ DEBUG = bool(os.environ.get('FIRSTBYTE_ENABLE_DEBUG', False))
 ALLOWED_HOSTS = ['localhost', 'www.teachfirstbyte.org', 'teachfirstbyte.org', 'curriculum.teachfirstbyte.org', 'firstbyte-env-deployed.tarjp9idec.us-east-1.elasticbeanstalk.com']
 
 # FirstByte settings
+ADMINS = [('Luke', 'lukesanantonio@gmail.com')]
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True

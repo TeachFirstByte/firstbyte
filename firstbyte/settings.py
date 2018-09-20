@@ -170,6 +170,26 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Logging in production - https://stackoverflow.com/questions/27552859/aws-elastic-beanstalk-logging-with-python-django
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/opt/python/log/firstbyte-app.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
 # Uploaded files
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_DEFAULT_ACL = 'public-read'

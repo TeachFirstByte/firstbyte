@@ -26,7 +26,7 @@ def get_lessonplan(request, pk):
         'materials': lessonplan.materials,
         'web_only': lessonplan.web_only,
         'feedback_enabled': lessonplan.feedback_enabled,
-        'notify_of_feedback': lessonplan.notify_of_feedback,
+        # 'notify_of_feedback': lessonplan.notify_of_feedback,
         'draft': lessonplan.draft,
         'last_modified_time': lessonplan.last_modified_time,
         'create_time': lessonplan.create_time,
@@ -49,7 +49,7 @@ def get_lessonplan(request, pk):
         for feedback in lessonplan.feedback_set:
             feedbacks.append({
                 'author': feedback.author.id,
-                'notify_author_of_changes': feedback.notify_author_of_changes,
+                # 'notify_author_of_changes': feedback.notify_author_of_changes,
                 'overall_rating': feedback.overall_rating,
                 'comments': feedback.comments,
                 'create_time': feedback.create_time,

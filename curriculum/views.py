@@ -179,7 +179,7 @@ class LessonPlanView(View):
                 author=request.user,
                 overall_rating=form.cleaned_data['rating'],
                 comments=form.cleaned_data['comments'],
-                notify_author_of_changes=form.cleaned_data['notify_author_of_changes']
+                #notify_author_of_changes=form.cleaned_data['notify_author_of_changes']
             )
             feedback.save()
 

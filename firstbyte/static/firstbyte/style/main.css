@@ -89,6 +89,10 @@ footer a:hover {
     margin-bottom: 5em;
 }
 
+.landing-section:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
 .lr-droparea {
     height: 100%;
     min-height: 10em;

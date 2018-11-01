@@ -109,3 +109,8 @@ footer a:hover {
 .nav-link:hover {
     color: rgba(255, 255, 255, 1) !important;
 }
+
+.iframe-center {
+    display: inline-block !important;
+    text-align: center !important;
+}

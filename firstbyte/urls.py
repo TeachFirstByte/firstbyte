@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, get_involved
+from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, get_involved
 
 urlpatterns = [
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path('loaner-program/', loaner_program, name='loaner-program'),
     path('get-involved/', get_involved, name='get-involved'),
     path('volunteer/', volunteer_redirect, name='volunteer-redirect'),
+    path('media-release-form/', media_release_form_redirect, name='media-release-form'),
     path('', include('curriculum.urls')),
 ]

@@ -20,22 +20,30 @@ body {
     flex-wrap: wrap;
 }
 
+a {
+    font-weight: bold;
+}
+
 footer {
     width: 100%;
     font-size: .9rem;
 }
 .footer-bg-container {
     width: 100%;
+    padding: 2rem 0;
 }
 
 .footer-nav-header {
     font-size: 1.1rem;
     font-weight: bold;
+    padding-top: 1.1rem;
+    padding-bottom: .2rem;
 }
 
 footer a {
     color: inherit;
     text-decoration: none;
+    font-weight: 500;
 }
 
 footer a:hover {

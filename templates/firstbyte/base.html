@@ -19,18 +19,18 @@
     {% block ga %}{% if GA_TRACKING_ID %}{% include 'firstbyte/ga.html' %}{% endif %}{% endblock %}
 </head>
 <body class="d-flex flex-column">
-    <nav class="sticky-top navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="sticky-top navbar navbar-expand-md navbar-dark bg-dark py-3">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <a class="navbar-brand py-0" href="http://teachfirstbyte.org/" >
-            <img class="py-0" src="{% static "firstbyte/img/logo.png" %}" height="40px" />
+            <img class="py-0 mr-3" src="{% static "firstbyte/img/logo.png" %}" height="40px" />
         </a>
 
         <div id="navbar-links" class="collapse navbar-collapse">
             <div class="navbar-nav">
-                <a class="nav-item nav-link mx-2" href={% url 'index' %}>About FirstByte</a>
+                <a class="nav-item nav-link mx-2" href={% url 'index' %}>About</a>
                 <a class="nav-item nav-link mx-2" href={% url 'get-involved' %}>Get Involved</a>
                 <a class="nav-item nav-link mx-2" href={% url 'list-lesson-plan' %}>Find Curriculum</a>
                 <a class="nav-item nav-link mx-2" href={% url 'create-lesson-plan' %}>Submit Curriculum</a>
@@ -44,18 +44,18 @@
                     <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign out</a>
                 {% else %}
                     <a class="nav-item nav-link mx-2" href="{% url 'account_login' %}">Log in</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'account_signup'%}">Sign up</a>
+                    <a class="nav-item nav-link mx-1" href="{% url 'account_signup'%}">Sign up</a>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-    <main class="flex-fill d-flex flex-column align-items-stretch py-3">
+    <main class="flex-fill d-flex flex-column align-items-stretch">
         {% block outer_content %}{% block content %}{% endblock %}{% endblock %}
     </main>
 
     <footer>
-        <div class="footer-bg-container bg-green text-light pt-3">
+        <div class="footer-bg-container bg-green text-light">
             <div class="container">
                 <div class="row d-flex justify-content-between">
                     <div class="col-sm">

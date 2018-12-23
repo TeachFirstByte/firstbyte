@@ -4,20 +4,23 @@
 {% block head %}
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container pt-4 my-5">
         <div class="row">
-            <div class="col-sm">
-                <h1>Log in</h1>
+            <div class="col-sm mr-5">
+                <h2 class="pb-3">Log in</h2>
                 {% crispy form form.helper %}
             </div>
-            <div class="col-sm">
-                <h1 class="text-center">Need an account?</h1>
+            <div class="col-sm ml-5">
+                <h2 class="pb-3">Need an account?</h2>
                 <ul>
-                    <li>Join fellow teachers in the Greater Boston Area.</li>
+                    <li>Connect with fellow educators in Boston and beyond.</li>
                     <li>Submit your own curriculum.</li>
-                    <li>Improve existing lesson plans by providing your feedback.</li>
+                    <li>Leave feedback on others' lesson plans.</li>
+                    <li>Be the first to know about new events and materials.</li>
                 </ul>
-                <h3 class="text-center"><a href="{% url 'account_signup' %}">Sign up here</a></h3>
+                <div class="text-center pt-3 my-5">
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary"><h4 class="m-0 p-3">Sign Up</h4></a>
+                </div>
             </div>
         </div>
     </div>

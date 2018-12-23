@@ -1,6 +1,6 @@
 {% extends "firstbyte/base.html" %}
 {% load static %}
-{% block title %}Frequently Asked Question{% endblock %}
+{% block title %}Frequently Asked Questions{% endblock %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'landing/style/landing.css' %}" />
     <link href="https://fonts.googleapis.com/css?family=Tinos:400i" rel="stylesheet">
@@ -9,21 +9,25 @@
     <meta name="description" content="Frequently Asked Questions about FirstByte."/>
 {% endblock %}
 {% block content %}
+<div class="jumbotron jumbotron-fluid bg-green">
+        <div class="container text-center text-white">
+        <h1 class="display-4">Frequently Asked Questions</h1>
+    </div>
+</div>
 <div class="container">
-    <h2 class="display-4 mb-5">Frequently Asked Questions</h2>
-    <h3 class="font-weight-bold">I don’t have a lot of experience with tech… can I do this?</h3>
+    <h3 class="question display-5 mt-3">I don’t have a lot of experience with tech… can I do this?</h3>
     <p class="answer">
         Yes! FirstByte’s goal is to bring together educators of all backgrounds, and make technology more accessible for teachers and their students. We encourage curriculum authors to include guides for educators, to help clarify and expand on the information in notes and slideshows and provide solutions for classwork problems.
     </p>
-    <h3 class="question font-weight-bold">Can you provide the electronics supplies for the curricula?</h3>
+    <h3 class="question display-5 mt-5">Do you provide the electronics supplies that go with your curricula?</h3>
     <p class="answer">
-        Loaner program info.
+        Yes! We own various technology kits that you can borrow for free. Learn more about our loaner program <a href="loaner_program.html">here</a>.
     </p>
-    <h3 class="question font-weight-bold">Who owns the curricula on FirstByte?</h3>
+    <h3 class="question display-5 mt-5">Who owns the curricula on FirstByte?</h3>
     <p class="answer">
         When you share your curricula on teachfirstbyte.org, you remain the owner of your content. Your material will be licensed under a Creative Commons license, which allows others to freely share and adapt your curricula as long as they give you credit and do not use the material for commercial purposes. View our <a href="{% url 'privacy-policy' %}">Privacy Policy</a>.
     </p>
-    <h3 class="question font-weight-bold">What can/can’t I do with curricula I find on FirstByte?</h3>
+    <h3 class="question display-5 mt-5">What can/can’t I do with curricula I find on FirstByte?</h3>
     <div class="answer">
         <p>All curricula on teachfirstbyte.org is licensed under a Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0).</p>
         <p>Under the following terms:

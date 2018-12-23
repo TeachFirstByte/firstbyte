@@ -46,14 +46,14 @@ class UserRegistrationForm(account_forms.SignupForm):
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Div(
-                Div(HTML('<h2>Required Information</h2>'), 'first_name', 'last_name', 'email', 'password1', 'password2', css_class='col'),
-                Div(HTML('<h2>Optional Information</h2>'), 'location', 'school', 'grade_level', 'proficiency_description', 'wants_email', css_class='col'),
+                Div(HTML('<h2 class="py-3">Required Information</h2>'), 'first_name', 'last_name', 'email', 'password1', 'password2', css_class='col mr-5'),
+                Div(HTML('<h2 class="py-3">Optional Information</h2>'), 'location', 'school', 'grade_level', 'proficiency_description', 'wants_email', css_class='col mr-5'),
                 css_class='row'
             ),
             Div(
                 Div(
                     Submit('submit', 'Create Account'),
-                    css_class='col text-center'
+                    css_class='col text-center mt-5'
                 ),
                 css_class='row'
             )
@@ -85,11 +85,11 @@ class LoginForm(account_forms.LoginForm):
             Div('login', 'password'),
             Div(
                 Div('remember', css_class='col'),
-                HTML('<a class="col text-right" href="{% url \'account_reset_password\' %}">Forgot password?</a>'),
+                HTML('<a class="col text-right font-weight-normal" href="{% url \'account_reset_password\' %}">Forgot password?</a>'),
                 css_class='row'
             ),
             Div(
                 Submit('submit', 'Log in'),
-                css_class='text-center'
+                css_class='text-center mt-4'
             )
         )

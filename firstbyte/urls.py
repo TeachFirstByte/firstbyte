@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, get_involved
+from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey, get_involved
 
 urlpatterns = [
 
@@ -29,5 +29,12 @@ urlpatterns = [
     path('get-involved/', get_involved, name='get-involved'),
     path('volunteer/', volunteer_redirect, name='volunteer-redirect'),
     path('media-release-form/', media_release_form_redirect, name='media-release-form'),
+    path('photo-release/', media_release_form_redirect),
+    path('inventory/', inventory_form_redirect),
+    path('student-feedback/', student_feedback_form_redirect),
+    path('pre-survey/', teacher_pre_survey_redirect),
+    path('checkin-1/', teacher_check_in_1_redirect),
+    path('checkin-2/', teacher_check_in_2_redirect),
+    path('post-survey/', teacher_post_survey),
     path('', include('curriculum.urls')),
 ]

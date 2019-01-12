@@ -26,8 +26,10 @@ urlpatterns = [
     path('frequently-asked-questions/', faq, name='faq'),
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     path('loaner-program/', loaner_program, name='loaner-program'),
-    path('get-involved/', get_involved, name='get-involved'),
-    path('volunteer/', volunteer_redirect, name='volunteer-redirect'),
+    # Temporary swap these endpoints so that our flyer gets them to the
+    # get involved page (which we agreed was more newbie-friendly).
+    path('volunteer/', get_involved, name='get-involved'),
+    path('get-involved/', volunteer_redirect, name='volunteer-redirect'),
     path('media-release-form/', media_release_form_redirect, name='media-release-form'),
     path('photo-release/', media_release_form_redirect),
     path('inventory/', inventory_form_redirect),

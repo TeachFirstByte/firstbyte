@@ -131,7 +131,7 @@ footer a:hover {
 .nav-link {
     color: rgba(255, 255, 255, .75) !important;
     font-weight: 500;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .nav-link:hover {

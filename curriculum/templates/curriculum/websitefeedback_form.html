@@ -2,7 +2,19 @@
 {% load crispy_forms_tags %}
 {% block title %}Submit Website Feedback{% endblock %}
 {% block content %}
-    <h1>Submit website feedback</h1>
-    <p>If you would rather give feedback on a specific lesson plan, this is not the place to do it</p>
-    {% crispy form form.helper %}
+    <div class="bg-green">
+        <div class="container text-center text-white">
+            <table style="height:15vw; width: 100%;">
+            <tbody><tr>
+                <td class="align-middle">
+                    <h1 class="display-3 font-weight-bold">Submit Website Feedback</h1>
+                </td>
+            </tr></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container my-5">
+        <p class="mb-5"><b>Please note:</b> this form is for feedback about the website teachfirstbyte.org, not about specific curricula.</p>
+        {% crispy form form.helper %}
+    </div>
 {% endblock %}

@@ -9,12 +9,20 @@
     <meta name="description" content="Frequently Asked Questions about FirstByte."/>
 {% endblock %}
 {% block content %}
-<div class="jumbotron jumbotron-fluid bg-green">
-        <div class="container text-center text-white">
-        <h1 class="display-4">Frequently Asked Questions</h1>
+<div class="container-full-bg" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('{% static 'faq/faq.jpg' %}')">
+    <div class="container special text-center text-white">
+        <div class="jumbotron jumbotron-fluid no-bg">
+            <table style="height:30vw; width: 100%;">
+                <tbody><tr>
+                    <td class="align-middle">
+                        <h1 class="display-3 font-weight-bold">Frequently Asked Questions</h1>
+                    </td>
+                </tr></tbody>
+            </table>
+        </div>
     </div>
 </div>
-<div class="container">
+<div class="container mb-5">
     <h3 class="question display-5 mt-3">I don’t have a lot of experience with tech… can I do this?</h3>
     <p class="answer">
         Yes! FirstByte’s goal is to bring together educators of all backgrounds, and make technology more accessible for teachers and their students. We encourage curriculum authors to include guides for educators, to help clarify and expand on the information in notes and slideshows and provide solutions for classwork problems.

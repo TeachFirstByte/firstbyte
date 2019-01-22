@@ -11,6 +11,7 @@ from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from . import forms, models, mixins
+from firstbyte.views import slug_redirect_view
 from bootstrap.mixins import FormBootstrapErrorListMixin
 from bootstrap.errorlist import BootstrapErrorList
 
@@ -119,13 +120,6 @@ def update_lesson_plan_view(request, pk):
 
 class DeleteLessonPlanView(LoginRequiredMixin, mixins.MustOwnLessonPlanMixin, FormBootstrapErrorListMixin, DeleteView):
     success_url = reverse_lazy('list-lesson-plan')
-
-
-def slug_redirect_view(klass, to=None, permanent=True, *args, **kwargs):
-    def view_fn(request, pk):
-        obj = get_object_or_404(klass, id=pk)
-        return redirect(obj, *args, pk=pk, slug=obj.slug, permanent=permanent, **kwargs)
-    return view_fn
 
 
 class LessonPlanView(View):

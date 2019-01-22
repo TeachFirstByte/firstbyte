@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#436d4e" />
     {% block meta %}{% endblock %}
 
-    <title>{% block title %}{% endblock %} - FirstByte Curriculum</title>
+    <title>{% block title %}{% endblock %} - FirstByte</title>
 
     {% load static %}
 
@@ -33,7 +33,7 @@
                 <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'get-involved' %}">Get Involved</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find Curriculum</a>
-                <a class="nav-item nav-link mx-2" href="{% url 'create-lesson-plan' %}">Submit Curriculum</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'create-lesson-plan' %}">Share Curriculum</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
             </div>
 
@@ -61,8 +61,8 @@
                     <div class="col-sm">
                         <h6 class="footer-nav-header mb-0">MENU</h6>
                         <ul class="list-unstyled mb-2">
-                            <li><a href="{% url 'create-lesson-plan' %}">Share curricula</a></li>
                             <li><a href="{% url 'list-lesson-plan' %}">Find curricula</a></li>
+                            <li><a href="{% url 'create-lesson-plan' %}">Share curricula</a></li>
                             <li><a href="{% url 'loaner-program' %}">Borrow materials</a></li>
                             <li><a href="{% url 'get-involved' %}">Events</a></li>
                         </ul>

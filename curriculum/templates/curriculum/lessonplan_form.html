@@ -1,5 +1,5 @@
 {% extends "firstbyte/base.html" %}
-{% block title %}Create a Lesson Plan{% endblock %}
+{% block title %}Upload Curriculum{% endblock %}
 {% block head %}
     {% load static %}
     <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
@@ -13,13 +13,17 @@
 {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container">
+    <div class="container-fluid bg-primary py-5 text-center text-white">
+        <h1 class="display-4 font-weight-bold">Upload Curriculum</h1>
+        <p class="lead">Share lesson plans with other educators</p>
+    </div>
+    <div class="container my-5">
         <div class="row">
             <div class="col">
-                <h4>Lesson Plan Information</h4>
+                <h4>Curriculum Information</h4>
             </div>
             <div class="col">
-                <h4>Upload supporting files</h4>
+                <h4>Upload Supporting Files</h4>
             </div>
         </div>
         <div class="row">
@@ -27,7 +31,7 @@
                 {% crispy form form.helper %}
             </div>
             <div class="col-sm d-flex flex-column">
-                <span class="lr-additional-clickarea">Attach materials by dragging &amp; dropping or clicking in the box below</span>
+                <span class="lr-additional-clickarea mb-3">Attach materials by dragging &amp; dropping or clicking in the box below.</span>
                 <div class="lr-droparea">
                     <input type="file" class="lr-file-input" id="file-select" multiple />
                     <div id="lesson-resources" class="flex-fill">
@@ -43,12 +47,12 @@
                 </div>
             </div>
         </div>
+        <p class="lesson-submission-warning"></p>
+            Please see our <a href="{% url 'faq' %}">FAQ</a> for more information.
+        </p>
         <div class="row w-100 text-center">
             <div class="col text-center">
-                <p class="lesson-submission-warning"></p>
-                    Please see our <a href="{% url 'faq' %}">FAQ</a> for more information.
-                </p>
-                <input type="submit" class="btn btn-primary" for="lesson-plan-form" id="submit-lesson-plan" value="Submit Lesson Plan"/>
+                <input type="submit" class="btn btn-primary mt-3" for="lesson-plan-form" id="submit-lesson-plan" value="Upload Curriculum"/>
             </div>
         </div>
     </container>

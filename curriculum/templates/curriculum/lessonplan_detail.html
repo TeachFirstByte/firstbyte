@@ -12,7 +12,7 @@
     <meta name="description" content="{{ lessonplan.summary }}" />
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container my-5">
         {% if lessonplan.draft %}
             <div class="row">
                 <div class="col">
@@ -29,7 +29,7 @@
                         <h1 class="display-4 flex-fill">{{ lessonplan.title }}</h1>
                         {% if user == lessonplan.owner or user.is_superuser %}
                         <div class="btn-group" role="group" aria-label="Actions for lesson plan author">
-                            <a href="{% url 'update-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-info">Update</a>
+                            <a href="{% url 'update-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-info">Edit</a>
                             <a href="{% url 'delete-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-danger">Delete</a>
                         </div>
                         {% endif %}
@@ -37,38 +37,38 @@
                     <p class="lead">{{ lessonplan.summary }}</p>
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <div>
-                            <i class="far fa-calendar-alt"></i>
+                            <i class="far fa-calendar-alt mr-1"></i>
                             <span class="sr-only">In-class timeline: </span>
                             <span>{% number_to_words lessonplan.num_classes True %} {% format_duration lessonplan.single_class_time %} classes</span>
                         </div>
                         <div>
-                            <i class="fas fa-search"></i>
+                            <i class="far fa-clock mr-1"></i>
                             <span class="sr-only">Preparation timeline: </span>
                             <span>{% format_duration lessonplan.total_prep_time %} total prep time</span>
                         </div>
                         <div>
-                            <i class="fas fa-thermometer-half"></i>
+                            <i class="fas fa-signal mr-1"></i>
                             <span class="sr-only">Works best for </span>
                             <span>{{ lessonplan.get_grade_level_display }}</span>
                         </div>
                         {% if lessonplan.web_only %}
                         <div>
-                            <i class="fab fa-chrome"></i>
+                            <i class="fab fa-chrome mr-1"></i>
                             <span>Chromebook Compatible</span>
                         </div>
                         {% endif %}
                     </div>
                 </div>
                 <div class="list-group-item">
-                    <h1 class="lead">Materials:</h1>
+                    <h1 class="lead">Materials</h1>
                     <p>{{ lessonplan.materials }}</p>
-                    <h1 class="lead">Digital Files:</h1>
+                    <h1 class="lead">Digital Files</h1>
                     {% if lessonplan.resources.all %}
                         {% for resource in lessonplan.resources.all %}
                             {% spaceless %}
                                 <p>
                                     <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
-                                    <span> ({{ resource.get_semantic_type_display }})</span>
+                                    <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
                                 </p>
                             {% endspaceless %}
                         {% endfor %}
@@ -86,9 +86,9 @@
                             {% endif %}
                                     {{ lessonplan.owner.first_name }}
                             {% if not lessonplan.owner.profile.hide_profile %}
-                                </a>
+                            </a>
                             {% endif %}
-                            from {{ lessonplan.owner.profile.school }}</span>
+                             from {{ lessonplan.owner.profile.school }}</span>
                         </span>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                     </div>
                 {% else %}
                     <div class="list-group-item">
-                        <p class="my-0 lead">This lesson plan has not been rated yet</p>
+                        <p class="my-0 lead">This lesson plan has not been rated yet.</p>
                     </div>
                 {% endif %}
                 <div class="list-group-item">

@@ -46,6 +46,14 @@ class LessonResource(models.Model):
 
     create_time = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        semantic_type_str = self.FILE_TYPES[0][1]
+        for file_type in self.FILE_TYPES:
+            if file_type[0] == self.semantic_type:
+                semantic_type_str = file_type[1]
+                break
+        return '(LessonResource ' + str(self.id) + ') ' + self.name + ' (' + semantic_type_str + ')'
+
 
 class LessonPlan(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
@@ -89,6 +97,9 @@ class LessonPlan(models.Model):
             'pk': self.id,
             'slug': self.slug
         })
+
+    def __str__(self):
+        return '(LessonPlan) ' + self.title
 
 
 class FiveStarRatingField(models.SmallIntegerField):

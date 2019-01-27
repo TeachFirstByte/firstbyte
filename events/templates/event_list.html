@@ -63,54 +63,34 @@
     </section>
     <section class="mb-6">
         <div class="container">
-            {% if upcoming_events %}
-                <div class="row">
-                    <div class="col">
-                        <h2>Upcoming Events</h2>
-                    </div>
-                </div>
-                {% for event in upcoming_events %}
+            {% for section_title, event_list in event_set.items %}
+                {% if section_title %}
                     <div class="row">
                         <div class="col">
-                            <div class="card">
-                                {% if event.event_image_path %}
-                                    <img class="card-image-top event-image" src="{{ event.event_image_path }}" />
-                                {% endif %}
-                                <div class="card-body">
-                                    <h3 class="card-title">{{ event.title }}</h3>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ event.start_datetime|date:"DATETIME_FORMAT" }} </h6>
-                                    <div class="card-text mb-2">{{ event.blurb }}</div>
-                                    <a href="{{ event.get_absolute_url }}" class="btn btn-primary">See details</a>
+                            <h2 class="display-3 text-center">{{ section_title }}</h2>
+                        </div>
+                    </div>
+                    {% for event in event_list %}
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    {% if event.event_image_path %}
+                                        <img class="card-image-top event-image" src="{{ event.event_image_path }}" />
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{ event.title }}</h3>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ event.start_datetime|date:"DATETIME_FORMAT" }} </h6>
+                                        <div class="d-flex flex-row justify-content-between align-items-center mb-2">
+                                            <p class="card-text my-0 py-0">{{ event.blurb }}</p>
+                                            <a href="{{ event.get_absolute_url }}" class="btn btn-primary">See details</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            {% if past_events %}
-                <div class="row">
-                    <div class="col">
-                        <h2>Past Events</h2>
-                    </div>
-                </div>
-                {% for event in past_events %}
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                {% if event.event_image_path %}
-                                    <img class="card-image-top event-image" src="{{ event.event_image_path }}" />
-                                {% endif %}
-                                <div class="card-body">
-                                    <h3 class="card-title">{{ event.title }}</h3>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ event.start_datetime|date:"DATETIME_FORMAT" }} </h6>
-                                    <div class="card-text mb-2">{{ event.blurb }}</div>
-                                    <a href="{{ event.get_absolute_url }}" class="btn btn-primary">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         </div>
     </section>
 {% endblock %}

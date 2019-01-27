@@ -14,9 +14,14 @@ def event_list(request):
         else:
             past_events.append(event)
 
+    event_set = {}
+    if len(upcoming_events) > 0:
+        event_set['Upcoming Events'] = upcoming_events
+    if len(past_events) > 0:
+        event_set['Past Events'] = past_events
+
     return render(request, 'event_list.html', {
-        'upcoming_events': upcoming_events,
-        'past_events': past_events,
+        'event_set': event_set,
     })
 
 def event_detail(request, pk, slug):

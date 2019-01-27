@@ -23,7 +23,6 @@ jmespath==0.9.3
 jsonschema==2.6.0
 oauthlib==3.0.0
 pathspec==0.5.5
-pkg-resources==0.0.0
 python-dateutil==2.7.5
 python3-openid==3.1.0
 pytz==2018.9

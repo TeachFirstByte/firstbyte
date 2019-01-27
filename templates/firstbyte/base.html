@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
 
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+
     <link rel="stylesheet" href="{% static 'firstbyte/style/main.css' %}" />
     {% block head %}{% endblock %}
     {% block ga %}{% if GA_TRACKING_ID %}{% include 'firstbyte/ga.html' %}{% endif %}{% endblock %}

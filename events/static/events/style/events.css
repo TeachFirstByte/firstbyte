@@ -1,0 +1,5 @@
+.event-image {
+    max-height: 10em;
+    max-width: auto;
+    background-size: contain;
+}

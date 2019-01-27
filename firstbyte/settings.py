@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'curriculum.apps.CurriculumConfig',
     'landing.apps.LandingConfig',
+    'events.apps.EventsConfig',
     'webpack_loader',
     'allauth',
     'allauth.account',

@@ -1,8 +1,11 @@
 {% extends 'firstbyte/base.html' %}
 {% load static %}
 {% block title %}Get Involved{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'events/style/events.css' %}" />
+{% endblock %}
 {% block meta %}
-    <meta name="description" content="Get involved / volunteer with FirstByte." />
+    <meta name="description" content="Get involved with FirstByte." />
 {% endblock %}
 {% block content %}
     <div class="container-full-bg" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('{% static 'volunteer/team.jpg' %}')">
@@ -19,7 +22,7 @@
             </div>
         </div>
     </div>
-    <section class="pt-4 mb-6">
+    <section class="pt-4">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-4">
@@ -52,15 +55,62 @@
                     <div class="col">
                         <p>Are you a <b>college student</b> passionate about furthering technology education for the next generation? Join our team of volunteers making lesson plans, supporting local educators, building our website, and hosting events.</p>
                         <p>Are you an <b>educator</b> looking for exciting ways to incorporate technology curriculum into your K-12 classroom? Browse our collection of curricula, email us to borrow technology kits, and help out others by posting your own lesson plans!</p>
-                        <p>Check out the calendar below to view upcoming events.</p>
-                    </div>    
+                        <p>See below for our upcoming & past events.</p>
+                    </div>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col iframe-center">
-                    <iframe class="iframe-center" src="https://calendar.google.com/calendar/b/3/embed?title=FirstByte%20Calendar&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=400&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ujhji5hen6eg52e44444fqqjhg%40group.calendar.google.com&amp;color=%232952A3&amp;ctz=America%2FNew_York" style="border-width:0" width="600" height="400" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </section>
+    <section class="mb-6">
+        <div class="container">
+            {% if upcoming_events %}
+                <div class="row">
+                    <div class="col">
+                        <h2>Upcoming Events</h2>
+                    </div>
                 </div>
-            </div>
+                {% for event in upcoming_events %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                {% if event.event_image_path %}
+                                    <img class="card-image-top event-image" src="{{ event.event_image_path }}" />
+                                {% endif %}
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ event.title }}</h3>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ event.start_datetime|date:"DATETIME_FORMAT" }} </h6>
+                                    <div class="card-text mb-2">{{ event.blurb }}</div>
+                                    <a href="{{ event.get_absolute_url }}" class="btn btn-primary">See details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if past_events %}
+                <div class="row">
+                    <div class="col">
+                        <h2>Past Events</h2>
+                    </div>
+                </div>
+                {% for event in past_events %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                {% if event.event_image_path %}
+                                    <img class="card-image-top event-image" src="{{ event.event_image_path }}" />
+                                {% endif %}
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ event.title }}</h3>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ event.start_datetime|date:"DATETIME_FORMAT" }} </h6>
+                                    <div class="card-text mb-2">{{ event.blurb }}</div>
+                                    <a href="{{ event.get_absolute_url }}" class="btn btn-primary">See details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 {% endblock %}

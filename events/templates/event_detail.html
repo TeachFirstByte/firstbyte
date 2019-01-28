@@ -1,3 +1,28 @@
 {% extends 'firstbyte/base.html' %}
+{% load static %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'events/style/events.css' %}" />
+{% endblock %}
+{% block meta %}
+    <meta name="description" content="{{ event.blurb }}" />
+{% endblock %}
 {% block content %}
+    <div class="container-full-bg" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('{{ event.event_image_path }}')">
+        <div class="container special text-center text-white">
+            <div class="jumbotron jumbotron-fluid no-bg">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="display-3 font-weight-bold">{{ event.title }}</h1>
+                        <p class="lead">{{ event.blurb }}</p>
+                        <p class="lead">{{ event.start_datetime|date:"DATETIME_FORMAT" }} - {{ event.end_datetime|date:"TIME_FORMAT" }}</p>
+                    </div>
+                    <div class="col">
+                        {{ event.description }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

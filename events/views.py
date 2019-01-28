@@ -29,4 +29,6 @@ def event_detail(request, pk, slug):
     if slug != obj.slug:
         # Replace old slug with correct one
         return redirect(obj.get_absolute_url(), permanent=True)
-    return render(request, 'event_detail.html')
+    return render(request, 'event_detail.html', {
+        'event': obj
+    })

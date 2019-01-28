@@ -14,6 +14,10 @@ class Event(models.Model):
     def slug(self):
         return slugify(self.title)
 
+    @property
+    def end_datetime(self):
+        return self.start_datetime + self.duration
+
     def get_absolute_url(self):
         return reverse('detail-event', kwargs={
             'pk': self.id,

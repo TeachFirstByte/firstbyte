@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
-    event_image_path = models.CharField(max_length=256)
+    event_image_path = models.CharField(max_length=256, blank=True)
     start_datetime = models.DateTimeField()
     duration = models.DurationField()
     blurb = models.TextField()

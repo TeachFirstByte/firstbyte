@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
 
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+
     <link rel="stylesheet" href="{% static 'firstbyte/style/main.css' %}" />
     {% block head %}{% endblock %}
     {% block ga %}{% if GA_TRACKING_ID %}{% include 'firstbyte/ga.html' %}{% endif %}{% endblock %}
@@ -31,7 +33,7 @@
         <div id="navbar-links" class="collapse navbar-collapse">
             <div class="navbar-nav">
                 <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
-                <a class="nav-item nav-link mx-2" href="{% url 'get-involved' %}">Get Involved</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find Curriculum</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'create-lesson-plan' %}">Share Curriculum</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
@@ -64,7 +66,7 @@
                             <li><a href="{% url 'list-lesson-plan' %}">Find curricula</a></li>
                             <li><a href="{% url 'create-lesson-plan' %}">Share curricula</a></li>
                             <li><a href="{% url 'loaner-program' %}">Borrow materials</a></li>
-                            <li><a href="{% url 'get-involved' %}">Events</a></li>
+                            <li><a href="{% url 'list-event' %}">Events</a></li>
                         </ul>
                         <h6 class="footer-nav-header mb-0">USER</h6>
                         <ul class="list-unstyled mb-2">

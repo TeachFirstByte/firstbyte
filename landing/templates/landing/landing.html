@@ -9,17 +9,30 @@
     <meta name="description" content="FirstByte strives to provide educators with the resources they need to bring computer science and engineering into their classrooms."/>
 {% endblock %}
 {% block content %}
-<section class="landing-section my-5 pt-5">
+<section>
+    <div class="container-full-bg" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5) ), url('{% static 'landing/img/women_in_tech.jpg' %}')">
+        <div class="container special text-center text-white">
+            <div class="py-4">
+                <table class="pt-5" style="height:30vw; width: 100%;">
+                    <tbody><tr>
+                        <td class="align-bottom">
+                            <h1 class="display-3 font-weight-bold">Welcome to FirstByte!</h1>
+                            <p class="lead">Get your first taste of teaching tech.</p>
+                        </td>
+                    </tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section></section>
+<section class="landing-section my-3 pt-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center mb-5">
                 <h2 class="text-uppercase font-weight-bold">Our mission</h2>
                 <p class="text-muted font-italic font-serif quote-text">
-                    <br>FirstByte strives to provide educators with the resources they need to bring computer science
-                    and engineering into their classrooms. Our one-on-one support lets teachers adapt each lesson
-                    to fit their own unique classroom. We are also building an online library of engaging curricula
-                    and loaning out technology kits for free so that every classroom has the opportunity to learn about
-                    computer science and engineering, regardless of budget or technical background.
+                    <br>FirstByte provides educators with the materials, curricula, and support to teach computer science and engineering in their classrooms, regardless of budget or technical background.
                 </p>
             </div>
         </div>
@@ -134,8 +147,8 @@
                 <p class="text-muted font-italic font-serif quote-text">We are a team of undergraduate students at Northeastern University.</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 offset-md-2">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
                 <div class="text-center mb-5 team-member">
                     <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/kasandra.jpg' %}" alt="">
                     <h4 class="font-weight-bold">Kasandra Yee</h4>
@@ -149,9 +162,16 @@
                     <p class="text-muted mt-0">Computer Science | 2020</p>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/brenna.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Brenna Singer</h4>
+                    <p class="text-muted mt-0">Bioengineering | 2021</p>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 offset-md-2">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
                 <div class="text-center mb-5 team-member">
                     <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/luke.jpg' %}" alt="">
                     <h4 class="font-weight-bold">Luke San Antonio Bialecki</h4>
@@ -160,9 +180,39 @@
             </div>
             <div class="col-md-4">
                 <div class="text-center mb-5 team-member">
-                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/brenna.jpg' %}" alt="">
-                    <h4 class="font-weight-bold">Brenna Singer</h4>
-                    <p class="text-muted mt-0">Bioengineering | 2021</p>
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/bailey.jpeg' %}" alt="">
+                    <h4 class="font-weight-bold">Bailey Ritchie</h4>
+                    <p class="text-muted mt-0">Chemical Engineering | 2021</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/julian.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Julian Perez</h4>
+                    <p class="text-muted mt-0">Computer Engineering | 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/laurel.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Laurel O'Malley</h4>
+                    <p class="text-muted mt-0">Industrial Engineering | 2022</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/minh.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Minh Truong</h4>
+                    <p class="text-muted mt-0">Mechanical Engineering | 2023</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/adeena.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Adeena Moghni</h4>
+                    <p class="text-muted mt-0">Bioengineering | 2022</p>
                 </div>
             </div>
         </div>

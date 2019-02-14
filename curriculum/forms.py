@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django import forms
 from django.urls import reverse
 from .models import LessonPlan, WebsiteFeedback
@@ -6,11 +7,46 @@ from accounts.models import GradeLevels
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field
 
+TIME_OPTIONS = (
+    (timedelta(minutes=0), '0:00'),
+    (timedelta(minutes=15), '0:15'),
+    (timedelta(minutes=30), '0:30'),
+    (timedelta(minutes=45), '0:45'),
+    (timedelta(hours=1), '1:00'),
+    (timedelta(hours=1, minutes=15), '1:15'),
+    (timedelta(hours=1, minutes=30), '1:30'),
+    (timedelta(hours=1, minutes=45), '1:45'),
+    (timedelta(hours=2), '2:00'),
+    (timedelta(hours=2, minutes=15), '2:15'),
+    (timedelta(hours=2, minutes=30), '2:30'),
+    (timedelta(hours=2, minutes=45), '2:45'),
+    (timedelta(hours=3), '3:00'),
+    (timedelta(hours=3, minutes=15), '3:15'),
+    (timedelta(hours=3, minutes=30), '3:30'),
+    (timedelta(hours=3, minutes=45), '3:45'),
+    (timedelta(hours=4), '4:00'),
+    (timedelta(hours=4, minutes=15), '4:15'),
+    (timedelta(hours=4, minutes=30), '4:30'),
+    (timedelta(hours=4, minutes=45), '4:45'),
+    (timedelta(hours=5), '5:00'),
+    (timedelta(hours=5, minutes=15), '5:15'),
+    (timedelta(hours=5, minutes=30), '5:30'),
+    (timedelta(hours=5, minutes=45), '5:45'),
+    (timedelta(hours=6), '6:00'),
+)
+
 class LessonPlanForm(forms.ModelForm):
     resource_ids = forms.CharField(required=False, widget=forms.HiddenInput)
     filetypes = forms.CharField(required=False, widget=forms.HiddenInput)
     filenames = forms.CharField(required=False, widget=forms.HiddenInput)
     files = forms.FileField(required=False, widget=forms.HiddenInput)
+
+    total_prep_time = forms.ChoiceField(
+        choices=TIME_OPTIONS, widget=forms.Select(attrs={'class': 'custom-select'})
+    )
+    single_class_time = forms.ChoiceField(
+        choices=TIME_OPTIONS, widget=forms.Select(attrs={'class': 'custom-select'})
+    )
 
     jsonResponse = forms.BooleanField(required=True, initial=False, widget=forms.HiddenInput)
 
@@ -59,12 +95,13 @@ class LessonPlanForm(forms.ModelForm):
 
     class Meta:
         model = LessonPlan
-        fields = ['title', 'grade_level', 'total_prep_time', 'num_classes',
-                  'single_class_time', 'summary', 'materials', 'web_only', 'feedback_enabled',
+        fields = ['title', 'grade_level', 'num_classes', 'summary',
+                  'total_prep_time', 'single_class_time',
+                  'materials', 'web_only', 'feedback_enabled',
                   'draft']
         widgets = {
             'summary': forms.Textarea(),
-            'materials': forms.Textarea(attrs={'rows': 5}),
+            'materials': forms.Textarea(attrs={'rows': 5})
         }
 
 

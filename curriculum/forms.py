@@ -42,10 +42,14 @@ class LessonPlanForm(forms.ModelForm):
     files = forms.FileField(required=False, widget=forms.HiddenInput)
 
     total_prep_time = forms.ChoiceField(
-        choices=TIME_OPTIONS, widget=forms.Select(attrs={'class': 'custom-select'})
+        choices=TIME_OPTIONS,
+        label='Total prep time (hh:mm)',
+        widget=forms.Select(attrs={'class': 'custom-select'})
     )
     single_class_time = forms.ChoiceField(
-        choices=TIME_OPTIONS, widget=forms.Select(attrs={'class': 'custom-select'})
+        choices=TIME_OPTIONS,
+        label='Single class time (hh:mm)',
+        widget=forms.Select(attrs={'class': 'custom-select'})
     )
 
     jsonResponse = forms.BooleanField(required=True, initial=False, widget=forms.HiddenInput)

@@ -193,8 +193,14 @@ $(function(e) {
         submissionPromise.then(function(response) {
             window.location.href = '/lesson-plans/' + response.id;
         }).catch(function(error) {
-            // Post this error for the user.
-            console.error(error);
+            var obj = JSON.parse(error.message)
+            for(var key in obj) {
+                if(obj.hasOwnProperty(key)) {
+                    var elem = $('[name="' + key +'"]')[0]
+                    var num_errors = obj[key].length
+                    elem.setCustomValidity(obj[key][num_errors - 1])
+                }
+            }
         });
     });
 });

@@ -96,7 +96,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
                 resolve(response.id);
             } else {
                 $(progress).removeClass('bg-info').addClass('bg-danger');
-                reject(response.err);
+                reject(response);
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -172,7 +172,7 @@ CurriculumClient.prototype.getLessonPlan = function(id, options) {
 
 function _rejectJqueryAjax(reject, errorThrown, textStatus) {
     if(defined(errorThrown)) {
-        reject(new Error(errorThrown + ' | ' + textStatus));
+        reject(new Error(textStatus));
     } else {
         reject(new Error(textStatus));
     }

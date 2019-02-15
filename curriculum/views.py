@@ -113,6 +113,8 @@ def update_lesson_plan_view(request, pk):
                 return JsonResponse({'id': lessonplan.id})
 
             return redirect(lessonplan.get_absolute_url())
+        else:
+            return JsonResponse(form.errors.get_json_data(), status=bad_request_status)
     else:
         form = forms.LessonPlanForm(instance=lessonplan)
 

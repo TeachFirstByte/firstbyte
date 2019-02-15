@@ -105,8 +105,8 @@ def update_lesson_plan_view(request, pk):
             lessonplan = form.save()
             lessonplan.resources.clear()
             for resource in resources:
-                lessonplan.resources.add(resource)
                 resource.save()
+                lessonplan.resources.add(resource)
 
             lessonplan.save()
             if form.cleaned_data['jsonResponse']:

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
+from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, events_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
 
 urlpatterns = [
 
@@ -29,6 +29,7 @@ urlpatterns = [
     # Temporary swap these endpoints so that our flyer gets them to the
     # get involved page (which we agreed was more newbie-friendly).
     path('get-involved/', volunteer_redirect, name='volunteer-redirect'),
+    path('volunteer/', events_redirect, name='events-redirect'),
     path('media-release-form/', media_release_form_redirect, name='media-release-form'),
     path('photo-release/', media_release_form_redirect),
     path('inventory/', inventory_form_redirect),

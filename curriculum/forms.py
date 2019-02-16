@@ -1,8 +1,9 @@
 from datetime import timedelta
+import json
 from django import forms
 from django.urls import reverse
 from .models import LessonPlan, WebsiteFeedback
-from .util import int_or_none
+from .util import int_or_false
 from accounts.models import GradeLevels
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field
@@ -86,16 +87,14 @@ class LessonPlanForm(forms.ModelForm):
         )
 
     def clean_resource_ids(self):
-        data = self.cleaned_data['resource_ids']
-        return [int_or_none(num) for num in data.split(',')]
+        data = json.loads(self.cleaned_data['resource_ids'])
+        return [int_or_false(num) for num in data]
 
     def clean_filetypes(self):
-        data = self.cleaned_data['filetypes']
-        return data.split(',')
+        return json.loads(self.cleaned_data['filetypes'])
 
     def clean_filenames(self):
-        data = self.cleaned_data['filenames']
-        return data.split(',')
+        return json.loads(self.cleaned_data['filenames'])
 
     class Meta:
         model = LessonPlan

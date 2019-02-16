@@ -87,12 +87,7 @@ def update_lesson_plan_view(request, pk):
 
             resources = []
             for index, id in enumerate(resource_ids):
-                if id is not None:
-                    resource = models.LessonResource.objects.get(id=id)
-                    resource.semantic_type = filetypes[index]
-                    resource.name = filenames[index]
-                    resources.append(resource)
-                else:
+                if not id:
                     file = files.pop(0)
                     resource = models.LessonResource(
                         owner=lessonplan.owner,
@@ -100,6 +95,11 @@ def update_lesson_plan_view(request, pk):
                         name=filenames[index],
                         file=file
                     )
+                    resources.append(resource)
+                else:
+                    resource = models.LessonResource.objects.get(id=id)
+                    resource.semantic_type = filetypes[index]
+                    resource.name = filenames[index]
                     resources.append(resource)
 
             lessonplan = form.save()

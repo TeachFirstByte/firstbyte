@@ -153,7 +153,7 @@ $(function(e) {
         var files = [];
         fileUpload.forEach(function(file, form) {
             var formData = new FormData(form);
-            resourceIds.push(formData.get('resourceId') || '')
+            resourceIds.push(formData.get('resourceId') || false);
             filetypes.push(formData.get('type'));
             filenames.push(formData.get('name'));
             files.push(file);
@@ -170,11 +170,11 @@ $(function(e) {
         // - Submit lesson plan and request a certain number of lesson resource slots, then upload those files individually and redirect via JS
 
         var lessonPlanFormData = new FormData(form);
-        lessonPlanFormData.append('resource_ids', resourceIds.join());
-        lessonPlanFormData.append('filetypes', filetypes.join());
+        lessonPlanFormData.append('resource_ids', JSON.stringify(resourceIds));
+        lessonPlanFormData.append('filetypes', JSON.stringify(filetypes));
 
         // Better make sure filenames don't have a comma, otherwise this will break badly.
-        lessonPlanFormData.append('filenames', filenames.join());
+        lessonPlanFormData.append('filenames', JSON.stringify(filenames));
 
         for(var i = 0; i < files.length; ++i) {
             lessonPlanFormData.append('files[]', files[i]);

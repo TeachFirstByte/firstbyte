@@ -45,8 +45,8 @@
                     <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>
                     <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
                 {% else %}
-                    <a class="nav-item nav-link mx-2" href="{% url 'account_login' %}">Log In</a>
-                    <a class="nav-item nav-link mx-1" href="{% url 'account_signup'%}">Sign Up</a>
+                    <a class="nav-item nav-link ml-2" href="{% url 'account_login' %}">Log In</a>
+                    <a class="nav-item nav-link ml-2" href="{% url 'account_signup'%}">Sign Up</a>
                 {% endif %}
             </div>
         </div>

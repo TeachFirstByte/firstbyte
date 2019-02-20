@@ -21,12 +21,12 @@
     {% block ga %}{% if GA_TRACKING_ID %}{% include 'firstbyte/ga.html' %}{% endif %}{% endblock %}
 </head>
 <body class="d-flex flex-column">
-    <nav class="sticky-top navbar navbar-expand-md navbar-dark bg-dark py-3">
+    <nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="navbar-brand py-0" href="http://teachfirstbyte.org/" >
+        <a class="navbar-brand py-0 d-lg-none d-xl-block" href="http://teachfirstbyte.org/" >
             <img class="py-0 mr-3" src="{% static 'firstbyte/img/logo.png' %}" height="40px" />
         </a>
 
@@ -43,10 +43,10 @@
                 {% load account %}
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign out</a>
+                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
                 {% else %}
-                    <a class="nav-item nav-link mx-2" href="{% url 'account_login' %}">Log in</a>
-                    <a class="nav-item nav-link mx-1" href="{% url 'account_signup'%}">Sign up</a>
+                    <a class="nav-item nav-link ml-2" href="{% url 'account_login' %}">Log In</a>
+                    <a class="nav-item nav-link ml-2" href="{% url 'account_signup'%}">Sign Up</a>
                 {% endif %}
             </div>
         </div>

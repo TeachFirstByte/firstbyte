@@ -1,0 +1,72 @@
+= FirstByte
+
+FirstByte provides educators with the materials, curricula, and support to
+teach computer science and engineering in their classrooms, regardless of budget
+or technical background.
+
+== FirstByte's Website
+
+Reachable at https://teachfirstbyte.org/. The FirstByte Website uses the Django
+framework, Jinja templates, Bootstrap CSS, and a little JQuery.
+
+=== Setup
+
+Software & Dependencies:
+
+. Install Python 3, Node and NPM.
+
+Start by downloading the repository and setting up a virtual environment.
+
+    $ git clone git@github.com:lukesanantonio/firstbyte.git
+    $ python -m venv env
+    $ . env/bin/activate
+    $ cd firstbyte
+
+Then install python dependencies (including Django):
+
+    $ pip install -r requirements.txt
+
+Django is primarily configured via the link:firstbyte/settings.py[settings.py]
+file. The file checked into the repo is ready for production (sans a few
+private values that are deferred to environment variables), so we need to add a
+file for development. Create a new file in the same directory as the settings
+file called `dev_settings.py` and make it contain the following:
+
+```
+# Show debug info
+DEBUG = True
+CRISPY_FAIL_SILENTLY = False
+# "Send" email text to the terminal used to start server
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Upload files to the local directory
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+```
+
+This project also uses webpack for preparing Javascript assets for ES6
+support, minification, etc. Use this command to install all required Node
+dependencies.
+
+    $ npm install
+
+I like to use NPX to launch webpack:
+
+    $ npm install -g npx
+    $ npx webpack # Run this once
+    $ npx webpack --watch # Run this if you're actively developed JS files.
+
+You can also call the script directly:
+
+    $ node node_modules/webpack/bin/webpack.js
+    $ node node_modules/webpack/bin/webpack.js --watch
+
+Once you've run webpack in some form, you can move on.
+
+Now initialize a local SQLite database:
+
+    $ python manage.py migrate
+
+And finally run the server and test:
+
+    $ python manage.py runserver
+
+Point your browser to http://localhost:8000/ and have fun!

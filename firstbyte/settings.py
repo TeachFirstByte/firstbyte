@@ -254,4 +254,5 @@ LOGGING = {
 try:
     from .dev_settings import *
 except ImportError:
+    print('Unable to load dev_settings.py')
     pass

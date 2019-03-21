@@ -39,7 +39,7 @@
                         <div>
                             <i class="far fa-calendar-alt mr-1"></i>
                             <span class="sr-only">In-class timeline: </span>
-                            <span>{% number_to_words lessonplan.num_classes True %} {% format_duration lessonplan.single_class_time %} classes</span>
+                            <span>{% number_to_words lessonplan.num_classes True %} {% format_duration lessonplan.single_class_time %} class{{lessonplan.num_classes|pluralize:'es'}}</span>
                         </div>
                         <div>
                             <i class="far fa-clock mr-1"></i>

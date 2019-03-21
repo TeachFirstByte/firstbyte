@@ -70,8 +70,13 @@
                         </ul>
                         <h6 class="footer-nav-header mb-0">USER</h6>
                         <ul class="list-unstyled mb-2">
-                            <li><a href="{% url 'me' %}">My account</a></li>
-                            <li><a href="{% url 'account_logout' %}">Log out</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'me' %}">My Profile</a></li>
+                            <li><a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'account_login' %}">Log In</a></li>
+                            <li><a href="{% url 'account_signup'%}">Sign Up</a></li>
+                        {% endif %}
                         </ul>
                     </div>
                     <div class="col-sm">

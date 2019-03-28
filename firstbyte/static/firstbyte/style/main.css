@@ -43,18 +43,23 @@ a {
 
 footer {
     width: 100%;
-    font-size: .9rem;
+    font-size: .875rem;
 }
 .footer-bg-container {
     width: 100%;
-    padding: 1rem 0;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 
 .footer-nav-header {
-    font-size: 1rem;
+    font-size: .75rem;
     font-weight: bold;
     padding-top: 1.1rem;
     padding-bottom: .2rem;
+}
+.footer-license {
+    font-size: .625rem;
+    padding-top: 2.5rem;
 }
 
 footer a {

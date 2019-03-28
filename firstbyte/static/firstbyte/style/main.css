@@ -1,148 +1,158 @@
 /* Fonts */
 
 body {
-    font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
-header, footer {
-    font-family: 'Montserrat', sans-serif;
+header,
+footer {
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Main layout */
 body {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .bg-green {
-    background-color: #436D4E;
+  background-color: #436d4e;
 }
 
 .jumbotron {
-    min-height: 30vw;
-    margin: 0;
+  min-height: 30vw;
+  margin: 0;
 }
 
 .no-bg {
-    background:none;
+  background: none;
 }
 
 .container-full-bg {
-    width:100%;
-    height:100%;
-    max-width:100%;
-    background-position:center;
-    background-size:cover;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  background-position: center;
+  background-size: cover;
 }
 
 .flex-wrap {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 a {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 footer {
-    width: 100%;
-    font-size: .875rem;
+  width: 100%;
+  font-size: 0.875rem;
 }
 .footer-bg-container {
-    width: 100%;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+  width: 100%;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .footer-nav-header {
-    font-size: .75rem;
-    font-weight: bold;
-    padding-top: 1.1rem;
-    padding-bottom: .2rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding-top: 1.1rem;
+  padding-bottom: 0.2rem;
 }
 .footer-license {
-    font-size: .625rem;
-    padding-top: 2.5rem;
+  font-size: 0.625rem;
+  padding-top: 2.5rem;
 }
 
 footer a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 footer a:hover {
-    color: inherit;
-    text-decoration: underline;
+  color: inherit;
+  text-decoration: underline;
 }
 
 .errorlist {
-    background-color: #f7e4e1;
-    border: 1px solid #cacaca;
-    list-style-position: inside;
-    padding: 1em;
+  background-color: #f7e4e1;
+  border: 1px solid #cacaca;
+  list-style-position: inside;
+  padding: 1em;
 }
 
 .align-center input {
-    margin: auto;
+  margin: auto;
 }
 
 #file-select {
-    display: none;
+  display: none;
 }
 
 .lesson-submission-warning {
-    font-size: .75em;
+  font-size: 0.75em;
 }
 
 .progress {
-    height: 4px;
+  height: 4px;
 }
 
 .align-items-center {
-    align-items: center;
+  align-items: center;
 }
 .align-items-flex-start {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 .color-white {
-    color: white !important;
+  color: white !important;
 }
 
 .quote-text {
-    font-size: 1.4em;
+  font-size: 1.4em;
 }
 
 .font-serif {
-    font-family: serif;
+  font-family: serif;
 }
 
 .mb-6 {
-    margin-bottom: 5em;
+  margin-bottom: 5em;
 }
 
 .landing-section:nth-child(even) {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .lr-droparea {
-    height: 100%;
-    min-height: 10em;
-    border: 1px dashed #cacaca;
+  height: 100%;
+  min-height: 10em;
+  border: 1px dashed #cacaca;
 }
 .lr-pending-drop {
-    background-color: lightskyblue;
+  background-color: lightskyblue;
 }
 
 .nav-link {
-    color: rgba(255, 255, 255, .75) !important;
-    font-weight: 500;
-    font-size: 1em;
+  color: white !important;
+  font-weight: 500;
+  font-size: 0.875em;
+  margin-bottom: 0px;
 }
 
 .nav-link:hover {
-    color: rgba(255, 255, 255, 1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+.iframe-center {
+  display: inline-block !important;
+  text-align: center !important;
 }
 
-.iframe-center {
-    display: inline-block !important;
-    text-align: center !important;
+.navbar-nav {
+  margin-left: 15%;
+}
+
+.navbar .navbar-toggler {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.1);
 }

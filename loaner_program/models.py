@@ -8,13 +8,13 @@ class Technology(models.Model):
 
 
 class Kit(models.Model):
-    technology_id = models.ForeignKey('Technology')
+    technology = models.ForeignKey('Technology')
     num_boards = models.PositiveIntegerField()
 
 
-class Reservation_Request(models.Model):
-    user_id = models.ForeignKey('User')
-    technology_id = models.ForeignKey('Technology')
+class ReservationRequest(models.Model):
+    user = models.ForeignKey('User')
+    technology = models.ForeignKey('Technology')
     start_time = models.DateField()
     end_time = models.DateField()
     minimum_boards_required = models.PositiveIntegerField()
@@ -22,8 +22,8 @@ class Reservation_Request(models.Model):
 
 
 class Reservation(models.Model):
-    user_id = models.ForeignKey('User')
-    kit_id = models.ForeignKey('Kit')
+    user = models.ForeignKey('User')
+    kit = models.ForeignKey('Kit')
     start_time = models.DateField()
     end_time = models.DateField()
-    request_id = models.ForeignKey('Reservation_Request')
+    request = models.ForeignKey('ReservationRequest')

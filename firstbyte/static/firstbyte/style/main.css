@@ -1,10 +1,10 @@
 /* Fonts */
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 header, footer {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 /* Main layout */
@@ -13,7 +13,7 @@ body {
 }
 
 .bg-green {
-    background-color: #436D4E;
+    background-color: #436d4e;
 }
 
 .jumbotron {
@@ -22,15 +22,15 @@ body {
 }
 
 .no-bg {
-    background:none;
+    background: none;
 }
 
 .container-full-bg {
-    width:100%;
-    height:100%;
-    max-width:100%;
-    background-position:center;
-    background-size:cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
 }
 
 .flex-wrap {
@@ -43,18 +43,23 @@ a {
 
 footer {
     width: 100%;
-    font-size: .9rem;
+    font-size: 0.875rem;
 }
 .footer-bg-container {
     width: 100%;
-    padding: 1rem 0;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 
 .footer-nav-header {
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: bold;
     padding-top: 1.1rem;
-    padding-bottom: .2rem;
+    padding-bottom: 0.2rem;
+}
+.footer-license {
+    font-size: 0.625rem;
+    padding-top: 2.5rem;
 }
 
 footer a {
@@ -84,7 +89,7 @@ footer a:hover {
 }
 
 .lesson-submission-warning {
-    font-size: .75em;
+    font-size: 0.75em;
 }
 
 .progress {
@@ -128,16 +133,22 @@ footer a:hover {
 }
 
 .nav-link {
-    color: rgba(255, 255, 255, .75) !important;
+    color: white !important;
     font-weight: 500;
-    font-size: 1em;
-}
-
-.nav-link:hover {
-    color: rgba(255, 255, 255, 1) !important;
+    font-size: 0.875em;
+    margin-bottom: 0px;
 }
 
 .iframe-center {
     display: inline-block !important;
     text-align: center !important;
+}
+
+.navbar-nav {
+    margin-left: 15%;
+}
+
+.navbar .navbar-toggler {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
 }

@@ -152,3 +152,38 @@ footer a:hover {
     color: white;
     border-color: rgba(255, 255, 255, 0.1);
 }
+
+.find-share-curricula {
+    font-size: 2em;
+}
+
+.curriculum-title {
+    font-weight: bold;
+}
+
+.curriculum a {
+    font-weight: normal;
+    text-decoration: underline;
+    font-size: 0.75em;
+}
+
+.fa-star {
+    color: #dddddd;
+}
+
+hr {
+    border: 1px solid #b8b4b4;
+    margin: 80px 0px;
+}
+
+.description {
+    font-size: 0.75em;
+}
+
+div.subscribe {
+    display: flex !important;
+}
+
+.input-group {
+    align-self: flex-start;
+}

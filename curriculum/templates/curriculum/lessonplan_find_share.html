@@ -1,0 +1,147 @@
+{% extends "firstbyte/base.html" %}
+{% load formatting_extras %}
+{% load static %}
+{% block title %}Browse Curricula{% endblock %}
+{% block head %}
+    {% load render_bundle from webpack_loader %}
+    {% render_bundle 'starRating' %}
+{% endblock %}
+{% block content %}
+    <div>
+        <div class="container">
+            <div class="row col-5">
+                <table style="height:20em; width: 100%;">
+                        <tbody><tr>
+                            <td class="align-center">
+                                <h1 class="font-weight-bold find-share-curricula">Find & Share Curricula</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                    Ut enim ad minim veniam, quis nostrud exercitation.
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-1">
+        <form method="get">
+            <div class="row mb-3">
+                <div class="col d-flex form-inline">
+                    <div class="pr-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ form.sort_by.label }}</span>
+                            </div>
+                            {{ form.sort_by }}
+                        </div>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-primary" data-toggle="collapse" href="#advancedSearchControls" 
+                            role="button" aria-expanded="false" aria-controls="collaadvancedSearchControlspseExample"> 
+                            Difficulty Level
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-fill pr-4 col-4 align-self-end">
+                    <div class="input-group">
+                        <input name="q" type="text" class="form-control" placeholder="Search Curricula" value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse {% if show_advanced_search_options %}show{% endif %} row" id="advancedSearchControls">
+                <div class="col mb-3">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary {% if 'ES' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="ES" autocomplete="off" {% if 'ES' in form.grade_level.value %}checked{% endif %} /> Elementary School
+                        </label>
+                        <label class="btn btn-outline-primary {% if 'MS' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="MS" autocomplete="off" {% if 'MS' in form.grade_level.value %}checked{% endif %} /> Middle School
+                        </label>
+                        <label class="btn btn-outline-primary {% if 'HS' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="HS" autocomplete="off" {% if 'HS' in form.grade_level.value %}checked{% endif %} /> High School
+                        </label>
+                        <label class="btn btn-outline-primary {% if 'U' in form.grade_level.value %}active{% endif %}">
+                            <input type="checkbox" name="grade_level" value="U" autocomplete="off" {% if 'U' in form.grade_level.value %}checked{% endif %} /> Post-secondary
+                        </label>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary {% if form.web_only.value %}active{% endif %}" for="{{ form.web_only.id_for_label }}">
+                            <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}" {% if form.web_only.value %}checked{% endif %} /><i class="fab fa-chrome"></i> {{ form.web_only.label }}
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" name="user_id" value="{% if form.user_id.value %}{{ form.user_id.value }}{% endif %}" />
+            </div>
+        </form>
+        <div class="row my-5">
+            {% for lessonplan in object_list %}
+                <div class="col-4">
+                    <div class="curriculum mb-3">
+                        <img class = "img-responsive mb-3" 
+                            src="{% static 'img/computer_heart.jpg'%}" 
+                            alt="Computer chip heart"
+                            height="auto"
+                            width="100%"
+                        >
+                        <h6 class="flex-fill curriculum-title text-primary">{{ lessonplan.title }}</h6>
+                        {% if lessonplan.web_only %}
+                            <p class="pr-4" title="Chromebook compatible"><i class="text-right fab fa-chrome"></i></p>
+                        {% endif %}
+                        {% if lessonplan.average_rating %}
+                        <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}" >
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                            <i class="fa-star" aria-hidden="true"></i>
+                        </p>
+                    {% else %}
+                        <p class="stars" data-average-rating="{{ lessonplan.average_rating }}" >
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                        </p>
+                    {% endif %}
+                    <p class="curriculum-text">{{ lessonplan.summary }}</p>
+                    <a href="" >View more details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-6">
+                <h6 class="font-weight-bold">Interested in sharing your curricula?</h6>
+                <p class="descriptions mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation.
+                </p>
+                <button type="button" class="btn btn-primary">Upload my curricula</button>
+            </div>
+        </div>
+        <hr>
+        <div class="flex-row justify-content-between mb-3 subscribe">
+            <div class="flex-column col-4">
+                <h6 class="font-weight-bold">Subscribe to our newsletter</h6>
+                <p class="description">Don't miss information about new events and volunteer opportunities! Opt out anytime.</p>
+            </div>
+            <div class="input-group col-5">
+                <input name="q" type="text" class="form-control" placeholder="Email address" value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

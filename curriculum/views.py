@@ -224,7 +224,7 @@ def list_lessonplans(request):
     else:
         queryset = queryset.filter(draft=False)
 
-    return render(request, 'curriculum/lessonplan_list.html', {
+    return render(request, 'curriculum/lessonplan_find_share.html', {
         'user': request.user,
         'form': form,
         'show_advanced_search_options': show_advanced_search_options,

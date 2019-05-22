@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Technology(models.Model):
     name = models.CharField(max_length=120)
@@ -8,13 +8,13 @@ class Technology(models.Model):
 
 
 class Kit(models.Model):
-    technology = models.ForeignKey('Technology')
+    technology = models.ForeignKey('Technology', on_delete=models.CASCADE)
     num_boards = models.PositiveIntegerField()
 
 
 class ReservationRequest(models.Model):
-    user = models.ForeignKey('User')
-    technology = models.ForeignKey('Technology')
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    technology = models.ForeignKey('Technology', on_delete=models.DO_NOTHING)
     start_time = models.DateField()
     end_time = models.DateField()
     minimum_boards_required = models.PositiveIntegerField()
@@ -22,8 +22,8 @@ class ReservationRequest(models.Model):
 
 
 class Reservation(models.Model):
-    user = models.ForeignKey('User')
-    kit = models.ForeignKey('Kit')
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    kit = models.ForeignKey('Kit', on_delete=models.DO_NOTHING)
     start_time = models.DateField()
     end_time = models.DateField()
-    request = models.ForeignKey('ReservationRequest')
+    request = models.ForeignKey('ReservationRequest', on_delete=models.DO_NOTHING)

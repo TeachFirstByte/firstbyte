@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'curriculum.apps.CurriculumConfig',
     'landing.apps.LandingConfig',
     'events.apps.EventsConfig',
+    'loaner_program.apps.LoanerProgramConfig',
     'webpack_loader',
     'allauth',
     'allauth.account',

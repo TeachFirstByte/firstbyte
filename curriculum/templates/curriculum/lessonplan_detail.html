@@ -63,11 +63,19 @@
                     <h1 class="lead">Materials</h1>
                     <p>{{ lessonplan.materials }}</p>
                     <h1 class="lead">Digital Files</h1>
-                    {% if lessonplan.resources.all %}
+                    {% if lessonplan.resources.all or lessonplan.resource_links.all %}
                         {% for resource in lessonplan.resources.all %}
                             {% spaceless %}
                                 <p>
                                     <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
+                                    <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
+                                </p>
+                            {% endspaceless %}
+                        {% endfor %}
+                        {% for resource in lessonplan.resource_links.all %}
+                            {% spaceless %}
+                                <p>
+                                    <a href="{{ resource.link }}" target="_blank">{{ resource.name }}</a>
                                     <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
                                 </p>
                             {% endspaceless %}

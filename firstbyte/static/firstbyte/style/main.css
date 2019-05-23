@@ -152,3 +152,8 @@ footer a:hover {
     color: white;
     border-color: rgba(255, 255, 255, 0.1);
 }
+
+.error-text {
+    margin: auto;
+    text-align: center;
+}

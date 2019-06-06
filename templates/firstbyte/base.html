@@ -22,31 +22,28 @@
 </head>
 <body class="d-flex flex-column">
     <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-green py-3">
+        <a class="navbar-brand" href="#">FIRSTBYTE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div id="navbar-links" class="collapse navbar-collapse justify-content-end text-nowrap">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find Curricula</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'create-lesson-plan' %}">Share Curriculum</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
+            </div>
 
-        <div class="row text-nowrap justify-content-end">
-            <div id="navbar-links" class="collapse navbar-collapse">
-                <div class="navbar-nav">
-                    <a class="navbar-brand" href="#">FIRSTBYTE</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find Curricula</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'create-lesson-plan' %}">Share Curriculum</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
-                </div>
-    
-                <div class="navbar-nav ml-auto justify-content-end col-sm-6">
-                    {% load account %}
-                    {% if user.is_authenticated %}
-                        <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>
-                        <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
-                    {% else %}
-                        <a class="nav-item nav-link ml-2" href="{% url 'account_login' %}">Log In</a>
-                        <a class="nav-item nav-link ml-2" href="{% url 'account_signup'%}">Sign Up</a>
-                    {% endif %}
-                </div>
+            <div class="navbar-nav ml-auto justify-content-end col-sm-4">
+                {% load account %}
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>
+                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
+                {% else %}
+                    <a class="nav-item nav-link ml-2" href="{% url 'account_login' %}">Log In</a>
+                    <a class="nav-item nav-link ml-2" href="{% url 'account_signup'%}">Sign Up</a>
+                {% endif %}
             </div>
         </div>
     </nav>

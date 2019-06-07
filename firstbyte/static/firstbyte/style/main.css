@@ -152,3 +152,7 @@ footer a:hover {
     color: white;
     border-color: rgba(255, 255, 255, 0.1);
 }
+.team-member img {
+    width: 225px;
+    height: 225px;
+}

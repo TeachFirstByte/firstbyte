@@ -11,5 +11,4 @@ from . import models
 
 @require_GET
 def show_loaner_program(request):
-    return render(request, 'loaner_program/loanerprogram_home.html', {
-    })
+    return render(request, 'loaner_program/loanerprogram_home.html', {'user': request.user})

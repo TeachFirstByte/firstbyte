@@ -1,5 +1,33 @@
-{% extends "firstbyte/base.html" %}
-{% block title %}Loaner Program{% endblock %}
+{% extends "firstbyte/base.html" %} {% block title %}Loaner Program{% endblock%}
 {% block content %}
-    <h1>Insert some witty comment here</h1>
+<div class="container-full-bg">
+  <div class="row" style="margin: 0;">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div style="margin:5rem 0rem">
+        <h1 style="font-size:32px">Loaner Program</h1>
+        <h4 style="font-size:15px">
+          Borrow electronics from Firstbyte for your classroom
+        </h4>
+        <div class="row">
+          <p class="col-lg-6" style="font-size:12px;">
+            If you're in the Boston area and need materials, we're here to help.
+            FirstByte's loaner program gives local educators the chance to
+            borrow various technology kits to use in their classrooms. Email us
+            at info@teachfirstbyte.org to reserve!
+          </p>
+          <div class="col-lg-6"></div>
+      </div>
+      <hr />
+      <h4 style="font-size:12px; font-weight:bold">Our Inventory</h4>
+      <div style="margin:1rem 0rem">
+        {% if not user.is_authenticated %}
+        <p style="font-size:15px">Please note: you must be logged in to reserve our technology kits.</p>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2"></div>
+</div>
 {% endblock %}

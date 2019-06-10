@@ -22,11 +22,11 @@
 </head>
 <body class="d-flex flex-column">
     <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-green py-3">
+        <a class="navbar-brand" href="#">FIRSTBYTE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div id="navbar-links" class="collapse navbar-collapse">
+        <div id="navbar-links" class="collapse navbar-collapse justify-content-end text-nowrap">
             <div class="navbar-nav">
                 <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
@@ -35,7 +35,7 @@
                 <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
             </div>
 
-            <div class="navbar-nav ml-auto justify-content-end">
+            <div class="navbar-nav ml-auto justify-content-end col-sm-4">
                 {% load account %}
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>

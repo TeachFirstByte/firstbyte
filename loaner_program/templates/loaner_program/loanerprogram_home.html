@@ -17,17 +17,63 @@
             at info@teachfirstbyte.org to reserve!
           </p>
           <div class="col-lg-6"></div>
-      </div>
-      <hr />
-      <h4 style="font-size:12px; font-weight:bold">Our Inventory</h4>
-      <div style="margin:1rem 0rem">
-        {% if not user.is_authenticated %}
-        <p style="font-size:15px">Please note: you must be logged in to reserve our technology kits.</p>
-        {% endif %}
-        
+        </div>
+        <hr />
+        <h4 style="font-size:12px; font-weight:bold">Our Inventory</h4>
+        <div style="margin:1rem 0rem">
+          {% if not user.is_authenticated %}
+          <p style="font-size:15px">Please note: you must be logged in to reserve our technology kits.</p>
+          {% endif %}
+        </div>
+        <div class="row float-left" style="margin-bottom: 1rem; margin-top: 1rem;">
+          <div class="col-lg-2">
+            <img class="img-fluid" src="/static/landing/img/curriculum/circuitplayground.jpg">
+          </div>
+          <div class="col-lg-8">
+            <h4>Circuit Playground Classic Kit</h4>
+            <div>
+              <span class="loaner-data"
+                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem;">Available
+                starting <strong>4/5/19</strong></span>
+              <span class="loaner-data"
+                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem">12
+                boards per kit</span>
+            </div>
+            <div style="font-size: 12px; margin: 1rem 0rem">
+              <strong>Supporting curricula:</strong>
+              <a href="https://www.google.com">Makey Makey</a>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btn-primary">Reserve</button>
+          </div>
+        </div>
+        <div class="row float-left" style="margin-bottom: 1rem; margin-top: 1rem;">
+          <div class="col-lg-2">
+            <img class="img-fluid" src="/static/landing/img/curriculum/circuitplayground.jpg">
+          </div>
+          <div class="col-lg-8">
+            <h4>Circuit Playground Classic Kit</h4>
+            <div>
+              <span class="loaner-data"
+                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem;">Available
+                starting <strong>4/5/19</strong></span>
+              <span class="loaner-data"
+                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem">12
+                boards per kit</span>
+            </div>
+            <div style="font-size: 12px; margin: 1rem 0rem">
+              <strong>Supporting curricula:</strong>
+              <a href="https://www.google.com">Makey Makey</a>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btn-primary">Reserve</button>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="col-lg-2"></div>
   </div>
-  <div class="col-lg-2"></div>
 </div>
 {% endblock %}

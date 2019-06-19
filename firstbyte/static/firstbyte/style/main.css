@@ -153,6 +153,11 @@ footer a:hover {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+
+.error-text {
+    margin: auto;
+    text-align: center;
+
 .navbar-brand {
     color: white !important;
     font-size: 0.875em;

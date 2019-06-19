@@ -22,11 +22,11 @@
 </head>
 <body class="d-flex flex-column">
     <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-green py-3">
+        <a class="navbar-brand" href="#">FIRSTBYTE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div id="navbar-links" class="collapse navbar-collapse">
+        <div id="navbar-links" class="collapse navbar-collapse justify-content-end text-nowrap">
             <div class="navbar-nav">
                 <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
@@ -35,11 +35,19 @@
                 <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
             </div>
 
-            <div class="navbar-nav ml-auto justify-content-end">
+            <div class="navbar-nav ml-auto justify-content-end col-sm-4">
                 {% load account %}
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
+                    {% with idstr=user.id|stringformat:"s"|add:"/" %}
+                            {% with profile_url="/user/"|add:idstr %}
+                                {% if request.path == profile_url %}
+                                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next=/">Sign Out</a>
+                                {% else %}
+                                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% endwith %}
                 {% else %}
                     <a class="nav-item nav-link ml-2" href="{% url 'account_login' %}">Log In</a>
                     <a class="nav-item nav-link ml-2" href="{% url 'account_signup'%}">Sign Up</a>
@@ -70,7 +78,15 @@
                         <ul class="list-unstyled mb-2">
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'me' %}">My Profile</a></li>
-                            <li><a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a></li>
+                            {% with idstr=user.id|stringformat:"s"|add:"/" %}
+                                {% with profile_url="/user/"|add:idstr %}
+                                    {% if request.path == profile_url %}
+                                        <li><a href="{% url 'account_logout' %}?next=/">Sign Out</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a></li>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endwith %}
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Log In</a></li>
                             <li><a href="{% url 'account_signup'%}">Sign Up</a></li>

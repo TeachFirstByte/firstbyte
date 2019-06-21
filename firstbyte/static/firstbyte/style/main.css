@@ -13,7 +13,7 @@ body {
 }
 
 .no-bg {
-    background: none;
+    background: none;x
 }
 
 .container-full-bg {
@@ -159,7 +159,6 @@ footer a:hover {
 .navbar-brand {
     color: white !important;
     font-size: 0.9em;
-    padding-top: 0.6em;
     margin-left: 2em;
     font-weight: 600;
 }

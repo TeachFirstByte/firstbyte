@@ -152,7 +152,20 @@ footer a:hover {
     color: white;
     border-color: rgba(255, 255, 255, 0.1);
 }
+.navbar-brand {
+    color: white !important;
+    font-size: 0.875em;
+    padding-top: 0.6em;
+    margin-left: 2em;
+}
+
 .team-member img {
     width: 225px;
     height: 225px;
 }
+
+.error-text {
+    margin: auto;
+    text-align: center;
+}
+

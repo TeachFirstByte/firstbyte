@@ -1,0 +1,172 @@
+{% extends "firstbyte/base.html" %}
+{% load static %}
+{% block title %}Meet the Team{% endblock %}
+{% block head %}
+    <link href="https://fonts.googleapis.com/css?family=Tinos:400i" rel="stylesheet">
+{% endblock %}
+{% block meta %}
+{% endblock %}
+{% block content %}
+<section>
+    <div class="container-full-bg" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5) ), url('{% static 'landing/img/snell-team.jpg' %}')">
+        <div class="container special text-center text-white">
+            <div class="py-4">
+                <table class="pt-5" style="height:30vw; width: 100%;">
+                    <tbody><tr>
+                        <td class="align-bottom">
+                            <h1 class="font-weight-bold">The FirstByte Team</h1>
+                            <p class="lead">We are a team of undergraduate students at Northeastern University.</p>
+                        </td>
+                    </tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section></section>
+<section class="landing-section my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="text-uppercase font-weight-bold">Our Teams</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><span class="font-weight-bold">The Educator Enablement Team</span> is FirstByte’s primary point of contact with our audience. Members on this team work directly with teachers and facilitate the loaner program. They also network with schools, educators, parents, and organizations to implement technology curricula and identify the community’s unaddressed needs.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/kasandra.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Kasandra Yee</h4>
+                    <p class="text-muted mt-0">Electrical Engineering | 2021</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/laurel.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Laurel O'Malley</h4>
+                    <p class="text-muted mt-0">Industrial Engineering | 2022</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/bailey.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Bailey Ritchie</h4>
+                    <p class="text-muted mt-0">Chemical Engineering | 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md landing-section pt-2">
+                <p><span class="font-weight-bold">The Curriculum Team</span> creates exciting new technology curricula for teachers to integrate into their everyday lessons. They research new educational technologies, work to understand educators’ needs, and write lesson plans that fulfill Massachusetts’ Digital Literacy Standards.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/jaedyn.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Jaedyn Lee</h4>
+                    <p class="text-muted mt-0">Computer Science | 2020</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/adeena.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Adeena Moghni</h4>
+                    <p class="text-muted mt-0">Bioengineering | 2022</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/minh.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Minh Truong</h4>
+                    <p class="text-muted mt-0">Mechanical Engineering | 2023</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md landing-section pt-2">
+                <p><b>The Operations Team</b> is responsible for keeping FirstByte running smoothly. Members of this team are tasked with keeping the loaner kits in order, managing the budget, and reserving spaces for our weekly meetings and special events.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/brenna.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Brenna Singer</h4>
+                    <p class="text-muted mt-0">Bioengineering | 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md landing-section pt-2">
+                <p><b>The Brand & Marketing Team</b> brings in speakers, creates digital content, and promotes the FirstByte name and brand. This team is responsible for everything from website content to social media to recruiting new members.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/julian.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Julian Perez</h4>
+                    <p class="text-muted mt-0">Computer Engineering | 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md landing-section pt-2">
+                <p><b>The Website Team</b>, comprising UX designers and programmers, is responsible for maintaining and improving the website. FirstByte developers write clean code to create a rewarding user experience.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/luke.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Luke San Antonio Bialecki</h4>
+                    <p class="text-muted mt-0">Computer Science | 2022</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/celine.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Celine Yan</h4>
+                    <p class="text-muted mt-0">Computer Science and Design | 2021</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/kevin.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Kevin Zhang</h4>
+                    <p class="text-muted mt-0">Computer Science | 2021</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/khalil.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Khalil Haji</h4>
+                    <p class="text-muted mt-0">Computer Science | 2022</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center mb-5 team-member">
+                    <img class="mx-auto mb-3 border rounded-circle border-dark" src="{% static 'landing/img/team/katie.jpg' %}" alt="">
+                    <h4 class="font-weight-bold">Katie Busemeyer</h4>
+                    <p class="text-muted mt-0">Computer Science and Cognitive Psychology | 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h3 class="text-uppercase font-weight-bold">Join FirstByte</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="text-center">FirstByte is excited to take on new members interested in tech and education. Check out our <a href="{% url 'list-event' %}">Get Involved page</a> for more info!</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,12 +1,3 @@
-/* Fonts */
-
-body {
-    font-family: "Open Sans", sans-serif;
-}
-header, footer {
-    font-family: "Montserrat", sans-serif;
-}
-
 /* Main layout */
 body {
     min-height: 100vh;
@@ -37,10 +28,6 @@ body {
     flex-wrap: wrap;
 }
 
-a {
-    font-weight: bold;
-}
-
 footer {
     width: 100%;
     font-size: 0.875rem;
@@ -61,11 +48,13 @@ footer {
     font-size: 0.625rem;
     padding-top: 2.5rem;
 }
+.footer-copyright {
+    font-size: 0.625rem;
+}
 
 footer a {
     color: inherit;
     text-decoration: none;
-    font-weight: 500;
 }
 
 footer a:hover {
@@ -78,6 +67,16 @@ footer a:hover {
     border: 1px solid #cacaca;
     list-style-position: inside;
     padding: 1em;
+}
+
+.badge-outlined {
+    background-color: transparent;
+    border: 1px solid #999;
+    padding: 0.5em 1em;
+}
+.badge-outlined.badge-secondary {
+    border-color: #323a45;
+    color: #323a45
 }
 
 .align-center input {
@@ -134,7 +133,6 @@ footer a:hover {
 
 .nav-link {
     color: white !important;
-    font-weight: 500;
     font-size: 0.875em;
     margin-bottom: 0px;
 }
@@ -178,4 +176,39 @@ hr {
 
 .description {
     font-size: 0.75em;
+}
+.navbar-brand {
+    color: white !important;
+    font-size: 0.875em;
+    padding-top: 0.6em;
+    margin-left: 2em;
+}
+
+.team-member img {
+    width: 225px;
+    height: 225px;
+}
+
+.error-text {
+    margin: auto;
+    text-align: center;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: 0.9em;
+    margin-left: 2em;
+    font-weight: 600;
+}
+
+.lessonplan-author {
+    font-size: 0.875em;
+}
+.badge.lessonplan-info {
+    font-size: 0.875em;
+    font-weight: 400;
+}
+
+.lessonplan-action-button {
+    font-size: 0.875em;
 }

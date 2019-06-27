@@ -33,7 +33,7 @@
                     </div>
                     {% endif %}
                 </div>
-                <p class="mb-4 stars text-primary" data-average-rating="{{ average_rating }}" >
+                <p class="mb-4 stars text-secondary" data-average-rating="{{ average_rating }}" >
                     <i class="fa-star" aria-hidden="true"></i>
                     <i class="fa-star" aria-hidden="true"></i>
                     <i class="fa-star" aria-hidden="true"></i>
@@ -124,7 +124,7 @@
                     <div id="feedback">
                         {% for fb in lessonplan.lessonfeedback_set.all %}
                         <div class="col-lg-8 list-group-item px-0">
-                            <p class="mb-4 stars text-primary" data-average-rating="{{ fb.overall_rating }}" >
+                            <p class="mb-4 stars text-secondary" data-average-rating="{{ fb.overall_rating }}" >
                                 <i class="fa-star" aria-hidden="true"></i>
                                 <i class="fa-star" aria-hidden="true"></i>
                                 <i class="fa-star" aria-hidden="true"></i>

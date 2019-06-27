@@ -14,142 +14,132 @@
 {% block content %}
     <div class="container my-5">
         {% if lessonplan.draft %}
-            <div class="row">
-                <div class="col">
-                    <div class="alert alert-warning text-center">
-                        <span>This lesson plan is not published. It is only accessible via direct link.</span>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        <div class="card mb-3">
-            <div class="list-group list-group-flush">
-                <div class="list-group-item">
-                    <div class="d-flex align-items-flex-start flex-wrap justify-content-end">
-                        <h1 class="display-4 flex-fill">{{ lessonplan.title }}</h1>
-                        {% if user == lessonplan.owner or user.is_superuser %}
-                        <div class="btn-group" role="group" aria-label="Actions for lesson plan author">
-                            <a href="{% url 'update-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-info">Edit</a>
-                            <a href="{% url 'delete-lesson-plan' pk=lessonplan.id %}" class="px-4 btn btn-outline-danger">Delete</a>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <p class="lead">{{ lessonplan.summary }}</p>
-                    <div class="d-flex flex-wrap align-items-center justify-content-between">
-                        <div>
-                            <i class="far fa-calendar-alt mr-1"></i>
-                            <span class="sr-only">In-class timeline: </span>
-                            <span>{% number_to_words lessonplan.num_classes True %} {% format_duration lessonplan.single_class_time %} class{{lessonplan.num_classes|pluralize:'es'}}</span>
-                        </div>
-                        <div>
-                            <i class="far fa-clock mr-1"></i>
-                            <span class="sr-only">Preparation timeline: </span>
-                            <span>{% format_duration lessonplan.total_prep_time %} total prep time</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-signal mr-1"></i>
-                            <span class="sr-only">Works best for </span>
-                            <span>{{ lessonplan.get_grade_level_display }}</span>
-                        </div>
-                        {% if lessonplan.web_only %}
-                        <div>
-                            <i class="fab fa-chrome mr-1"></i>
-                            <span>Chromebook Compatible</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <h1 class="lead">Materials</h1>
-                    <p>{{ lessonplan.materials }}</p>
-                    <h1 class="lead">Digital Files</h1>
-                    {% if lessonplan.resources.all or lessonplan.resource_links.all %}
-                        {% for resource in lessonplan.resources.all %}
-                            {% spaceless %}
-                                <p>
-                                    <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
-                                    <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
-                                </p>
-                            {% endspaceless %}
-                        {% endfor %}
-                        {% for resource in lessonplan.resource_links.all %}
-                            {% spaceless %}
-                                <p>
-                                    <a href="{{ resource.link }}" target="_blank">{{ resource.name }}</a>
-                                    <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
-                                </p>
-                            {% endspaceless %}
-                        {% endfor %}
-                    {% else %}
-                        <span>There are no files associated with this lesson plan</span>
-                    {% endif %}
-                </div>
-                <div class="list-group-item">
-                    <div class="d-flex text-muted">
-                        <span class="flex-fill text-left">Last modified {{ lessonplan.last_modified_time }}</span>
-                        <span class="flex-fill text-right">
-                            Created {{ lessonplan.create_time }} by
-                            {% if not lessonplan.owner.profile.hide_profile %}
-                                <a href="{{ lessonplan.owner.profile.get_absolute_url }}">
-                            {% endif %}
-                                    {{ lessonplan.owner.first_name }}
-                            {% if not lessonplan.owner.profile.hide_profile %}
-                            </a>
-                            {% endif %}
-                             from {{ lessonplan.owner.profile.school }}</span>
-                        </span>
-                    </div>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-warning text-center">
+                    <span>This lesson plan is not published. It is only accessible via direct link.</span>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="list-group list-group-flush">
-                {% if lessonplan.lessonfeedback_set.all %}
-                    <div class="list-group-item d-flex flex-wrap align-items-center">
-                        <p class="my-0">Average Rating: {{ average_rating|floatformat:2 }}</p>
-                        <p class="flex-fill my-0 text-center stars text-primary" data-average-rating="{{ average_rating }}" >
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                        </p>
-                        <a class="flex-fill btn btn-outline-primary my-0" data-toggle="collapse" href="#feedback" role="button" aria-expanded="false" aria-controls="feedback">
-                            See Detailed Feedback
-                        </a>
+        {% endif %}
+        <div class="list-group list-group-flush">
+            <div class="list-group-item">
+                <div class="d-flex align-items-flex-start flex-wrap justify-content-end">
+                    <h2 class="h2 font-weight-bold flex-fill">{{ lessonplan.title }}</h2>
+                    {% if user == lessonplan.owner or user.is_superuser %}
+                    <div class="btn-group mt-2" role="group" aria-label="Actions for lesson plan author">
+                        <a href="{% url 'update-lesson-plan' pk=lessonplan.id %}" class="px-2 py-0 btn btn-outline-secondary lessonplan-action-button">Edit</a>
+                        <a href="{% url 'delete-lesson-plan' pk=lessonplan.id %}" class="px-2 py-0 btn btn-outline-danger lessonplan-action-button">Delete</a>
                     </div>
-                    <div class="collapse" id="feedback">
+                    {% endif %}
+                </div>
+                <p class="mb-4 stars text-secondary" data-average-rating="{{ average_rating }}" >
+                    <i class="fa-star" aria-hidden="true"></i>
+                    <i class="fa-star" aria-hidden="true"></i>
+                    <i class="fa-star" aria-hidden="true"></i>
+                    <i class="fa-star" aria-hidden="true"></i>
+                    <i class="fa-star" aria-hidden="true"></i>
+                </p>
+                <div class="col-md-8 pl-0">
+                    <p>{{ lessonplan.summary }}</p>
+                </div>
+                <div>
+                    <span>
+                        <span class="sr-only">In-class timeline: </span>
+                        <span class="badge badge-outlined badge-secondary lessonplan-info">{% number_to_words lessonplan.num_classes True %} {% format_duration lessonplan.single_class_time True %} class{{lessonplan.num_classes|pluralize:'es'}}</span>
+                    </span>
+                    <span>
+                        <span class="sr-only">Preparation time: </span>
+                        <span class="badge badge-outlined badge-secondary lessonplan-info">{% format_duration lessonplan.total_prep_time %} total prep time</span>
+                    </span>
+                    <span>
+                        <span class="sr-only">Works best for </span>
+                        <span class="badge badge-secondary badge-outlined lessonplan-info">{{ lessonplan.get_grade_level_display }}</span>
+                    </span>
+                    {% if lessonplan.web_only %}
+                    <span>
+                        <span class="sr-only">Chromebook compatible</span>
+                        <span class="badge badge-secondary badge-outlined lessonplan-info">Chromebook compatible</span>
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="mt-4">
+                    <p class="text-muted lessonplan-author">
+                        Created {{ lessonplan.create_time }} by
+                        {% if not lessonplan.owner.profile.hide_profile %}
+                            <a href="{{ lessonplan.owner.profile.get_absolute_url }}">
+                        {% endif %}
+                                {{ lessonplan.owner.first_name }}
+                        {% if not lessonplan.owner.profile.hide_profile %}
+                            </a>
+                        {% endif %}
+                            from {{ lessonplan.owner.profile.school }}
+                    </p>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <h6 class="h6 font-weight-bold my-3">Required materials</h6>
+                <p>{{ lessonplan.materials }}</p>
+            </div>
+            <div class="list-group-item">
+                <h6 class="h6 font-weight-bold my-3">Digital files</h6>
+                {% if lessonplan.resources.all or lessonplan.resource_links.all %}
+                    {% for resource in lessonplan.resources.all %}
+                        {% spaceless %}
+                            <p class="my-2">
+                                <a href="{% url 'detail-lesson-resource' pk=resource.id %}" download="{{ resource.file.name }}" target="_blank">{{ resource.name }}</a>
+                                <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
+                            </p>
+                        {% endspaceless %}
+                    {% endfor %}
+                    {% for resource in lessonplan.resource_links.all %}
+                        {% spaceless %}
+                            <p class="my-2">
+                                <a href="{{ resource.link }}" target="_blank">{{ resource.name }}</a>
+                                <span class="ml-2"> ({{ resource.get_semantic_type_display }})</span>
+                            </p>
+                        {% endspaceless %}
+                    {% endfor %}
+                {% else %}
+                    <p>There are no files associated with this lesson plan.</p>
+                {% endif %}
+            </div>
+            {% if lessonplan.feedback_enabled %}
+                <div class="list-group-item">
+                    <h6 class="h6 font-weight-bold my-3">Leave a review</h6>
+                    {% if user.is_authenticated %}
+                        <div class="col-md-8 p-0">
+                            {% crispy form form.helper %}
+                        </div>
+                    {% else %}
+                        <p>You must be logged in to leave a review.</p>
+                    {% endif %}
+                </div>
+            {% else %}
+            <h6 class="h6 font-weight-bold my-3">Reviews have been disabled.</h6>
+            {% endif %}
+            <div class="list-group-item">
+                <h6 class="h6 font-weight-bold my-3">Reviews</h6>
+                {% if lessonplan.lessonfeedback_set.all %}
+                    <div id="feedback">
                         {% for fb in lessonplan.lessonfeedback_set.all %}
-                        <div class="list-group-item">
-                            <div class="d-flex">
-                                <p class="text-muted flex-fill">Submitted by {{ fb.author.first_name }} from {{ fb.author.profile.school }}.</p>
-                                <p class="text-right text-primary" data-average-rating="{{ fb.overall_rating }}" >
-                                    <i class="fa-star" aria-hidden="true"></i>
-                                    <i class="fa-star" aria-hidden="true"></i>
-                                    <i class="fa-star" aria-hidden="true"></i>
-                                    <i class="fa-star" aria-hidden="true"></i>
-                                    <i class="fa-star" aria-hidden="true"></i>
-                                </p>
-                            </div>
+                        <div class="col-lg-8 list-group-item px-0">
+                            <p class="mb-4 stars text-secondary" data-average-rating="{{ fb.overall_rating }}" >
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                            </p>
                             <p class="feedback-comments">{{ fb.comments }}</p>
+                            <p class="text-muted flex-fill">Submitted by {{ fb.author.first_name }} from {{ fb.author.profile.school }}.</p>
                         </div>
                         {% endfor %}
                     </div>
-                {% else %}
                     <div class="list-group-item">
-                        <p class="my-0 lead">This lesson plan has not been rated yet.</p>
-                    </div>
+                {% else %}
+                    <p class="my-0">Be the first to review this curriculum!</p>
                 {% endif %}
-                <div class="list-group-item">
-                    {% if lessonplan.feedback_enabled %}
-                        {% if user.is_authenticated %}
-                            <h1 class="lead">Submit your own feedback</h1>
-                            {% crispy form form.helper %}
-                        {% endif %}
-                    {% else %}
-                        <h1 class="lead">Feedback has been disabled</h1>
-                    {% endif %}
-                </div>
             </div>
         </div>
     </div>

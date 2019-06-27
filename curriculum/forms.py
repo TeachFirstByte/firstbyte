@@ -109,16 +109,15 @@ class LessonPlanForm(forms.ModelForm):
 
 
 class LessonPlanFeedback(forms.Form):
-    rating = forms.IntegerField(label="Rating", min_value=1, max_value=5)
-    comments = forms.CharField(max_length=2500, widget=forms.Textarea(attrs={'rows': 10}),
-                               label="Comments ~ What was effective about this lesson? What wasn't?")
+    rating = forms.IntegerField(label="Rating (1-5)", min_value=1, max_value=5)
+    comments = forms.CharField(max_length=2500, widget=forms.Textarea(attrs={'rows': 10, 'placeholder': "How did you use this curriculum?"}), label="Comments")
     #notify_author_of_changes = forms.BooleanField(required=False, label="Notify me if this lesson plan is updated", initial=True)
 
     def __init__(self, *args, **kargs):
         super().__init__(*args, **kargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit Feedback'))
+        self.helper.add_input(Submit('submit', 'Submit Review'))
 
 
 class SubmitWebsiteFeedbackForm(forms.ModelForm):

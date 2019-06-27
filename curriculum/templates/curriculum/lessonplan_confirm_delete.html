@@ -1,15 +1,15 @@
 {% extends "firstbyte/base.html" %}
 {% block title %}Delete {{ lessonplan.title }}{% endblock %}
 {% block content %}
-    <div class="jumbotron">
-        <h2>Are you sure you want to delete "{{ lessonplan.title }}"?</h2>
-        <p>
-            The lesson plan will no longer be accessible to others.<br/>
+    <div class="container my-5">
+        <h2 class="h2">Are you sure you want to delete "{{ lessonplan.title }}"?</h2>
+        <p class="mb-5 pb-5">
+            This lesson plan will no longer be accessible to others.
         </p>
-        <div class="text-center d-flex flex-wrap align-items-stretch justify-content-center">
-            <a href="{{ lessonplan.get_absolute_url }}" class="btn btn-primary color-white mx-2">Go back!</a>
-            <form class="text-center mx-2 d-inline-block" method="post">{% csrf_token %}
-                <input type="submit" value="Delete my lesson plan!" class="btn btn-danger" />
+        <div class="d-flex flex-wrap align-items-stretch">
+            <a href="{{ lessonplan.get_absolute_url }}" class="btn btn-outline-primary mr-2">No, go back</a>
+            <form class="ml-2 d-inline-block" method="post">{% csrf_token %}
+                <input type="submit" value="Yes, delete" class="btn btn-outline-danger" />
             </form>
         </div>
     </div>

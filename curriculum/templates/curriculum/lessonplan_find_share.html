@@ -83,36 +83,43 @@
         <div class="row my-5">
             {% for lessonplan in object_list %}
                 <div class="col-4">
-                    <div class="curriculum mb-3">
-                        <img class = "img-responsive mb-3" 
-                            src="{% static 'img/computer_heart.jpg'%}" 
-                            alt="Computer chip heart"
-                            height="auto"
-                            width="100%"
-                        >
-                        <h6 class="flex-fill curriculum-title text-primary">{{ lessonplan.title }}</h6>
+                    <div class="d-flex flex-column curriculum mb-3">
+                            {% if forloop.counter|divisibleby:"2" %}
+                                <img class="img-fluid mb-3" 
+                                    src="{% static 'img/computer_heart.jpg'%}" 
+                                    alt="Computer chip heart"
+                                >
+                                {% else %}
+                                <img class="img-fluid mb-3" 
+                                    src="{% static 'img/computer.jpeg'%}" 
+                                    alt="Computer chip heart"
+                                >
+                            {% endif %}
+                        <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
+                        <div class="d-flex flex-row justify-content-between">
+                        {% if lessonplan.average_rating %}
+                            <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}" >
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                                <i class="fa-star" aria-hidden="true"></i>
+                            </p>
+                        {% else %}
+                            <p class="stars" data-average-rating="{{ lessonplan.average_rating }}" >
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </p>
+                        {% endif %}
                         {% if lessonplan.web_only %}
                             <p class="pr-4" title="Chromebook compatible"><i class="text-right fab fa-chrome"></i></p>
                         {% endif %}
-                        {% if lessonplan.average_rating %}
-                        <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}" >
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                            <i class="fa-star" aria-hidden="true"></i>
-                        </p>
-                    {% else %}
-                        <p class="stars" data-average-rating="{{ lessonplan.average_rating }}" >
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                        </p>
-                    {% endif %}
-                    <p class="curriculum-text">{{ lessonplan.summary }}</p>
-                    <a href="" >View more details</a>
+                        </div>
+                        <p class="curriculum-text">{{ lessonplan.summary }}</p>
+                        <a href="" >View more details</a>
                     </div>
                 </div>
             {% endfor %}
@@ -131,15 +138,15 @@
             </div>
         </div>
         <hr>
-        <div class="flex-row justify-content-between mb-3 subscribe">
+        <div class="d-flex flex-row justify-content-between mb-3">
             <div class="flex-column col-4">
                 <h6 class="font-weight-bold">Subscribe to our newsletter</h6>
                 <p class="description">Don't miss information about new events and volunteer opportunities! Opt out anytime.</p>
             </div>
-            <div class="input-group col-5">
+            <div class="input-group col-5 align-self-start">
                 <input name="q" type="text" class="form-control" placeholder="Email address" value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Subscribe</button>
+                    <button type="submit" class="btn btn-primary"> Subscribe</button>
                 </div>
             </div>
         </div>

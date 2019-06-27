@@ -179,11 +179,3 @@ hr {
 .description {
     font-size: 0.75em;
 }
-
-div.subscribe {
-    display: flex !important;
-}
-
-.input-group {
-    align-self: flex-start;
-}

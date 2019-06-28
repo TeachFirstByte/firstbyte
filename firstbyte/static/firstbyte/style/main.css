@@ -44,13 +44,6 @@ footer {
     padding-top: 1.1rem;
     padding-bottom: 0.2rem;
 }
-.footer-license {
-    font-size: 0.625rem;
-    padding-top: 2.5rem;
-}
-.footer-copyright {
-    font-size: 0.625rem;
-}
 
 footer a {
     color: inherit;
@@ -110,17 +103,17 @@ footer a:hover {
     font-size: 1.4em;
 }
 
-.font-serif {
-    font-family: serif;
-}
-
 .mb-6 {
     margin-bottom: 5em;
 }
 
-.landing-section:nth-child(even) {
-    background-color: #f1f1f1;
+.list-group-item {
+    padding-bottom: 5em;
 }
+.list-group-item-title {
+    font-weight: bold;
+    margin-bottom: 3em;
+} 
 
 .lr-droparea {
     height: 100%;
@@ -145,7 +138,12 @@ footer a:hover {
 .navbar-nav {
     margin-left: 15%;
 }
-
+.navbar-brand {
+    color: white !important;
+    font-size: 0.9em;
+    margin-left: 2em;
+    font-weight: 600;
+}
 .navbar .navbar-toggler {
     color: white;
     border-color: rgba(255, 255, 255, 0.1);
@@ -154,34 +152,21 @@ footer a:hover {
 .find-share-curricula {
     font-size: 2em;
 }
-
 .curriculum-title {
     font-weight: bold;
 }
-
 .curriculum a {
     font-weight: normal;
     text-decoration: underline;
     font-size: 0.75em;
 }
-
-.fa-star {
-    color: #dddddd;
+.description {
+    font-size: 0.8em;
 }
 
 hr {
     border: 1px solid #b8b4b4;
     margin: 80px 0px;
-}
-
-.description {
-    font-size: 0.75em;
-}
-.navbar-brand {
-    color: white !important;
-    font-size: 0.875em;
-    padding-top: 0.6em;
-    margin-left: 2em;
 }
 
 .team-member img {
@@ -192,13 +177,6 @@ hr {
 .error-text {
     margin: auto;
     text-align: center;
-}
-
-.navbar-brand {
-    color: white !important;
-    font-size: 0.9em;
-    margin-left: 2em;
-    font-weight: 600;
 }
 
 .lessonplan-author {

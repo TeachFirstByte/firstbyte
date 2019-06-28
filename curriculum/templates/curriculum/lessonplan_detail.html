@@ -78,11 +78,11 @@
                 </div>
             </div>
             <div class="list-group-item">
-                <h6 class="h6 font-weight-bold my-3">Required materials</h6>
+                <h6 class="list-group-item-title">Required materials</h6>
                 <p>{{ lessonplan.materials }}</p>
             </div>
             <div class="list-group-item">
-                <h6 class="h6 font-weight-bold my-3">Digital files</h6>
+                <h6 class="list-group-item-title">Digital files</h6>
                 {% if lessonplan.resources.all or lessonplan.resource_links.all %}
                     {% for resource in lessonplan.resources.all %}
                         {% spaceless %}

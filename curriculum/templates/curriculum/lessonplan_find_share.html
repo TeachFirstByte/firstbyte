@@ -7,27 +7,18 @@
     {% render_bundle 'starRating' %}
 {% endblock %}
 {% block content %}
-    <div>
-        <div class="container">
-            <div class="row col-5">
-                <table style="height:20em; width: 100%;">
-                        <tbody><tr>
-                            <td class="align-center">
-                                <h1 class="font-weight-bold find-share-curricula">Find & Share Curricula</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                    Ut enim ad minim veniam, quis nostrud exercitation.
-                                </p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<div class="container my-5">
+<div class="list-group list-group-flush">
+    <div class="list-group-item">
+        <h2 class="h2 font-weight-bold flex-fill">Find & Share Curricula</h2>
+        <div class="col-md-8 pl-0 mb-5">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation.
+            </p>
         </div>
-    </div>
-    <div class="container mt-1">
         <form method="get">
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col d-flex form-inline">
                     <div class="pr-4">
                         <div class="input-group">
@@ -80,7 +71,7 @@
                 <input type="hidden" name="user_id" value="{% if form.user_id.value %}{{ form.user_id.value }}{% endif %}" />
             </div>
         </form>
-        <div class="row my-5">
+        <div class="row mt-5">
             {% for lessonplan in object_list %}
                 <div class="col-4">
                     <div class="d-flex flex-column curriculum mb-3">
@@ -98,7 +89,7 @@
                         <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
                         <div class="d-flex flex-row justify-content-between">
                         {% if lessonplan.average_rating %}
-                            <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}" >
+                            <p class="stars text-secondary" data-average-rating="{{ lessonplan.average_rating }}" >
                                 <i class="fa-star" aria-hidden="true"></i>
                                 <i class="fa-star" aria-hidden="true"></i>
                                 <i class="fa-star" aria-hidden="true"></i>
@@ -124,21 +115,19 @@
                 </div>
             {% endfor %}
         </div>
-        <hr>
     </div>
-    <div class="container mb-5">
-        <div class="row">
-            <div class="col-6">
-                <h6 class="font-weight-bold">Interested in sharing your curricula?</h6>
-                <p class="descriptions mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <button type="button" class="btn btn-primary">Upload my curricula</button>
-            </div>
+    <div class="list-group-item">
+        <div class="col-8">
+            <h6 class="font-weight-bold mt-5">Interested in sharing your curricula?</h6>
+            <p class="description mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation.
+            </p>
+            <button type="button" class="btn btn-primary">Upload my curricula</button>
         </div>
-        <hr>
-        <div class="d-flex flex-row justify-content-between mb-3">
+    </div>
+    <div class="list-group-item">
+        <div class="d-flex flex-row justify-content-between mt-5">
             <div class="flex-column col-4">
                 <h6 class="font-weight-bold">Subscribe to our newsletter</h6>
                 <p class="description">Don't miss information about new events and volunteer opportunities! Opt out anytime.</p>
@@ -151,4 +140,6 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 {% endblock %}

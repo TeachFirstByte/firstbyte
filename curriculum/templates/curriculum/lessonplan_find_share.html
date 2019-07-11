@@ -84,18 +84,7 @@
         <div class="row my-5">
             {% for lessonplan in object_list %}
                 <div class="col-4">
-                    <div class="d-flex flex-column curriculum mb-3">
-                            {% if forloop.counter|divisibleby:"2" %}
-                                <img class="img-fluid mb-3" 
-                                    src="{% static 'img/computer_heart.jpg'%}" 
-                                    alt="Computer chip heart"
-                                >
-                                {% else %}
-                                <img class="img-fluid mb-3" 
-                                    src="{% static 'img/computer.jpeg'%}" 
-                                    alt="Computer chip heart"
-                                >
-                            {% endif %}
+                    <div class="d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
                         <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
                         <div class="d-flex flex-row justify-content-between">
                         {% if lessonplan.average_rating %}

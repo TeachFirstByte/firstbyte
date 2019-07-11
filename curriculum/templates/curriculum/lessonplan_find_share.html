@@ -109,7 +109,7 @@
                         {% endif %}
                         </div>
                         <p class="curriculum-text">{{ lessonplan.summary }}</p>
-                        <a href="" >View more details</a>
+                        <a href="{{ lessonplan.get_absolute_url }}" >View more details</a>
                     </div>
                 </div>
             {% endfor %}

@@ -37,11 +37,18 @@
                             {{ form.sort_by }}
                         </div>
                     </div>
-                    <div>
-                        <a class="btn btn-outline-primary" data-toggle="collapse" href="#advancedSearchControls" 
-                            role="button" aria-expanded="false" aria-controls="collaadvancedSearchControlspseExample"> 
+                    <div class="pr-4">
+                        <a class="btn btn-outline-primary" data-toggle="collapse" href="#advancedSearchControls"
+                            role="button" aria-expanded="false" aria-controls="collaadvancedSearchControlspseExample">
                             Difficulty Level
                         </a>
+                    </div>
+                    <div class="pr-4">
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary {% if form.web_only.value %}active{% endif %}" for="{{ form.web_only.id_for_label }}">
+                                <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}" {% if form.web_only.value %}checked{% endif %} /><i class="fab fa-chrome"></i> {{ form.web_only.label }}
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="flex-fill pr-4 col-4 align-self-end">
@@ -67,13 +74,6 @@
                         </label>
                         <label class="btn btn-outline-primary {% if 'U' in form.grade_level.value %}active{% endif %}">
                             <input type="checkbox" name="grade_level" value="U" autocomplete="off" {% if 'U' in form.grade_level.value %}checked{% endif %} /> Post-secondary
-                        </label>
-                    </div>
-                </div>
-                <div class="col mb-3">
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary {% if form.web_only.value %}active{% endif %}" for="{{ form.web_only.id_for_label }}">
-                            <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}" {% if form.web_only.value %}checked{% endif %} /><i class="fab fa-chrome"></i> {{ form.web_only.label }}
                         </label>
                     </div>
                 </div>

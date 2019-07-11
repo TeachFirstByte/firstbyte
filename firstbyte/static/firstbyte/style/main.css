@@ -150,9 +150,37 @@ footer a:hover {
     color: white;
     border-color: rgba(255, 255, 255, 0.1);
 }
+
+.find-share-curricula {
+    font-size: 2em;
+}
+
+.curriculum-title {
+    font-weight: bold;
+}
+
+.curriculum a {
+    font-weight: normal;
+    text-decoration: underline;
+    font-size: 0.75em;
+}
+
+.fa-star {
+    color: #dddddd;
+}
+
+hr {
+    border: 1px solid #b8b4b4;
+    margin: 80px 0px;
+}
+
+.description {
+    font-size: 0.75em;
+}
+
 .navbar-brand {
     color: white !important;
-    font-size: 0.875em;
+    font-size: 0.9em;
     padding-top: 0.6em;
     margin-left: 2em;
 }
@@ -165,13 +193,6 @@ footer a:hover {
 .error-text {
     margin: auto;
     text-align: center;
-}
-
-.navbar-brand {
-    color: white !important;
-    font-size: 0.9em;
-    margin-left: 2em;
-    font-weight: 600;
 }
 
 .lessonplan-author {

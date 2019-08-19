@@ -178,9 +178,18 @@ hr {
     font-size: 0.75em;
 }
 
+.list-group-item {
+    padding-bottom: 5em;
+}
+.list-group-item-title {
+    font-weight: bold;
+    margin-bottom: 3em;
+}
+
 .navbar-brand {
     color: white !important;
     font-size: 0.9em;
+    font-weight: bold;
     padding-top: 0.6em;
     margin-left: 2em;
 }

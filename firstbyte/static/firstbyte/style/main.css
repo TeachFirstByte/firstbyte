@@ -165,6 +165,12 @@ footer a:hover {
     font-size: 0.75em;
 }
 
+.curriculum-text {
+    font-weight: normal;
+    color: black;
+    font-size: 1rem;
+}
+
 .fa-star {
     color: #dddddd;
 }

@@ -123,7 +123,7 @@
                                             class="text-right fab fa-chrome"></i></p>
                                 {% endif %}
                             </div>
-                            <p class="curriculum-text">{{ lessonplan.summary }}</p>
+                            <p class="curriculum-text">{{ lessonplan.summary|truncatechars:200 }}</p>
                             <a href="{{ lessonplan.get_absolute_url }}">View more details</a>
                         </div>
                     </div>

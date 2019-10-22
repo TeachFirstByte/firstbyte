@@ -95,7 +95,7 @@
         </form>
         <div class="row my-5">
             {% for lessonplan in object_list %}
-                <a style="color: rgb(0,0,0); text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
+                <a style="text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
                 <span>
                     <div class="col-4">
                         <div class="d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
@@ -123,7 +123,7 @@
                                             class="text-right fab fa-chrome"></i></p>
                                 {% endif %}
                             </div>
-                            <h6 class="curriculum-text">{{ lessonplan.summary }}</h6>
+                            <p class="curriculum-text">{{ lessonplan.summary }}</p>
                             <a href="{{ lessonplan.get_absolute_url }}">View more details</a>
                         </div>
                     </div>

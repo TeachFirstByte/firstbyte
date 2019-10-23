@@ -171,6 +171,13 @@ footer a:hover {
     font-size: 1rem;
 }
 
+.card-hover-shadow {
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
 .fa-star {
     color: #dddddd;
 }

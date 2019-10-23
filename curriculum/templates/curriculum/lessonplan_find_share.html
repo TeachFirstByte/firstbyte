@@ -5,6 +5,7 @@
 {% block head %}
     {% load render_bundle from webpack_loader %}
     {% render_bundle 'starRating' %}
+    {% render_bundle 'cardHoverShadow' %}
 {% endblock %}
 {% block content %}
     <div>
@@ -95,39 +96,34 @@
         </form>
         <div class="row my-5">
             {% for lessonplan in object_list %}
-                <a style="text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
-                <span>
-                    <div class="col-4">
-                        <div class="d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
-                            <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
-                            <div class="d-flex flex-row justify-content-between">
-                                {% if lessonplan.average_rating %}
-                                    <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}">
-                                        <i class="fa-star" aria-hidden="true"></i>
-                                        <i class="fa-star" aria-hidden="true"></i>
-                                        <i class="fa-star" aria-hidden="true"></i>
-                                        <i class="fa-star" aria-hidden="true"></i>
-                                        <i class="fa-star" aria-hidden="true"></i>
-                                    </p>
-                                {% else %}
-                                    <p class="stars" data-average-rating="{{ lessonplan.average_rating }}">
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                    </p>
-                                {% endif %}
-                                {% if lessonplan.web_only %}
-                                    <p class="pr-4" title="Chromebook compatible"><i
-                                            class="text-primary text-right fab fa-chrome"></i></p>
-                                {% endif %}
-                            </div>
-                            <p class="curriculum-text">{{ lessonplan.summary|truncatechars:200 }}</p>
-                            <a href="{{ lessonplan.get_absolute_url }}">View more details</a>
+                <a class="display-block col-4" style="text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
+                    <div class="card-hover-shadow d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
+                        <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
+                        <div class="d-flex flex-row justify-content-between">
+                            {% if lessonplan.average_rating %}
+                                <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}">
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                    <i class="fa-star" aria-hidden="true"></i>
+                                </p>
+                            {% else %}
+                                <p class="stars" data-average-rating="{{ lessonplan.average_rating }}">
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                </p>
+                            {% endif %}
+                            {% if lessonplan.web_only %}
+                                <p class="pr-4" title="Chromebook compatible"><i
+                                        class="text-primary text-right fab fa-chrome"></i></p>
+                            {% endif %}
                         </div>
+                        <p class="curriculum-text">{{ lessonplan.summary|truncatechars:200 }}</p>
                     </div>
-                </span>
                 </a>
             {% endfor %}
         </div>

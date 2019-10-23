@@ -5,7 +5,8 @@ module.exports = {
   context: __dirname,
   entry: {
     uploadLessonResource: "./curriculum/static/js/uploadLessonResource.js",
-    starRating: "./firstbyte/static/firstbyte/js/starRating.js"
+    starRating: "./firstbyte/static/firstbyte/js/starRating.js",
+    cardHoverShadow: './curriculum/static/js/cardHoverShadow.js'
   },
   output: {
     path: path.resolve("./firstbyte/static/firstbyte/webpack_bundles/"),

@@ -95,10 +95,9 @@
         </form>
         <div class="row my-5">
             {% for lessonplan in object_list %}
-                <a style="text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
-                <span>
-                    <div class="col-4">
-                        <div class="d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
+                <div class="col-4">
+                    <div class="d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
+                        <a href="{{ lessonplan.get_absolute_url }}">
                             <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
                             <div class="d-flex flex-row justify-content-between">
                                 {% if lessonplan.average_rating %}
@@ -124,11 +123,9 @@
                                 {% endif %}
                             </div>
                             <p class="curriculum-text">{{ lessonplan.summary|truncatechars:200 }}</p>
-                            <a href="{{ lessonplan.get_absolute_url }}">View more details</a>
-                        </div>
+                        </a>
                     </div>
-                </span>
-                </a>
+                </div>
             {% endfor %}
         </div>
         <hr>

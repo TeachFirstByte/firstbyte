@@ -5,10 +5,10 @@ import $ from 'jquery';
 $(document).ready(function() {
     $(".card-hover-shadow").hover(
         function() {
-            $(this).addClass('shadow').css('cursor', 'pointer');
+            $(this).addClass('shadow-lg').css('cursor', 'pointer');
         },
         function() {
-            $(this).removeClass('shadow');
+            $(this).removeClass('shadow-lg');
         }
     );
 });

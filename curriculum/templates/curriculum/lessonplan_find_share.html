@@ -10,62 +10,48 @@
 {% block content %}
     <div>
         <div class="container">
-            <div class="row col-5">
-                <table style="height:20em; width: 100%;">
-                    <tbody>
-                    <tr>
-                        <td class="align-center">
-                            <h1 class="font-weight-bold find-share-curricula">Find & Share Curricula</h1>
-                            <p>
-                                All curriculum is free to download and use
-                                as you see fit. Please consider providing
-                                feedback to the original author, or
-                                uploading your modified version if any
-                                changes were needed for your classroom.
-                            </p>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-lg find-share-curricula">
+                    <h1 class="font-weight-bold find-share-curricula-title">Find & Share Curricula</h1>
+                    <p>
+                        All curriculum is free to download and use
+                        as you see fit. Please consider providing
+                        feedback to the original author, or
+                        uploading your modified version if any
+                        changes were needed for your classroom.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container mt-1">
-        <form method="get">
+    <form method="get">
+        <div class="container mt-1">
             <div class="row mb-3">
-                <div class="col d-flex form-inline">
-                    <div class="pr-4">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">{{ form.sort_by.label }}</span>
-                            </div>
-                            {{ form.sort_by }}
-                        </div>
+                <div class="mb-3 input-group col-lg-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ form.sort_by.label }}</span>
                     </div>
-                    <div class="pr-4">
-                        <a class="btn btn-outline-primary" data-toggle="collapse" href="#advancedSearchControls"
-                           role="button" aria-expanded="false" aria-controls="collaadvancedSearchControlspseExample">
-                            Difficulty Level
-                        </a>
-                    </div>
-                    <div class="pr-4">
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-outline-primary {% if form.web_only.value %}active{% endif %}"
-                                   for="{{ form.web_only.id_for_label }}">
-                                <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}"
-                                       {% if form.web_only.value %}checked{% endif %}/><i
-                                    class="fab fa-chrome"></i> {{ form.web_only.label }}
-                            </label>
-                        </div>
-                    </div>
+                    {{ form.sort_by }}
                 </div>
-                <div class="flex-fill pr-4 col-4 align-self-end">
-                    <div class="input-group">
-                        <input name="q" type="text" class="form-control" placeholder="Search Curricula"
-                               value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
-                        </div>
+                <div class="mb-3 col-lg">
+                    <a class="col-sm btn btn-outline-primary" data-toggle="collapse" href="#advancedSearchControls"
+                       role="button" aria-expanded="false" aria-controls="collaadvancedSearchControlspseExample">
+                        Difficulty Level
+                    </a>
+                </div>
+                <div class="mb-3 col-lg btn-group-toggle" data-toggle="buttons">
+                    <label class="col-sm btn btn-outline-primary {% if form.web_only.value %}active{% endif %}"
+                           for="{{ form.web_only.id_for_label }}">
+                        <input type="checkbox" autocomplete="off" name="{{ form.web_only.name }}"
+                               {% if form.web_only.value %}checked{% endif %}/><i
+                            class="fab fa-chrome"></i> {{ form.web_only.label }}
+                    </label>
+                </div>
+                <div class="mb-3 col-lg-5 input-group">
+                    <input name="q" type="text" class="form-control" placeholder="Search Curricula"
+                           value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
                     </div>
                 </div>
             </div>
@@ -93,10 +79,13 @@
                 <input type="hidden" name="user_id"
                        value="{% if form.user_id.value %}{{ form.user_id.value }}{% endif %}"/>
             </div>
-        </form>
-        <div class="row my-5">
+        </div>
+    </form>
+
+    <div class="container">
+        <div class="row">
             {% for lessonplan in object_list %}
-                <a class="display-block col-4" style="text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
+                <a class="col-lg-4" style="text-decoration:none" href="{{ lessonplan.get_absolute_url }}">
                     <div class="card-hover-shadow d-flex flex-column curriculum mb-3 border rounded border-primary p-3">
                         <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
                         <div class="d-flex flex-row justify-content-between">
@@ -127,7 +116,8 @@
                 </a>
             {% endfor %}
         </div>
-        <hr>
+    </div>
+    <hr>
     </div>
     <div class="container mb-5">
         <div class="row">

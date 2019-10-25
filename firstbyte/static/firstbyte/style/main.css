@@ -166,10 +166,13 @@ footer a:hover {
 }
 
 .curriculum a {
+    display: block;
     font-weight: normal;
     text-decoration: none;
     font-size: 0.75em;
-    min-height: 200px;
+    height: 15rem;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .curriculum-text {

@@ -50,7 +50,11 @@
                     </span>
                     <span>
                         <span class="sr-only">Preparation time: </span>
+                        {% if lessonplan.total_prep_time.total_seconds == 0 %}
+                        <span class="badge badge-outlined badge-secondary lessonplan-info">No prep time</span>
+                        {% else  %}
                         <span class="badge badge-outlined badge-secondary lessonplan-info">{% format_duration lessonplan.total_prep_time %} total prep time</span>
+                        {% endif %}
                     </span>
                     <span>
                         <span class="sr-only">Works best for </span>

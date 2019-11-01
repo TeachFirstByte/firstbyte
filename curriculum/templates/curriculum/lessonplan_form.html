@@ -18,42 +18,57 @@
         <p class="lead">Share lesson plans with other educators</p>
     </div>
     <div class="container my-5">
-        <div class="row">
-            <div class="col">
-                <h4>Curriculum Information</h4>
-            </div>
-            <div class="col">
-                <h4>Upload Supporting Files</h4>
-            </div>
+    <div class="row">
+        <div class="col">
+            <h4>Curriculum Information</h4>
         </div>
-        <div class="row">
-            <div class="col-sm">
-                {% crispy form form.helper %}
-            </div>
-            <div class="col-sm d-flex flex-column">
-                <span class="lr-additional-clickarea mb-3">Attach materials by dragging &amp; dropping or clicking in the box below.</span>
-                <div class="lr-droparea">
-                    <input type="file" class="lr-file-input" id="file-select" multiple />
-                    <div id="lesson-resources" class="flex-fill">
-                        <div class="lr-fallback">
-                            File uploads are not supported in this browser. You may wish to try the following:
-                            <ul class="text-left">
-                                <li>Updating your browser</li>
-                                <li>Enabling Javascript</li>
-                                <li>Contact <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a></li>
-                            </ul>
+        <div class="col">
+            <h4>Upload Supporting Files</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
                         </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% crispy form form.helper %}
+        </div>
+        <div class="col-sm d-flex flex-column">
+            <span class="lr-additional-clickarea mb-3">Attach materials by dragging &amp; dropping or clicking in the box below.</span>
+            <div class="lr-droparea">
+                <input type="file" class="lr-file-input" id="file-select" multiple/>
+                <div id="lesson-resources" class="flex-fill">
+                    <div class="lr-fallback">
+                        File uploads are not supported in this browser. You may wish to try the following:
+                        <ul class="text-left">
+                            <li>Updating your browser</li>
+                            <li>Enabling Javascript</li>
+                            <li>Contact <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="lesson-submission-warning"></p>
-            Please see our <a href="{% url 'faq' %}">FAQ</a> for more information.
-        </p>
-        <div class="row w-100 text-center">
-            <div class="col text-center">
-                <input type="submit" class="btn btn-primary mt-3" for="lesson-plan-form" id="submit-lesson-plan" value="Upload Curriculum"/>
-            </div>
+    </div>
+    <p class="lesson-submission-warning"></p>
+    Please see our <a href="{% url 'faq' %}">FAQ</a> for more information.
+    </p>
+    <div class="row w-100 text-center">
+        <div class="col text-center">
+            <input type="submit" class="btn btn-primary mt-3" for="lesson-plan-form" id="submit-lesson-plan"
+                   value="Upload Curriculum"/>
         </div>
+    </div>
     </container>
 {% endblock %}

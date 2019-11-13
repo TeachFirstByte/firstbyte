@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import index, faq, privacy_policy, loaner_program, volunteer_redirect, events_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
+from landing.views import index, team, faq, privacy_policy, loaner_program, volunteer_redirect, events_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
 
 urlpatterns = [
 
     path('user/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('team/', team, name='team'),
     path('frequently-asked-questions/', faq, name='faq'),
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     # path('loaner-program/', loaner_program, name='loaner-program'),

@@ -11,24 +11,23 @@ def user_upload_directory(instance, filename):
     """Return the upload directory for a given File (should have an owner)."""
     return 'user_{0}/{1}'.format(instance.owner.id, filename)
 
+OTHER = 0
+STUDENT_HANDOUT = 1
+TEACHER_REFERENCE = 2
+SLIDES = 3
+CODE = 4
+SCHEMATIC = 5
+
+FILE_TYPES = (
+    (OTHER, "Other"),
+    (STUDENT_HANDOUT, "Student handout"),
+    (TEACHER_REFERENCE, "Teacher reference"),
+    (SLIDES, "Slides"),
+    (CODE, "Code"),
+    (SCHEMATIC, "Schematic"),
+)
 
 class LessonResource(models.Model):
-    OTHER = 0
-    STUDENT_HANDOUT = 1
-    TEACHER_REFERENCE = 2
-    SLIDES = 3
-    CODE = 4
-    SCHEMATIC = 5
-
-    FILE_TYPES = (
-        (OTHER, "Other"),
-        (STUDENT_HANDOUT, "Student handout"),
-        (TEACHER_REFERENCE, "Teacher reference"),
-        (SLIDES, "Slides"),
-        (CODE, "Code"),
-        (SCHEMATIC, "Schematic"),
-    )
-
     # The original filename - or whatever is displayed.
     name = models.CharField(max_length=60)
 
@@ -47,13 +46,27 @@ class LessonResource(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        semantic_type_str = self.FILE_TYPES[0][1]
-        for file_type in self.FILE_TYPES:
+        semantic_type_str = FILE_TYPES[0][1]
+        for file_type in FILE_TYPES:
             if file_type[0] == self.semantic_type:
                 semantic_type_str = file_type[1]
                 break
         return '(LessonResource ' + str(self.id) + ') ' + self.name + ' (' + semantic_type_str + ')'
 
+class LessonResourceExternalLink(models.Model):
+    name = models.CharField(max_length=60)
+    semantic_type = models.SmallIntegerField(choices=FILE_TYPES, default=OTHER)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    link = models.URLField(max_length=400)
+    create_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        semantic_type_str = FILE_TYPES[0][1]
+        for file_type in FILE_TYPES:
+            if file_type[0] == self.semantic_type:
+                semantic_type_str = file_type[1]
+                break
+        return '(LessonResourceExternalLink ' + str(self.id) + ') ' + self.name + ' (' + semantic_type_str + ')'
 
 class LessonPlan(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
@@ -74,6 +87,7 @@ class LessonPlan(models.Model):
 
     # uploaded files!
     resources = models.ManyToManyField(LessonResource, blank=True)
+    resource_links = models.ManyToManyField(LessonResourceExternalLink, blank=True)
 
     # enable feedback?
     feedback_enabled = models.BooleanField(default=True)

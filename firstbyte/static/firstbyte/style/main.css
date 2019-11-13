@@ -1,19 +1,10 @@
-/* Fonts */
-
-body {
-    font-family: 'Open Sans', sans-serif;
-}
-header, footer {
-    font-family: 'Montserrat', sans-serif;
-}
-
 /* Main layout */
 body {
     min-height: 100vh;
 }
 
 .bg-green {
-    background-color: #436D4E;
+    background-color: #436d4e;
 }
 
 .jumbotron {
@@ -22,45 +13,48 @@ body {
 }
 
 .no-bg {
-    background:none;
+    background: none;
 }
 
 .container-full-bg {
-    width:100%;
-    height:100%;
-    max-width:100%;
-    background-position:center;
-    background-size:cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
 }
 
 .flex-wrap {
     flex-wrap: wrap;
 }
 
-a {
-    font-weight: bold;
-}
-
 footer {
     width: 100%;
-    font-size: .9rem;
+    font-size: 0.875rem;
 }
 .footer-bg-container {
     width: 100%;
-    padding: 1rem 0;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 
 .footer-nav-header {
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: bold;
     padding-top: 1.1rem;
-    padding-bottom: .2rem;
+    padding-bottom: 0.2rem;
+}
+.footer-license {
+    font-size: 0.625rem;
+    padding-top: 2.5rem;
+}
+.footer-copyright {
+    font-size: 0.625rem;
 }
 
 footer a {
     color: inherit;
     text-decoration: none;
-    font-weight: 500;
 }
 
 footer a:hover {
@@ -75,6 +69,16 @@ footer a:hover {
     padding: 1em;
 }
 
+.badge-outlined {
+    background-color: transparent;
+    border: 1px solid #999;
+    padding: 0.5em 1em;
+}
+.badge-outlined.badge-secondary {
+    border-color: #323a45;
+    color: #323a45
+}
+
 .align-center input {
     margin: auto;
 }
@@ -84,7 +88,7 @@ footer a:hover {
 }
 
 .lesson-submission-warning {
-    font-size: .75em;
+    font-size: 0.75em;
 }
 
 .progress {
@@ -128,16 +132,99 @@ footer a:hover {
 }
 
 .nav-link {
-    color: rgba(255, 255, 255, .75) !important;
-    font-weight: 500;
-    font-size: 1em;
-}
-
-.nav-link:hover {
-    color: rgba(255, 255, 255, 1) !important;
+    color: white !important;
+    font-size: 0.875em;
+    margin-bottom: 0px;
 }
 
 .iframe-center {
     display: inline-block !important;
     text-align: center !important;
+}
+
+.navbar-nav {
+    margin-left: 15%;
+}
+
+.navbar .navbar-toggler {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.find-share-curricula {
+    font-size: 2em;
+}
+
+.curriculum-title {
+    font-weight: bold;
+}
+
+.curriculum a {
+    font-weight: normal;
+    text-decoration: underline;
+    font-size: 0.75em;
+}
+
+.curriculum-text {
+    font-weight: normal;
+    color: black;
+    font-size: 1rem;
+}
+
+.card-hover-shadow {
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.fa-star {
+    color: #dddddd;
+}
+
+hr {
+    border: 1px solid #b8b4b4;
+    margin: 80px 0px;
+}
+
+.description {
+    font-size: 0.75em;
+}
+
+.list-group-item {
+    padding-bottom: 5em;
+}
+.list-group-item-title {
+    font-weight: bold;
+    margin-bottom: 3em;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-top: 0.6em;
+    margin-left: 2em;
+}
+
+.team-member img {
+    width: 225px;
+    height: 225px;
+}
+
+.error-text {
+    margin: auto;
+    text-align: center;
+}
+
+.lessonplan-author {
+    font-size: 0.875em;
+}
+.badge.lessonplan-info {
+    font-size: 0.875em;
+    font-weight: 400;
+}
+
+.lessonplan-action-button {
+    font-size: 0.875em;
 }

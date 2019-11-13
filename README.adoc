@@ -42,6 +42,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 ```
 
+In order to view custom error pages such as the 404 page, you need to set DEBUG to False.
+With DEBUG set to False, you will need to run the server with the --insecure flag to serve
+static files through Django. Django normally doesn't serve static files when not in debugging mode
+as static files should be handled through a production web server when deployed.
+
 This project also uses webpack for preparing Javascript assets for ES6
 support, minification, etc. Use this command to install all required Node
 dependencies.

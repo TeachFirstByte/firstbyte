@@ -21,29 +21,33 @@
     {% block ga %}{% if GA_TRACKING_ID %}{% include 'firstbyte/ga.html' %}{% endif %}{% endblock %}
 </head>
 <body class="d-flex flex-column">
-    <nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-green py-3">
+        <a class="navbar-brand" href="{% url 'index' %}">FIRSTBYTE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <a class="navbar-brand py-0 d-lg-none d-xl-block" href="{% url 'index' %}" >
-            <img class="py-0 mr-3" src="{% static 'firstbyte/img/logo.png' %}" height="40px" />
-        </a>
-
-        <div id="navbar-links" class="collapse navbar-collapse">
+        <div id="navbar-links" class="collapse navbar-collapse justify-content-end text-nowrap">
             <div class="navbar-nav">
                 <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'team' %}">Meet the Team</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
-                <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find Curricula</a>
-                <a class="nav-item nav-link mx-2" href="{% url 'create-lesson-plan' %}">Share Curriculum</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find & Share Curricula</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
             </div>
 
-            <div class="navbar-nav ml-auto justify-content-end">
+            <div class="navbar-nav ml-auto justify-content-end col-sm-4">
                 {% load account %}
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link mx-2" href="{% url 'me' %}">My Profile</a>
-                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
+                    {% with idstr=user.id|stringformat:"s"|add:"/" %}
+                            {% with profile_url="/user/"|add:idstr %}
+                                {% if request.path == profile_url %}
+                                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next=/">Sign Out</a>
+                                {% else %}
+                                    <a class="nav-item nav-link mx-2" href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% endwith %}
                 {% else %}
                     <a class="nav-item nav-link ml-2" href="{% url 'account_login' %}">Log In</a>
                     <a class="nav-item nav-link ml-2" href="{% url 'account_signup'%}">Sign Up</a>
@@ -60,7 +64,7 @@
         <div class="footer-bg-container bg-green text-light">
             <div class="container">
                 <div class="row d-flex justify-content-between">
-                    <div class="col-sm">
+                    <div class="col-sm-2">
                         <h6 class="footer-nav-header mb-0">MENU</h6>
                         <ul class="list-unstyled mb-2">
                             <li><a href="{% url 'list-lesson-plan' %}">Find curricula</a></li>
@@ -68,61 +72,39 @@
                             <li><a href="{% url 'loaner-program' %}">Borrow materials</a></li>
                             <li><a href="{% url 'list-event' %}">Events</a></li>
                         </ul>
+                    </div>
+                    <div class="col-sm-2">
                         <h6 class="footer-nav-header mb-0">USER</h6>
                         <ul class="list-unstyled mb-2">
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'me' %}">My Profile</a></li>
-                            <li><a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a></li>
+                            {% with idstr=user.id|stringformat:"s"|add:"/" %}
+                                {% with profile_url="/user/"|add:idstr %}
+                                    {% if request.path == profile_url %}
+                                        <li><a href="{% url 'account_logout' %}?next=/">Sign Out</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'account_logout' %}?next={{ request.get_full_path }}">Sign Out</a></li>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endwith %}
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Log In</a></li>
                             <li><a href="{% url 'account_signup'%}">Sign Up</a></li>
                         {% endif %}
                         </ul>
                     </div>
-                    <div class="col-sm">
-                        <h6 class="footer-nav-header mb-1">CONTACT</h6>
-                        <a href="{% url 'volunteer-redirect' %}">
-                            <div class="row my-1">
-                                <div class="col-1 mr-2 mr-0-sm">
-                                    <i class="fa fa-plus-square fa-2x mr-2"></i>
-                                </div>
-                                <div class="col align-self-center text-left">Join our team</div>
-                            </div>
-                        </a>
-                        <a href="mailto:info@teachfirstbyte.org">
-                            <div class="row my-1">
-                                <div class="col-1 mr-2 mr-0-sm">
-                                    <i class="fa fa-envelope-square fa-2x mr-2"></i>
-                                </div>
-                                <div class="col align-self-center text-left">info@teachfirstbyte.org</div>
-                            </div>
-                        </a>
-                        <a href="https://www.facebook.com/teachfirstbyte" target="blank">
-                            <div class="row my-1">
-                                <div class="col-1 mr-2 mr-0-sm">
-                                    <i class="fab fa-facebook fa-2x mr-2"></i>
-                                </div>
-                                <div class="col align-self-center text-left">Facebook</div>
-                            </div>
-                        </a>
-                        <a href="https://www.twitter.com/teachfirstbyte" target="blank">
-                            <div class="row my-1">
-                                <div class="col-1 mr-2 mr-0-sm">
-                                    <i class="fab fa-twitter-square fa-2x mr-2"></i>
-                                </div>
-                                <div class="col align-self-center text-left">Twitter</div>
-                            </div>
-                        </a>
-                        <a href="https://www.youtube.com/channel/UCWe9XS5lyxFqqyqMM4M6eQQ" target="blank">
-                            <div class="row my-1">
-                                <div class="col-1 mr-2 mr-0-sm">
-                                    <i class="fab fa-youtube-square fa-2x mr-2"></i>
-                                </div>
-                                <div class="col align-self-center text-left">YouTube</div>
-                            </div>
-                        </a>
+                    <div class="col-sm-2">
+                        <h6 class="footer-nav-header mb-0">CONTACT</h6>
+                        <ul class="list-unstyled mb-2">
+                            <li><a href="mailto:info@teachfirstbyte.org">Contact us</a></li>
+                            <li><a href="{% url 'volunteer-redirect' %}">Join our team</a></li>
+                            <li><a href="https://www.facebook.com/teachfirstbyte" target="blank">Facebook</a></li>
+                            <li><a href="https://www.linkedin.com/company/firstbyte/" target="blank">LinkedIn</a></li>
+                            <li><a href="https://www.twitter.com/teachfirstbyte" target="blank">Twitter</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCWe9XS5lyxFqqyqMM4M6eQQ" target="blank">YouTube</a></li>
+                        </ul>
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-4 offset-sm-2">
                         <h6 class="footer-nav-header mb-0">ADDITIONAL LINKS</h6>
                         <div class="row my-0">
                             <div class="col">
@@ -133,22 +115,19 @@
                                         <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
                                     </ul>
                                 </div>
-                                <div class="col d-flex align-items-end justify-content-center pb-2">
-                                    <a class="text-center" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-                                        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
-                                    </a>
-                            </div>
                         </div>
-                        <p>This site and <i>all curricula</i> found on this site are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
                     </div>
+                </div>
+                <div class="footer-license">
+                    <p>This site and <i>all curricula</i> found on this site are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
                 </div>
             </div>
         </div>
         <div class="py-2 bg-dark">
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                        <div class="text-center text-muted mr-5">&copy; 2018 FirstByte</span>
+                    <div class="col footer-copyright">
+                        <div class="text-center text-muted mr-5">&copy; 2019 FirstByte</span>
                         <span class="text-muted px-2">|</span>
                         <span class="text-muted"><a href="https://github.com/lukesanantonio/firstbyte" target="blank">View project on Github</a></span>
                     </div>

@@ -14,15 +14,20 @@ def number_to_words(num, capitalize=False):
 
 
 @register.simple_tag
-def format_duration(td):
+def format_duration(td, singular=False):
     result = ''
 
     hours = td.seconds // 60 // 60
-    if hours != 0:
-        result = result + str(hours) + 'hr'
+    if hours > 0:
+        hr_separator = ' hour' if not singular else '-hour'
+        plural = 's' if hours > 1 and not singular else ''
+        result = result + str(hours) + hr_separator + plural
 
     minutes = (td.seconds - hours * 3600) // 60
-    if minutes:
-        result = result + str(minutes) + 'min'
-
+    if minutes > 0:
+        hr_min_separator = ' and ' if hours > 0 else '' 
+        min_separator = ' minute' if not singular else '-minute'
+        plural = 's' if minutes > 0 and not singular else ''
+        result = result + str(minutes) + hr_min_separator + min_separator + plural
+  
     return result

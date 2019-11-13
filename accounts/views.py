@@ -2,7 +2,7 @@ import hashlib
 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 
@@ -12,9 +12,13 @@ def me(request):
 
 def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
-    if user.profile.hide_profile and request.user != user:
-        # Not authenticated
-        return HttpResponseForbidden('Not allowed')
+
+    try:
+        if user.profile.hide_profile and request.user != user:
+            # Not authenticated
+            raise Http404();
+    except User.profile.RelatedObjectDoesNotExist:
+        raise Http404();
 
     email_clean = user.email.strip().lower()
     email_hash = hashlib.md5(email_clean.encode('utf-8')).hexdigest()

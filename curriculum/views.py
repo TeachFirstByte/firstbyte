@@ -1,4 +1,5 @@
 import json
+from os import path
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView, View
 from django.views.generic.list import ListView
 from django.views.decorators.http import require_POST, require_GET
@@ -223,7 +224,7 @@ def list_lessonplans(request):
     else:
         queryset = queryset.filter(draft=False)
 
-    return render(request, 'curriculum/lessonplan_list.html', {
+    return render(request, 'curriculum/lessonplan_find_share.html', {
         'user': request.user,
         'form': form,
         'show_advanced_search_options': show_advanced_search_options,
@@ -262,7 +263,9 @@ def create_lesson_resource(request):
 def lesson_resource(request, pk):
     resource = get_object_or_404(models.LessonResource, id=pk)
     if request.method == 'GET':
-        return HttpResponse(resource.file.chunks(), resource.mime_type)
+        response = HttpResponse(resource.file.chunks(), resource.mime_type)
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(path.basename(resource.file.name))
+        return response
 
     if request.user.is_authenticated and (resource.owner == request.user or request.user.is_superuser):
         if request.method == 'DELETE':

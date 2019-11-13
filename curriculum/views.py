@@ -54,7 +54,7 @@ def create_lesson_plan_view(request):
 
             return redirect(lessonplan.get_absolute_url())
 
-        return JsonResponse(form.errors.get_json_data(), status=bad_request_status)
+        return JsonResponse(form.errors, status=bad_request_status)
 
     form = forms.LessonPlanForm()
     return render(request, 'curriculum/lessonplan_form.html', context={ 'form': form })

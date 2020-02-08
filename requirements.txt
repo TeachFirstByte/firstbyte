@@ -28,6 +28,7 @@ EB==0.1.5
 ebcli==4.0.18
 enum34==1.1.6
 future==0.16.0
+gunicorn==20.0.4
 idna==2.7
 inflect==2.1.0
 isort==4.3.4

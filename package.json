@@ -8,7 +8,7 @@
   "private": true,
   "dependencies": {
     "bluebird": "^3.5.3",
-    "css-loader": "^0.28.11",
+    "css-loader": "^3.4.2",
     "jquery": "^3.4.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.29.0",

@@ -256,3 +256,7 @@ try:
 except ImportError:
     print('Unable to load dev_settings.py')
     pass
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals(), test_runner=False)

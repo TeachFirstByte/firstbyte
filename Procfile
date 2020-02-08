@@ -1,1 +1,1 @@
-web: gunicorn firstyte.wsgi
+web: gunicorn firstbyte.wsgi

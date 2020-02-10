@@ -44,16 +44,11 @@ LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = 'me'
 
 DEFAULT_FROM_EMAIL = 'noreply@teachfirstbyte.org'
+EMAIL_BACKEND = 'django_ses.SESBackend'
 
 SITE_ID = 1
 
 ACCOUNT_USER_DISPLAY = 'accounts.views.user_display'
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME')
-EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 
 # Application definition
 

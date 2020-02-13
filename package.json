@@ -6,6 +6,9 @@
   "author": "Luke San Antonio Bialecki <lukesanantonio@gmail.com>",
   "license": "BSD-3-Clause",
   "private": true,
+  "scripts": {
+    "build": "webpack"
+  },
   "dependencies": {
     "bluebird": "^3.5.3",
     "css-loader": "^3.4.2",

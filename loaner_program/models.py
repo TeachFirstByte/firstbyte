@@ -14,7 +14,7 @@ class Kit(models.Model):
 
 class ReservationRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    technology = models.ForeignKey('Technology', on_delete=models.DO_NOTHING)
+    technology_id = models.ForeignKey('Technology', on_delete=models.DO_NOTHING)
     start_time = models.DateField()
     end_time = models.DateField()
     minimum_boards_required = models.PositiveIntegerField()
@@ -22,8 +22,8 @@ class ReservationRequest(models.Model):
 
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    kit = models.ForeignKey('Kit', on_delete=models.DO_NOTHING)
+    user_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    kit_id = models.ForeignKey('Kit', on_delete=models.DO_NOTHING)
     start_time = models.DateField()
     end_time = models.DateField()
     request = models.ForeignKey('ReservationRequest', on_delete=models.DO_NOTHING)

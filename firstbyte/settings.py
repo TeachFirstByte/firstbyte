@@ -50,6 +50,9 @@ SITE_ID = 1
 
 ACCOUNT_USER_DISPLAY = 'accounts.views.user_display'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -13,7 +13,11 @@ module.exports = {
     filename: "[name]-[hash].js"
   },
   mode: "development",
-
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
   module: {
     rules: [
       {

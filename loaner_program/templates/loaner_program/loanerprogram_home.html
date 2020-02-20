@@ -1,79 +1,10 @@
-{% extends "firstbyte/base.html" %} {% block title %}Loaner Program{% endblock%}
+{% extends "firstbyte/base.html" %} {% block title %}Loaner Program{% endblock %}
+{% block head %}
+  {% load render_bundle from webpack_loader %}
+  {% render_bundle 'loanerProgram' %}
+{% endblock %}
 {% block content %}
-<div class="container-full-bg">
-  <div class="row" style="margin: 0;">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
-      <div style="margin:5rem 0rem">
-        <h1 style="font-size:32px">Loaner Program</h1>
-        <h4 style="font-size:15px">
-          Borrow electronics from Firstbyte for your classroom
-        </h4>
-        <div class="row">
-          <p class="col-lg-6" style="font-size:12px;">
-            If you're in the Boston area and need materials, we're here to help.
-            FirstByte's loaner program gives local educators the chance to
-            borrow various technology kits to use in their classrooms. Email us
-            at info@teachfirstbyte.org to reserve!
-          </p>
-          <div class="col-lg-6"></div>
-        </div>
-        <hr />
-        <h4 style="font-size:12px; font-weight:bold">Our Inventory</h4>
-        <div style="margin:1rem 0rem">
-          {% if not user.is_authenticated %}
-          <p style="font-size:15px">Please note: you must be logged in to reserve our technology kits.</p>
-          {% endif %}
-        </div>
-        <div class="row" style="margin-bottom: 1rem; margin-top: 1rem;">
-          <div class="col-lg-2">
-            <img class="img-fluid" src="/static/landing/img/curriculum/circuitplayground.jpg">
-          </div>
-          <div class="col-lg-8">
-            <h4>Circuit Playground Classic Kit</h4>
-            <div>
-              <span class="loaner-data"
-                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem;">Available
-                starting <strong>4/5/19</strong></span>
-              <span class="loaner-data"
-                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem">12
-                boards per kit</span>
-            </div>
-            <div style="font-size: 12px; margin: 1rem 0rem">
-              <strong>Supporting curricula:</strong>
-              <a href="https://www.google.com">Makey Makey</a>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <button class="btn btn-primary">Reserve</button>
-          </div>
-        </div>
-        <div class="row" style="margin-bottom: 1rem; margin-top: 1rem;">
-          <div class="col-lg-2">
-            <img class="img-fluid" src="/static/landing/img/curriculum/circuitplayground.jpg">
-          </div>
-          <div class="col-lg-8">
-            <h4>Circuit Playground Classic Kit</h4>
-            <div>
-              <span class="loaner-data"
-                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem;">Available
-                starting <strong>4/5/19</strong></span>
-              <span class="loaner-data"
-                style="border: solid 1px #979797; border-radius: 5px; font-size: 10px; text-align: center; padding: .25rem">12
-                boards per kit</span>
-            </div>
-            <div style="font-size: 12px; margin: 1rem 0rem">
-              <strong>Supporting curricula:</strong>
-              <a href="https://www.google.com">Makey Makey</a>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <button class="btn btn-primary">Reserve</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-2"></div>
-  </div>
+<div id="vue-container">
+  <the-loaner-program />
 </div>
 {% endblock %}

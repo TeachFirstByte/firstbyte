@@ -245,8 +245,8 @@ LOGGING = {
 
 try:
     from .dev_settings import *
+    print('Successfully imported dev_settings.py')
 except ImportError:
-    print('Unable to load dev_settings.py')
     pass
 
 # Configure Django App for Heroku.

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'curriculum.apps.CurriculumConfig',
     'landing.apps.LandingConfig',
     'events.apps.EventsConfig',
+    'loaner_program.apps.LoanerProgramConfig',
     'webpack_loader',
     'allauth',
     'allauth.account',
@@ -244,8 +245,8 @@ LOGGING = {
 
 try:
     from .dev_settings import *
+    print('Successfully imported dev_settings.py')
 except ImportError:
-    print('Unable to load dev_settings.py')
     pass
 
 # Configure Django App for Heroku.

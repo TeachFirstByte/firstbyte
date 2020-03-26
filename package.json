@@ -10,19 +10,19 @@
     "build": "webpack"
   },
   "dependencies": {
-    "bluebird": "^3.5.3",
+    "bluebird": "^3.7.2",
     "css-loader": "^3.4.2",
     "jquery": "^3.4.1",
     "style-loader": "^0.21.0",
+    "webpack": "^4.42.0",
+    "webpack-bundle-tracker": "^0.4.3",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.0",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.29.0",
-    "webpack-bundle-tracker": "^0.4.2-beta"
+    "vue-template-compiler": "^2.6.11"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "jasmine": "^3.3.1",
-    "webpack-cli": "^3.2.1"
+    "jasmine": "^3.5.0",
+    "webpack-cli": "^3.3.11"
   }
 }

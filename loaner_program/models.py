@@ -18,7 +18,9 @@ class ReservationRequest(models.Model):
     start_time = models.DateField()
     end_time = models.DateField()
     minimum_boards_required = models.PositiveIntegerField()
-    status = models.CharField(max_length=200)
+    completed = models.BooleanField(default = False)
+    message = models.CharField(blank = True, max_length = 256)
+    request = models.ForeignKey('Reservation', blank = True, on_delete=models.DO_NOTHING, default = None)
 
 
 class Reservation(models.Model):
@@ -27,3 +29,4 @@ class Reservation(models.Model):
     start_time = models.DateField()
     end_time = models.DateField()
     request = models.ForeignKey('ReservationRequest', on_delete=models.DO_NOTHING)
+    message = models.CharField(blank = True, max_length = 256)

@@ -1,4 +1,4 @@
-image:https://travis-ci.org/lukesanantonio/firstbyte.svg?branch=dev["Build Status", link="https://travis-ci.org/lukesanantonio/firstbyte"]
+image:https://travis-ci.com/lukesanantonio/firstbyte.svg?branch=dev["Build Status", link="https://travis-ci.com/lukesanantonio/firstbyte"]
 
 = FirstByte
 

@@ -9,6 +9,7 @@ module.exports = {
     starRating: "./firstbyte/static/firstbyte/js/starRating.js",
     cardHoverShadow: './curriculum/static/js/cardHoverShadow.js',
     loanerProgram: './loaner_program/static/loaner_program/js/app.js',
+    curriculumForm: './curriculum/static/js/curriculumForm.js'
   },
   output: {
     path: path.resolve("./firstbyte/static/firstbyte/webpack_bundles/"),

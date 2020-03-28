@@ -5,6 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   context: __dirname,
   entry: {
+    firstByteVendor: "./firstbyte/static/firstbyte/js/vendor.js",
     uploadLessonResource: "./curriculum/static/js/uploadLessonResource.js",
     starRating: "./firstbyte/static/firstbyte/js/starRating.js",
     cardHoverShadow: './curriculum/static/js/cardHoverShadow.js',
@@ -24,13 +25,30 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader',
+        ],
+      },
+      {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader'
-      }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
+      },
     ]
   },
 

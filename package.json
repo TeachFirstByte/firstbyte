@@ -14,8 +14,12 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.9.0",
     "css-loader": "^3.4.2",
+    "file-loader": "^6.0.0",
     "jquery": "^3.4.1",
+    "popper.js": "^1.16.1",
     "style-loader": "^0.21.0",
+    "typeface-montserrat": "^0.0.75",
+    "typeface-open-sans": "^0.0.75",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.0",
     "vue-template-compiler": "^2.6.11",
@@ -25,6 +29,8 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "jasmine": "^3.5.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
     "webpack-cli": "^3.3.11"
   }
 }

@@ -1,5 +1,6 @@
 var path = require("path");
 const BundleTracker = require("webpack-bundle-tracker");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
@@ -51,9 +52,8 @@ module.exports = {
       },
     ]
   },
-
   plugins: [
     new BundleTracker({ filename: "./webpack-stats.json" }),
     new VueLoaderPlugin()
-  ]
+  ],
 };

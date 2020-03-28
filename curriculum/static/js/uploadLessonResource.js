@@ -7,7 +7,7 @@ import FileUpload from './fileUpload.js';
 import { CurriculumClient } from './restClient.js';
 import Droparea from './droparea.js';
 
-var resourceForm = '\
+let resourceForm = '\
 <form data-lr-form method="post" enctype="multipart/form-data"> \
     <div class="row"> \
         <div class="col"> \
@@ -34,16 +34,16 @@ var resourceForm = '\
     <input type="hidden" name="resourceId" value="" data-lr-resource-id />\
 </form>';
 
-var curriculumClient;
-var fileUpload;
-var droparea;
+let curriculumClient;
+let fileUpload;
+let droparea;
 
 function submitLessonPlan(event) {
     event.preventDefault();
 
-    var allowSubmission = true;
+    let allowSubmission = true;
 
-    var resources = document.getElementsByClassName('lesson-resource-form');
+    let resources = document.getElementsByClassName('lesson-resource-form');
     for(let index = 0; index < resources.length; ++index) {
         let form = resources[index];
         if(form.dataset.resourceId === undefined) {
@@ -53,16 +53,16 @@ function submitLessonPlan(event) {
         allowSubmission = allowSubmission && form.reportValidity();
     }
 
-    var lessonPlanForm = document.getElementById('lesson-plan-form');
+    let lessonPlanForm = document.getElementById('lesson-plan-form');
     allowSubmission = allowSubmission && lessonPlanForm.reportValidity();
 
-    var resourceIds = [];
+    let resourceIds = [];
     if(allowSubmission) {
-        var promises = [];
+        let promises = [];
         for(let index = 0; index < resources.length; ++index) {
             let form = resources[index];
             // Make a request to the server, given ID
-            var resourcePatch = {
+            let resourcePatch = {
                 name: form.elements[1].value,
                 type: form.elements[0].value
             };
@@ -70,7 +70,7 @@ function submitLessonPlan(event) {
             promises.push(curriculumClient.putResource(form.dataset.resourceId, resourcePatch));
         }
         Promise.all(promises).then(function(_values) {
-            var resourceIdsInput = document.createElement('input');
+            let resourceIdsInput = document.createElement('input');
             resourceIdsInput.setAttribute('name', 'resources');
             resourceIdsInput.setAttribute('type', 'hidden');
             resourceIdsInput.setAttribute('value', resourceIds.join(','));
@@ -87,15 +87,15 @@ $(function(_) {
         template: resourceForm,
     });
 
-    var updatingLessonPlan = false;
+    let updatingLessonPlan = false;
     if(window.LESSON_PLAN_ID !== undefined) {
         updatingLessonPlan = true;
     }
 
     if(updatingLessonPlan) {
         curriculumClient.getLessonPlan(window.LESSON_PLAN_ID).then(function(lessonplan) {
-            for (var i = 0; i < lessonplan.resources.length; ++i) {
-                var resource = lessonplan.resources[i];
+            for (let i = 0; i < lessonplan.resources.length; ++i) {
+                let resource = lessonplan.resources[i];
                 fileUpload.addExistingSlot(resource.id, resource.semantic_type, resource.name);
             }
         }).catch(function(err) {
@@ -123,9 +123,9 @@ $(function(_) {
 
     // Helper for making clicks open up a file dialog
     $('.lr-file-input').on('change', function(event) {
-        var files = event.currentTarget.files;
-        for(var index = 0; index < files.length; ++index) {
-            var file = files[index];
+        let files = event.currentTarget.files;
+        for(let index = 0; index < files.length; ++index) {
+            let file = files[index];
             fileUpload.addFileSlot(file);
         }
     });
@@ -133,13 +133,13 @@ $(function(_) {
     $('#submit-lesson-plan').on('click', function(event) {
         event.preventDefault();
 
-        var form = document.getElementById('lesson-plan-form');
+        let form = document.getElementById('lesson-plan-form');
 
         if(!form.reportValidity()) {
             return;
         }
 
-        var allFormsAreValid = true;
+        let allFormsAreValid = true;
         fileUpload.forEach(function(_, resourceForm){
             allFormsAreValid = allFormsAreValid && resourceForm.reportValidity();
         });
@@ -147,12 +147,12 @@ $(function(_) {
             return;
         }
 
-        var resourceIds = [];
-        var filetypes = [];
-        var filenames = [];
-        var files = [];
+        let resourceIds = [];
+        let filetypes = [];
+        let filenames = [];
+        let files = [];
         fileUpload.forEach(function(file, form) {
-            var formData = new FormData(form);
+            let formData = new FormData(form);
             resourceIds.push(formData.get('resourceId') || false);
             filetypes.push(formData.get('type'));
             filenames.push(formData.get('name'));
@@ -169,21 +169,21 @@ $(function(_) {
         // (to represent all the lesson resource files that are being uploaded, I'm not sure if we can do each file individually).
         // - Submit lesson plan and request a certain number of lesson resource slots, then upload those files individually and redirect via JS
 
-        var lessonPlanFormData = new FormData(form);
+        let lessonPlanFormData = new FormData(form);
         lessonPlanFormData.append('resource_ids', JSON.stringify(resourceIds));
         lessonPlanFormData.append('filetypes', JSON.stringify(filetypes));
 
         // Better make sure filenames don't have a comma, otherwise this will break badly.
         lessonPlanFormData.append('filenames', JSON.stringify(filenames));
 
-        for(var i = 0; i < files.length; ++i) {
+        for(let i = 0; i < files.length; ++i) {
             lessonPlanFormData.append('files[]', files[i]);
         }
 
         // Request a json response
         lessonPlanFormData.set('jsonResponse', true);
 
-        var submissionPromise;
+        let submissionPromise;
         if (updatingLessonPlan) {
             submissionPromise = curriculumClient.updateLessonPlan(lessonPlanFormData, window.LESSON_PLAN_ID);
         } else {
@@ -193,11 +193,11 @@ $(function(_) {
         submissionPromise.then(function(response) {
             window.location.href = '/lesson-plans/' + response.id;
         }).catch(function(error) {
-            var obj = JSON.parse(error.message)
-            for(var key in obj) {
+            let obj = JSON.parse(error.message)
+            for(let key in obj) {
                 if(Object.prototype.hasOwnProperty.call(obj, key)) {
-                    var elem = $('[name="' + key +'"]')[0]
-                    var num_errors = obj[key].length
+                    let elem = $('[name="' + key +'"]')[0]
+                    let num_errors = obj[key].length
                     elem.setCustomValidity(obj[key][num_errors - 1])
                 }
             }

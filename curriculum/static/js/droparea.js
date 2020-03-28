@@ -20,7 +20,7 @@ export default function Droparea(selector, callback, classNameOverrides) {
 Droparea.prototype.onDropHandler = function(event) {
     event.preventDefault();
 
-    var originalEvent = event.originalEvent;
+    let originalEvent = event.originalEvent;
 
     if (originalEvent.dataTransfer.items) {
         // Use DataTransferItemList interface to access the file(s)

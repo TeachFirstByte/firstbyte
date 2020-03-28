@@ -20,7 +20,7 @@ CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/lesson-plans/new/');
 
-    var that = this;
+    let that = this;
     return new Promise(function(resolve, reject) {
         $.ajax(endpoint, {
             method: 'POST',
@@ -58,7 +58,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
     const formData = new FormData();
     formData.append('file', file, file.name);
 
-    var that = this;
+    let that = this;
     return new Promise(function(resolve, reject) {
         $.ajax(endpoint, {
             method: 'POST',
@@ -72,13 +72,13 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
             data: formData,
 
             xhr: function() {
-                var myXhr = $.ajaxSettings.xhr();
+                let myXhr = $.ajaxSettings.xhr();
                 if(myXhr.upload && defined(progress)) {
                     myXhr.upload.addEventListener('progress', function(progressEvent) {
                         if(progressEvent.lengthComputable) {
-                            var current = progressEvent.loaded;
-                            var max = progressEvent.total;
-                            var currentPercentage = current / max * 100.0;
+                            let current = progressEvent.loaded;
+                            let max = progressEvent.total;
+                            let currentPercentage = current / max * 100.0;
                             $(progress).attr({
                                 'aria-valuenow': progressEvent.loaded,
                                 'aria-valuemax': progressEvent.total,
@@ -109,7 +109,7 @@ CurriculumClient.prototype.putResource = function(id, data, options) {
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/lesson-resources/' + id + '/');
 
-    var that = this;
+    let that = this;
     return new Promise(function(resolve, reject) {
         $.ajax(endpoint, {
             method: 'PUT',
@@ -134,7 +134,7 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/lesson-resources/' + id + '/');
 
-    var that = this;
+    let that = this;
     return new Promise(function(resolve, reject) {
         $.ajax(endpoint, {
             method: 'DELETE',

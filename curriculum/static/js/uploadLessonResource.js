@@ -38,6 +38,7 @@ let curriculumClient;
 let fileUpload;
 let droparea;
 
+// eslint-disable-next-line no-unused-vars
 function submitLessonPlan(event) {
     event.preventDefault();
 
@@ -193,12 +194,12 @@ $(function(_) {
         submissionPromise.then(function(response) {
             window.location.href = '/lesson-plans/' + response.id;
         }).catch(function(error) {
-            let obj = JSON.parse(error.message)
+            let obj = JSON.parse(error.message);
             for(let key in obj) {
                 if(Object.prototype.hasOwnProperty.call(obj, key)) {
-                    let elem = $('[name="' + key +'"]')[0]
-                    let num_errors = obj[key].length
-                    elem.setCustomValidity(obj[key][num_errors - 1])
+                    let elem = $('[name="' + key +'"]')[0];
+                    let num_errors = obj[key].length;
+                    elem.setCustomValidity(obj[key][num_errors - 1]);
                 }
             }
         });

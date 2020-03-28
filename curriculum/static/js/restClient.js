@@ -42,7 +42,7 @@ CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
-}
+};
 
 CurriculumClient.prototype.updateLessonPlan = function(combinedFormData, id, options) {
     options = options || {};
@@ -129,7 +129,7 @@ CurriculumClient.prototype.putResource = function(id, data, options) {
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
-}
+};
 CurriculumClient.prototype.deleteResource = function(id, options) {
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/lesson-resources/' + id + '/');
@@ -151,7 +151,7 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
-}
+};
 
 CurriculumClient.prototype.getLessonPlan = function(id, options) {
     options = options || {};
@@ -168,7 +168,7 @@ CurriculumClient.prototype.getLessonPlan = function(id, options) {
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
-}
+};
 
 function _rejectJqueryAjax(reject, errorThrown, textStatus) {
     if(defined(errorThrown)) {

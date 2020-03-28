@@ -3,7 +3,7 @@
 import $ from 'jquery';
 
 import Vue from 'vue';
-import TheLoanerProgram from './components/TheLoanerProgram.vue'
+import TheLoanerProgram from './components/TheLoanerProgram.vue';
 
 $(() => {
     new Vue({

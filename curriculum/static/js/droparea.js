@@ -1,6 +1,6 @@
 'use strict';
 
-import $ from 'jquery'
+import $ from 'jquery';
 
 export default function Droparea(selector, callback, classNameOverrides) {
     this.element = $(selector);

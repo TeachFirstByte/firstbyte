@@ -201,8 +201,8 @@
     </b-container>
 </template>
 <script>
-    import { validationMixin } from 'vuelidate'
-    import { required, minValue } from 'vuelidate/lib/validators'
+    import { validationMixin } from 'vuelidate';
+    import { required, minValue } from 'vuelidate/lib/validators';
 
     export default {
         mixins: [validationMixin],
@@ -254,7 +254,7 @@
                 feedbackEnabled: false,
                 draft: false,
                 agree: false,
-            }
+            };
         },
         validations: {
             title: {
@@ -291,7 +291,7 @@
                 return null;
             }
         }
-    }
+    };
 </script>
 <style lang="scss">
     b-form-select {

@@ -1,1 +1,1 @@
-import '../style/bootstrap_customize.scss'
+import '../style/bootstrap_customize.scss';

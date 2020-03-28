@@ -1,6 +1,6 @@
 'use strict';
 
-import $ from 'jquery'
+import $ from 'jquery';
 
 export default function FileUpload(options) {
     this.element = $(options.container);
@@ -74,7 +74,7 @@ FileUpload.prototype.addExistingSlot = function(id, type, name) {
     });
 
     this.slots.push(slot);
-}
+};
 
 FileUpload.prototype.removeSlot = function(slot) {
     slot.templateInstance.remove();
@@ -88,4 +88,4 @@ FileUpload.prototype.forEach = function(callback) {
         let slot = this.slots[i];
         callback(slot.file, slot.form);
     }
-}
+};

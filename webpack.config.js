@@ -6,7 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   context: __dirname,
   entry: {
-    firstByteVendor: "./firstbyte/static/firstbyte/js/vendor.js",
+    firstByteBootstrap: "./firstbyte/static/firstbyte/js/bootstrap.js",
     uploadLessonResource: "./curriculum/static/js/uploadLessonResource.js",
     starRating: "./firstbyte/static/firstbyte/js/starRating.js",
     cardHoverShadow: './curriculum/static/js/cardHoverShadow.js',
@@ -20,7 +20,7 @@ module.exports = {
   mode: "development",
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
     }
   },
   module: {

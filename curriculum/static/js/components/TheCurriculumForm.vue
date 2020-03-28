@@ -12,80 +12,101 @@
             <b-col>
                 <b-row>
                     <b-col>
-                        <b-form-group label="Title:" label-for="title-input">
+                        <b-form-group
+                            label="Title:"
+                            label-for="title-input"
+                        >
                             <b-form-input
                                 id="title-input"
-                                type="text"
                                 v-model="$v.title.$model"
+                                type="text"
                                 :state="getBootstrapFormInputState($v.title)"
-                            ></b-form-input>
+                            />
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-form-group label="Summary:" label-for="summary-input">
+                        <b-form-group
+                            label="Summary:"
+                            label-for="summary-input"
+                        >
                             <b-form-textarea
                                 id="summary-input"
                                 v-model="$v.summary.$model"
                                 :state="getBootstrapFormInputState($v.summary)"
-                            ></b-form-textarea>
+                            />
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-form-group label="Grade Level:" label-for="grade-level-input">
+                        <b-form-group
+                            label="Grade Level:"
+                            label-for="grade-level-input"
+                        >
                             <b-form-select
                                 id="grade-level-input"
-                                :options="gradeLevelOptions"
                                 v-model="$v.gradeLevel.$model"
+                                :options="gradeLevelOptions"
                                 :state="getBootstrapFormInputState($v.gradeLevel)"
-                            ></b-form-select>
+                            />
                         </b-form-group>
                     </b-col>
                     <b-col>
-                        <b-form-group label="Num Classes:" label-for="num-classes-input">
+                        <b-form-group
+                            label="Num Classes:"
+                            label-for="num-classes-input"
+                        >
                             <b-form-input
                                 id="num-classes-input"
+                                v-model="$v.numClasses.$model"
                                 type="number"
                                 min="1"
-                                v-model="$v.numClasses.$model"
                                 :state="getBootstrapFormInputState($v.numClasses)"
-                            ></b-form-input>
+                            />
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-form-group label="Single Class Time:" label-for="single-class-time-input">
+                        <b-form-group
+                            label="Single Class Time:"
+                            label-for="single-class-time-input"
+                        >
                             <b-form-select
                                 id="single-class-time-input"
-                                :options="durationOptions"
                                 v-model="$v.singleClassTime.$model"
+                                :options="durationOptions"
                                 :state="getBootstrapFormInputState($v.singleClassTime)"
-                            ></b-form-select>
+                            />
                         </b-form-group>
                     </b-col>
                     <b-col>
-                        <b-form-group label="Total Prep Time:" label-for="total-prep-time-input">
+                        <b-form-group
+                            label="Total Prep Time:"
+                            label-for="total-prep-time-input"
+                        >
                             <b-form-select
                                 id="total-prep-time-input"
-                                :options="durationOptions"
                                 v-model="$v.totalPrepTime.$model"
+                                :options="durationOptions"
                                 :state="getBootstrapFormInputState($v.totalPrepTime)"
-                            ></b-form-select>
+                            />
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-form-group label="Materials:" label-for="materials-input">
+                        <b-form-group
+                            label="Materials:"
+                            label-for="materials-input"
+                        >
                             <b-form-textarea
                                 id="materials-input"
                                 v-model="$v.materials.$model"
                                 :state="getBootstrapFormInputState($v.materials)"
-                            ></b-form-textarea>
+                            />
                         </b-form-group>
                     </b-col>
                 </b-row>
@@ -135,11 +156,22 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col fluid="sm" class="d-flex flex-column">
+            <b-col
+                fluid="sm"
+                class="d-flex flex-column"
+            >
                 <span class="lr-additional-clickarea mb-3">Attach materials by dragging &amp; dropping or clicking in the box below.</span>
                 <div class="lr-droparea">
-                    <input type="file" class="lr-file-input" id="file-select" multiple />
-                    <div id="lesson-resources" class="flex-fill">
+                    <input
+                        id="file-select"
+                        class="lr-file-input"
+                        type="file"
+                        multiple
+                    >
+                    <div
+                        id="lesson-resources"
+                        class="flex-fill"
+                    >
                         <div class="lr-fallback">
                             File uploads are not supported in this browser. You may wish to try the following:
                             <ul class="text-left">
@@ -157,7 +189,13 @@
         </p>
         <b-row class="w-100 text-center">
             <b-col class="text-center">
-                <input type="submit" class="btn btn-primary mt-3" for="lesson-plan-form" id="submit-lesson-plan" value="Upload Curriculum"/>
+                <input
+                    id="submit-lesson-plan"
+                    type="submit"
+                    class="btn btn-primary mt-3"
+                    for="lesson-plan-form"
+                    value="Upload Curriculum"
+                >
             </b-col>
         </b-row>
     </b-container>

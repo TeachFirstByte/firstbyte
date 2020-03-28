@@ -33,10 +33,10 @@ CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options
             cache: false,
             data: combinedFormData,
         })
-        .done(function(response, textStatus, jqXHR) {
+        .done(function(response, _textStatus, _jqXHR) {
             resolve(response);
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .fail(function(jqXHR, _textStatus, errorThrown) {
             // Form errors can be found in the response.
             // Just parse the JSON and check the form_errors field.
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
@@ -90,7 +90,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
                 return myXhr;
             }
         })
-        .done(function(response, textStatus, jqXHR) {
+        .done(function(response, _textStatus, _jqXHR) {
             if(defined(response.id)) {
                 $(progress).removeClass('bg-info').addClass('bg-success');
                 resolve(response.id);
@@ -99,7 +99,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
                 reject(response);
             }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .fail(function(jqXHR, _textStatus, errorThrown) {
            _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
@@ -122,10 +122,10 @@ CurriculumClient.prototype.putResource = function(id, data, options) {
             },
             data: JSON.stringify(data)
         })
-        .then(function(response, textStatus, jqXHR) {
+        .then(function(response, _textStatus, _jqXHR) {
             resolve(response);
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .fail(function(jqXHR, _textStatus, errorThrown) {
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
@@ -144,10 +144,10 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
                 'X-CSRFToken': that.csrfToken
             }
         })
-        .then(function(response, textStatus, jqXHR) {
+        .then(function(response, _textStatus, _jqXHR) {
             resolve(response);
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .fail(function(jqXHR, _textStatus, errorThrown) {
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });
@@ -161,10 +161,10 @@ CurriculumClient.prototype.getLessonPlan = function(id, options) {
         $.ajax(endpoint, {
             dataType: 'json',
         })
-        .then(function(response, textStatus, jqXHR) {
+        .then(function(response, _textStatus, _jqXHR) {
             resolve(response);
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .fail(function(jqXHR, _textStatus, errorThrown) {
             _rejectJqueryAjax(reject, errorThrown, jqXHR.responseText);
         });
     });

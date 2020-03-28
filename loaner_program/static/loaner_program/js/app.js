@@ -6,7 +6,7 @@ import Vue from 'vue';
 import TheLoanerProgram from './components/TheLoanerProgram.vue'
 
 $(() => {
-    var vm = new Vue({
+    new Vue({
         el: "#vue-container",
         components: {
             TheLoanerProgram

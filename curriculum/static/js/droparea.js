@@ -1,5 +1,7 @@
 'use strict';
 
+import $ from 'jquery'
+
 export default function Droparea(selector, callback, classNameOverrides) {
     this.element = $(selector);
     this.callback = callback;
@@ -22,10 +24,10 @@ Droparea.prototype.onDropHandler = function(event) {
 
     if (originalEvent.dataTransfer.items) {
         // Use DataTransferItemList interface to access the file(s)
-        for (var i = 0; i < originalEvent.dataTransfer.items.length; i++) {
+        for (let i = 0; i < originalEvent.dataTransfer.items.length; i++) {
             // If dropped items aren't files, reject them
             if (originalEvent.dataTransfer.items[i].kind === 'file') {
-                var file = originalEvent.dataTransfer.items[i].getAsFile();
+                let file = originalEvent.dataTransfer.items[i].getAsFile();
                 this.callback(file);
             }
         }
@@ -33,8 +35,8 @@ Droparea.prototype.onDropHandler = function(event) {
 
     } else {
         // Use DataTransfer interface to access the file(s)
-        for (var i = 0; i < originalEvent.dataTransfer.files.length; i++) {
-            var file = originalEvent.dataTransfer.files[i];
+        for (let i = 0; i < originalEvent.dataTransfer.files.length; i++) {
+            let file = originalEvent.dataTransfer.files[i];
             this.callback(file);
         }
 

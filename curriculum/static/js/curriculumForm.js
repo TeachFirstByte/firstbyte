@@ -13,7 +13,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 $(() => {
     Vue.use(BootstrapVue)
 
-    var vm = new Vue({
+    new Vue({
         el: "#vue-container",
         components: {
             TheCurriculumForm

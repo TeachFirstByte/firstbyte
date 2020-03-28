@@ -1,5 +1,7 @@
 'use strict';
 
+import $ from 'jquery'
+
 export default function FileUpload(options) {
     this.element = $(options.container);
     this.element.children('.lr-fallback').remove();

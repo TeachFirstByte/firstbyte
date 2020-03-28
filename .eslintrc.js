@@ -4,6 +4,7 @@ module.exports = {
       'plugin:vue/recommended',
     ],
     rules: {
-        "vue/html-indent": ["error", 4]
+        "no-unused-vars": ["error", {"args": "after-used", "argsIgnorePattern": "^_"}],
+        "vue/html-indent": ["error", 4],
     }
 }

@@ -44,8 +44,8 @@ function submitLessonPlan(event) {
     var allowSubmission = true;
 
     var resources = document.getElementsByClassName('lesson-resource-form');
-    for(var index = 0; index < resources.length; ++index) {
-        var form = resources[index];
+    for(let index = 0; index < resources.length; ++index) {
+        let form = resources[index];
         if(form.dataset.resourceId === undefined) {
             // Upload not finished, or failed!
             allowSubmission = false;
@@ -59,8 +59,8 @@ function submitLessonPlan(event) {
     var resourceIds = [];
     if(allowSubmission) {
         var promises = [];
-        for(var index = 0; index < resources.length; ++index) {
-            var form = resources[index];
+        for(let index = 0; index < resources.length; ++index) {
+            let form = resources[index];
             // Make a request to the server, given ID
             var resourcePatch = {
                 name: form.elements[1].value,
@@ -69,7 +69,7 @@ function submitLessonPlan(event) {
             resourceIds.push(form.dataset.resourceId);
             promises.push(curriculumClient.putResource(form.dataset.resourceId, resourcePatch));
         }
-        Promise.all(promises).then(function(values) {
+        Promise.all(promises).then(function(_values) {
             var resourceIdsInput = document.createElement('input');
             resourceIdsInput.setAttribute('name', 'resources');
             resourceIdsInput.setAttribute('type', 'hidden');
@@ -80,7 +80,7 @@ function submitLessonPlan(event) {
     }
 }
 
-$(function(e) {
+$(function(_) {
     curriculumClient = new CurriculumClient(window.CSRF_TOKEN);
     fileUpload = new FileUpload({
         container: '#lesson-resources',
@@ -195,7 +195,7 @@ $(function(e) {
         }).catch(function(error) {
             var obj = JSON.parse(error.message)
             for(var key in obj) {
-                if(obj.hasOwnProperty(key)) {
+                if(Object.prototype.hasOwnProperty.call(obj, key)) {
                     var elem = $('[name="' + key +'"]')[0]
                     var num_errors = obj[key].length
                     elem.setCustomValidity(obj[key][num_errors - 1])

@@ -57,7 +57,7 @@ module.exports = {
           'sass-loader',
         ],
       },
-    ]
+    ],
   },
   plugins: [
     new BundleTracker({ filename: "./webpack-stats.json" }),

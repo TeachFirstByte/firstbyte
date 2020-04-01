@@ -1,3 +1,5 @@
+image:https://travis-ci.com/lukesanantonio/firstbyte.svg?branch=dev["Build Status", link="https://travis-ci.com/lukesanantonio/firstbyte"]
+
 = FirstByte
 
 FirstByte provides educators with the materials, curricula, and support to

@@ -1,15 +1,8 @@
 <template>
     <b-container class="my-5">
         <b-row>
-            <b-col>
+            <b-col md>
                 <h4>Curriculum Information</h4>
-            </b-col>
-            <b-col>
-                <h4>Upload Supporting Files</h4>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
                 <b-row>
                     <b-col>
                         <b-form-group
@@ -156,32 +149,9 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col
-                fluid="sm"
-                class="d-flex flex-column"
-            >
-                <span class="lr-additional-clickarea mb-3">Attach materials by dragging &amp; dropping or clicking in the box below.</span>
-                <div class="lr-droparea">
-                    <input
-                        id="file-select"
-                        class="lr-file-input"
-                        type="file"
-                        multiple
-                    >
-                    <div
-                        id="lesson-resources"
-                        class="flex-fill"
-                    >
-                        <div class="lr-fallback">
-                            File uploads are not supported in this browser. You may wish to try the following:
-                            <ul class="text-left">
-                                <li>Updating your browser</li>
-                                <li>Enabling Javascript</li>
-                                <li>Contact <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <b-col md>
+                <h4>Upload Supporting Files</h4>
+                <DropArea />
             </b-col>
         </b-row>
         <p class="lesson-submission-warning">
@@ -201,10 +171,15 @@
     </b-container>
 </template>
 <script>
+    import DropArea from './DropArea.vue';
+
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
 
     export default {
+        components: {
+            DropArea
+        },
         mixins: [validationMixin],
         data() {
             return {

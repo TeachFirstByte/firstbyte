@@ -176,6 +176,8 @@
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
 
+    import { getBootstrapFormInputState } from '../componentUtil.js';
+
     export default {
         components: {
             DropArea
@@ -229,6 +231,8 @@
                 feedbackEnabled: false,
                 draft: false,
                 agree: false,
+
+                getBootstrapFormInputState,
             };
         },
         validations: {
@@ -258,14 +262,6 @@
                 mustAgree: (value) => value
             },
         },
-        methods: {
-            getBootstrapFormInputState(vuelidateObject) {
-                if (vuelidateObject.$dirty) {
-                    return !vuelidateObject.$error;
-                }
-                return null;
-            }
-        }
     };
 </script>
 <style lang="scss">

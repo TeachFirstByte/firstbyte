@@ -151,7 +151,11 @@
             </b-col>
             <b-col md>
                 <h4>Upload Supporting Files</h4>
-                <DropArea />
+                <DropArea>
+                    <template #fileForm="{ filename }">
+                        <LessonResource :filename="filename" />
+                    </template>
+                </DropArea>
             </b-col>
         </b-row>
         <p class="lesson-submission-warning">
@@ -172,6 +176,7 @@
 </template>
 <script>
     import DropArea from './DropArea.vue';
+    import LessonResource from './LessonResource.vue';
 
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
@@ -180,7 +185,8 @@
 
     export default {
         components: {
-            DropArea
+            DropArea,
+            LessonResource
         },
         mixins: [validationMixin],
         data() {

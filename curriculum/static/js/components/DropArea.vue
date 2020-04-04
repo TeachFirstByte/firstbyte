@@ -25,55 +25,12 @@
             >
             <b-form-group
                 v-for="file in files"
-                :key="file"
+                :key="file.name"
             >
-                <b-row fluid="mb-2">
-                    <b-col class="input-group col">
-                        <select
-                            required
-                            name="type"
-                            class="form-control rounded-left"
-                            data-lr-type-value
-                        >
-                            <option value="">
-                                ---------
-                            </option>
-                            <option value="1">
-                                Student Handout
-                            </option>
-                            <option value="2">
-                                Teacher Reference
-                            </option>
-                            <option value="3">
-                                Slides
-                            </option>
-                            <option value="4">
-                                Code
-                            </option>
-                            <option value="5">
-                                Schematic
-                            </option>
-                            <option value="0">
-                                Other
-                            </option>
-                        </select>
-                        <input
-                            required
-                            type="text"
-                            name="name"
-                            class="form-control text-left"
-                            data-lr-name-value
-                        >
-                        <div class="input-ground-append">
-                            <b-button
-                                variant="outline-danger"
-                                @click="removeFile(file)"
-                            >
-                                Remove
-                            </b-button>
-                        </div>
-                    </b-col>
-                </b-row>
+                <slot
+                    name="fileForm"
+                    :filename="file.name"
+                />
             </b-form-group>
         </div>
     </div>
@@ -134,7 +91,7 @@
             onDragExitHandler() {
                 this.pendingDrop = false;
             }
-        }
+        },
     };
 </script>
 <style lang="scss" scoped>

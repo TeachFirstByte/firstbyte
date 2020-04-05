@@ -1,7 +1,7 @@
 <template>
     <b-container class="my-5">
         <b-row>
-            <b-col md>
+            <b-col lg>
                 <h4>Curriculum Information</h4>
                 <b-row>
                     <b-col>
@@ -150,6 +150,7 @@
                 </b-row>
             </b-col>
             <b-col
+                lg
                 class="d-flex flex-column"
             >
                 <h4>Upload Supporting Files</h4>

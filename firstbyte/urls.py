@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from landing.views import index, team, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
+from landing.views import index, team, events_redirect, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
 
 urlpatterns = [
 
@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('team/', team, name='team'),
+    path('events/', events_redirect),
     path('frequently-asked-questions/', faq, name='faq'),
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     path('loaner-program/', loaner_program, name='loaner-program'),
@@ -37,5 +38,4 @@ urlpatterns = [
     path('checkin-2/', teacher_check_in_2_redirect),
     path('post-survey/', teacher_post_survey),
     path('', include('curriculum.urls')),
-    path('events/', team)
 ]

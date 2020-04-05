@@ -6,6 +6,9 @@ def index(request):
 def team(request):
     return render(request, 'landing/team.html', {'user': request.user})
 
+def events_redirect(request):
+    return redirect('team')
+
 def faq(request):
     return render(request, 'landing/faq.html', {'user': request.user})
 

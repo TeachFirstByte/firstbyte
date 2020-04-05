@@ -18,9 +18,6 @@ def loaner_program(request):
 def volunteer_redirect(request):
     return redirect('https://goo.gl/forms/TOgxhucxMKVaPFqD3')
 
-def events_redirect(request):
-    return redirect('list-event')
-
 def media_release_form_redirect(request):
     return redirect('https://goo.gl/forms/xl6wKPi10uQJSUJ82')
 

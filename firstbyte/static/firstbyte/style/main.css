@@ -240,3 +240,11 @@ hr {
 .lessonplan-action-button {
     font-size: 0.875em;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+.team-scroll-link, .team-scroll-link:hover, .team-scroll-link:visited {
+    color: white;
+}

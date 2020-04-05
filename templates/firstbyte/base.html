@@ -30,7 +30,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link mx-2" href="{% url 'index' %}">About</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'team' %}">Meet the Team</a>
-                <a class="nav-item nav-link mx-2" href="{% url 'list-event' %}">Get Involved</a>
+                <a class="nav-item nav-link mx-2" href="{% url 'team' %}#get-involved">Get Involved</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'list-lesson-plan' %}">Find & Share Curricula</a>
                 <a class="nav-item nav-link mx-2" href="{% url 'loaner-program' %}">Loaner Program</a>
             </div>
@@ -70,7 +70,6 @@
                             <li><a href="{% url 'list-lesson-plan' %}">Find curricula</a></li>
                             <li><a href="{% url 'create-lesson-plan' %}">Share curricula</a></li>
                             <li><a href="{% url 'loaner-program' %}">Borrow materials</a></li>
-                            <li><a href="{% url 'list-event' %}">Events</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-2">
@@ -97,7 +96,7 @@
                         <h6 class="footer-nav-header mb-0">CONTACT</h6>
                         <ul class="list-unstyled mb-2">
                             <li><a href="mailto:info@teachfirstbyte.org">Contact us</a></li>
-                            <li><a href="{% url 'volunteer-redirect' %}">Join our team</a></li>
+                            <li><a href="{% url 'team' %}#get-involved">Join our team</a></li>
                             <li><a href="https://www.facebook.com/teachfirstbyte" target="blank">Facebook</a></li>
                             <li><a href="https://www.linkedin.com/company/firstbyte/" target="blank">LinkedIn</a></li>
                             <li><a href="https://www.twitter.com/teachfirstbyte" target="blank">Twitter</a></li>

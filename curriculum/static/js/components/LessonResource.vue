@@ -79,11 +79,9 @@
         },
 
         mounted() {
-            if (this.filename) {
-                this.$v.filename.$touch();
-            }
-        }
-
+            this.$v.filename.$touch();
+            this.$v.resourceType.$touch();
+        },
     };
 </script>
 <style lang="scss" scoped>

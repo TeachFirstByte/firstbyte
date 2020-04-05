@@ -11,10 +11,10 @@
             :class="{'droparea--pending-drop': pendingDrop}"
             class="droparea"
             @click.self="$refs.fileInput.click()"
-            @drop="onDropHandler"
-            @dragover="onDragOverHandler"
+            @drop.prevent="onDropHandler"
             @dragenter="onDragEnterHandler"
             @dragleave="onDragExitHandler"
+            @dragover.prevent
         >
             <input
                 ref="fileInput"
@@ -58,35 +58,28 @@
                 }
             },
             onDropHandler(event) {
-                event.preventDefault();
-
-                let originalEvent = event.originalEvent;
-
-                if (originalEvent.dataTransfer.items) {
+                if (event.dataTransfer.items) {
                     // Use DataTransferItemList interface to access the file(s)
-                    for (let i = 0; i < originalEvent.dataTransfer.items.length; i++) {
+                    for (let i = 0; i < event.dataTransfer.items.length; i++) {
                         // If dropped items aren't files, reject them
-                        if (originalEvent.dataTransfer.items[i].kind === 'file') {
-                            let file = originalEvent.dataTransfer.items[i].getAsFile();
+                        if (event.dataTransfer.items[i].kind === 'file') {
+                            let file = event.dataTransfer.items[i].getAsFile();
                             this.files.push(file);
                         }
                     }
-                    originalEvent.dataTransfer.items.clear();
+                    event.dataTransfer.items.clear();
 
                 } else {
                     // Use DataTransfer interface to access the file(s)
-                    for (let i = 0; i < originalEvent.dataTransfer.files.length; i++) {
-                        let file = originalEvent.dataTransfer.files[i];
+                    for (let i = 0; i < event.dataTransfer.files.length; i++) {
+                        let file = event.dataTransfer.files[i];
                         this.files.push(file);
                     }
 
-                    originalEvent.dataTransfer.clearData();
+                    event.dataTransfer.clearData();
                 }
                 // We've handled the drag
                 this.onDragExitHandler();
-            },
-            onDragOverHandler(event) {
-                event.preventDefault();
             },
             onDragEnterHandler() {
                 this.pendingDrop = true;

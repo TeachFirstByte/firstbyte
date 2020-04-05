@@ -149,9 +149,11 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col md>
+            <b-col
+                class="d-flex flex-column"
+            >
                 <h4>Upload Supporting Files</h4>
-                <DropArea>
+                <DropArea class="flex-grow-1">
                     <template #fileForm="{ filename, onRemove }">
                         <LessonResource
                             :filename="filename"

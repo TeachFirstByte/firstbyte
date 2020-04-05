@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="d-flex flex-column">
         <span
             class="mb-2"
             style="user-select: none;"
@@ -9,7 +9,7 @@
         </span>
         <div
             :class="{'droparea--pending-drop': pendingDrop}"
-            class="droparea"
+            class="droparea flex-grow-1"
             @click.self="$refs.fileInput.click()"
             @drop.prevent="onDropHandler"
             @dragenter="onDragEnterHandler"
@@ -92,7 +92,6 @@
 </script>
 <style lang="scss" scoped>
     .droparea {
-        height: 100%;
         min-height: 10em;
         border: 1px dashed #cacaca;
     }

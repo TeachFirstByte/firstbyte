@@ -1,13 +1,17 @@
 <template>
     <b-row fluid="mb-2">
         <b-col>
-            <b-form-select
-                :id="filename + '-lesson-resource'"
-                v-model="$v.resourceType.$model"
-                :options="resourceTypeOptions"
-                :state="getBootstrapFormInputState($v.resourceType)"
-            />
             <b-input-group>
+                <b-input-group-prepend>
+                    <b-form-select
+                        :id="filename + '-lesson-resource'"
+                        v-model="$v.resourceType.$model"
+                        class="lesson-resource-type-select"
+                        variant="primary"
+                        :options="resourceTypeOptions"
+                        :state="getBootstrapFormInputState($v.resourceType)"
+                    />
+                </b-input-group-prepend>
                 <b-form-input
                     :id="filename + '-name'"
                     v-model="$v.filename.$model"
@@ -86,5 +90,12 @@
     .remove-btn {
         padding: 0 6px;
     }
+    .lesson-resource-type-select {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
 
+        &:focus {
+            z-index: 2;
+        }
+    }
 </style>

@@ -8,7 +8,7 @@
             Attach materials by dragging &amp; dropping or clicking in the box below.
         </span>
         <div
-            :class="{'droparea--pending-drop': pendingDrop}"
+            :class="{'droparea--pending-drop': pendingDrop, 'droparea--highlight': !files.length}"
             class="droparea flex-grow-1"
             @click.self="$refs.fileInput.click()"
             @drop.prevent="onDropHandler"
@@ -93,6 +93,9 @@
 <style lang="scss" scoped>
     .droparea {
         min-height: 10em;
+    }
+
+    .droparea--highlight {
         border: 1px dashed #cacaca;
     }
 

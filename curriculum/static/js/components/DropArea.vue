@@ -30,6 +30,7 @@
                 <slot
                     name="fileForm"
                     :filename="file.name"
+                    :onRemove="buildOnRemoveCallback(file)"
                 />
             </b-form-group>
         </div>
@@ -44,8 +45,10 @@
             };
         },
         methods: {
-            removeFile(file) {
-                this.files.splice(this.files.indexOf(file), 1);
+            buildOnRemoveCallback(file) {
+                return () => {
+                    this.files.splice(this.files.indexOf(file), 1);
+                };
             },
             onFileUpload(event) {
                 let files = event.currentTarget.files;

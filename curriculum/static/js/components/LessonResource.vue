@@ -17,7 +17,7 @@
                 <b-input-group-append>
                     <b-button
                         variant="outline-danger"
-                        @click="$emit('remove')"
+                        @click="onRemove"
                     >
                         Remove
                     </b-button>
@@ -39,6 +39,10 @@
             filename: {
                 type: String,
                 default: ""
+            },
+            onRemove: {
+                type: Function,
+                required: true
             }
         },
         data() {

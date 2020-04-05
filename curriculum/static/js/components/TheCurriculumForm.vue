@@ -152,8 +152,11 @@
             <b-col md>
                 <h4>Upload Supporting Files</h4>
                 <DropArea>
-                    <template #fileForm="{ filename }">
-                        <LessonResource :filename="filename" />
+                    <template #fileForm="{ filename, onRemove }">
+                        <LessonResource
+                            :filename="filename"
+                            :on-remove="onRemove"
+                        />
                     </template>
                 </DropArea>
             </b-col>

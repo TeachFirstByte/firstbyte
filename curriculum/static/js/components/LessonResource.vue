@@ -16,10 +16,12 @@
                 />
                 <b-input-group-append>
                     <b-button
-                        variant="outline-danger"
+                        class="remove-btn"
+                        variant="danger"
+                        aria-label="Remove"
                         @click="onRemove"
                     >
-                        Remove
+                        <span aria-hidden="true">&times;</span>
                     </b-button>
                 </b-input-group-append>
             </b-input-group>
@@ -81,5 +83,8 @@
     };
 </script>
 <style lang="scss" scoped>
+    .remove-btn {
+        padding: 0 6px;
+    }
 
 </style>

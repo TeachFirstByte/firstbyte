@@ -1,7 +1,7 @@
 <template>
     <div>
         <span
-            class="mb-3"
+            class="mb-2"
             style="user-select: none;"
             @click="$refs.fileInput.click()"
         >

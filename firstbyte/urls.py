@@ -40,5 +40,5 @@ urlpatterns = [
     path('checkin-2/', teacher_check_in_2_redirect),
     path('post-survey/', teacher_post_survey),
     path('', include('curriculum.urls')),
-    path('', include('events.urls')),
+    path('events/', team, name='team')
 ]

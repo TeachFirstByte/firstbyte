@@ -95,10 +95,8 @@
                             label="Materials:"
                             label-for="materials-input"
                         >
-                            <b-form-textarea
+                            <LineItemInput
                                 id="materials-input"
-                                v-model="$v.materials.$model"
-                                :state="getBootstrapFormInputState($v.materials)"
                             />
                         </b-form-group>
                     </b-col>
@@ -183,6 +181,7 @@
 <script>
     import DropArea from './DropArea.vue';
     import LessonResource from './LessonResource.vue';
+    import LineItemInput from './LineItemInput.vue';
 
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
@@ -192,7 +191,8 @@
     export default {
         components: {
             DropArea,
-            LessonResource
+            LessonResource,
+            LineItemInput
         },
         mixins: [validationMixin],
         data() {

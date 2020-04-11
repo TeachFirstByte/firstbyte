@@ -26,14 +26,14 @@
                 >
                 <font-awesome-icon
                     v-if="index == value.length - 1"
-                    class="text-secondary align-self-center"
+                    class="action-icon text-secondary align-self-center"
                     :icon="['fas', 'plus-circle']"
                     size="lg"
                     @click="onAppendNewItem"
                 />
                 <font-awesome-icon
                     v-else
-                    class="text-danger align-self-center"
+                    class="action-icon text-danger align-self-center"
                     :icon="['fas', 'minus-circle']"
                     size="lg"
                     @click="onRemoveItemAtIndex(index)"
@@ -114,4 +114,7 @@
     };
 </script>
 <style lang="scss" scoped>
+    .sortable-drag .action-icon {
+        opacity: 0;
+    }
 </style>

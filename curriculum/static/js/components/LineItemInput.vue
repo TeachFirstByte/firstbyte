@@ -8,8 +8,6 @@
                 v-for="(lineItem, index) in value"
                 :key="index"
                 class="d-flex mb-2"
-                @mouseover="currentHoveredIndex = parseInt(index)"
-                @mouseleave="currentHoveredIndex = null"
             >
                 <div class="grip-handle text-dark pr-2 align-self-center">
                     <font-awesome-icon
@@ -18,20 +16,27 @@
                         size="lg"
                     />
                 </div>
-                <input
-                    ref="itemInputs"
-                    class="item-input flex-grow-1 form-control"
-                    :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
-                    :value="lineItem"
-                    @input="onInput(index, $event.target.value)"
-                    @keyup.enter="onInsertAfterIndexAndFocus(index)"
-                >
-                <b-button-close
-                    :class="{'close-icon--hidden': !showDeleteButtonAtIndex(index)}"
-                    class="close-icon pl-2"
-                    aria-label="Delete"
-                    @click="onRemoveItemAtIndex(index)"
-                />
+                <b-input-group>
+                    <input
+                        ref="itemInputs"
+                        class="item-input flex-grow-1 form-control"
+                        :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
+                        :value="lineItem"
+                        @input="onInput(index, $event.target.value)"
+                        @keyup.enter="onInsertAfterIndexAndFocus(index)"
+                    >
+                    <b-input-group-append>
+                        <b-button
+                            class="remove-btn"
+                            variant="danger"
+                            aria-label="Remove"
+                            :disabled="value.length <= 1"
+                            @click="onRemoveItemAtIndex(index)"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </b-button>
+                    </b-input-group-append>
+                </b-input-group>
             </div>
         </draggable>
     </div>
@@ -52,11 +57,6 @@
                 type: Array,
                 default: () => { return []; },
             },
-        },
-        data() {
-            return {
-                currentHoveredIndex: null
-            };
         },
         computed: {
             valueProp: {
@@ -99,20 +99,12 @@
                     const start = parseInt(index) + 1;
                     newValue.splice(start, 0, "");
 
-                    this.currentHoveredIndex = null;
                     this.$nextTick().then(() => {
                         this.$refs.itemInputs[start].focus();
                     });
 
                     return newValue;
                 });
-            },
-
-            showDeleteButtonAtIndex(index) {
-                if (this.value.length === 1) {
-                    return false;
-                }
-                return this.currentHoveredIndex === index;
             },
 
             isValidAtIndex(index) {
@@ -125,11 +117,4 @@
     };
 </script>
 <style lang="scss" scoped>
-    .sortable-drag .close-icon {
-        visibility: hidden;
-    }
-
-    .close-icon--hidden {
-        visibility: hidden;
-    }
 </style>

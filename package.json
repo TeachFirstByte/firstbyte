@@ -24,6 +24,7 @@
     "vue": "^2.6.11",
     "vue-loader": "^15.9.0",
     "vue-template-compiler": "^2.6.11",
+    "vuedraggable": "^2.23.2",
     "vuelidate": "^0.7.5",
     "webpack": "^4.42.1",
     "webpack-bundle-tracker": "^0.4.3"

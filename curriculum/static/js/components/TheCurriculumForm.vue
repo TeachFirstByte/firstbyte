@@ -97,6 +97,10 @@
                         >
                             <LineItemInput
                                 id="materials-input"
+                                :states="materialsBootstrapStates"
+                                :value="materials"
+                                @update="onMaterialsUpdate"
+                                @touch="onMaterialsTouch"
                             />
                         </b-form-group>
                     </b-col>
@@ -238,7 +242,7 @@
                     { value: '5:45', text: '5:45' },
                     { value: '6:00', text: '6:00' },
                 ],
-                materials: "",
+                materials: [""],
                 webOnly: false,
                 feedbackEnabled: false,
                 draft: false,
@@ -246,6 +250,21 @@
 
                 getBootstrapFormInputState,
             };
+        },
+        computed: {
+            materialsBootstrapStates() {
+                return this.materials.map((_, index) => {
+                    return getBootstrapFormInputState(this.$v.materials.$each[index]);
+                });
+            }
+        },
+        methods: {
+            onMaterialsUpdate(newArray) {
+                this.materials = newArray;
+            },
+            onMaterialsTouch(index) {
+                this.$v.materials.$each[index].$touch();
+            }
         },
         validations: {
             title: {
@@ -269,6 +288,9 @@
             },
             materials: {
                 required,
+                $each: {
+                    required,
+                }
             },
             agree: {
                 mustAgree: (value) => value

@@ -1,78 +1,87 @@
 <template>
     <div>
         <div
-            v-for="(item, index) in $v.items.$each.$iter"
+            v-for="(lineItem, index) in value"
             :key="index"
             class="d-flex mb-2"
         >
             <input
                 ref="itemInputs"
                 class="flex-grow-1 mr-1 form-control"
-                :class="{'is-valid': isValid(item), 'is-invalid': isInvalid(item)}"
-                :value="item.$model"
+                :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
+                :value="lineItem"
                 @input="onInput(index, $event.target.value)"
-                @keyup.enter="insertItemAndFocus(index)"
+                @keyup.enter="onInsertAfterIndexAndFocus(index)"
             >
             <font-awesome-icon
-                v-if="index == items.length - 1"
+                v-if="index == value.length - 1"
                 class="text-secondary align-self-center"
                 :icon="['fas', 'plus-circle']"
                 size="lg"
-                @click="addItem"
+                @click="onAppendNewItem"
             />
             <font-awesome-icon
                 v-else
                 class="text-danger align-self-center"
                 :icon="['fas', 'minus-circle']"
                 size="lg"
-                @click="removeItemAtIndex(index)"
+                @click="onRemoveItemAtIndex(index)"
             />
         </div>
     </div>
 </template>
 <script>
-    import { validationMixin } from 'vuelidate';
-    import { required } from 'vuelidate/lib/validators';
-
     export default {
-        mixins: [validationMixin],
-        data() {
-            return {
-                items: [""],
-            };
-        },
-        validations: {
-            items: {
-                required,
-                $each: {
-                    required
-                }
-            }
+        props: {
+            value: {
+                type: Array,
+                required: true,
+            },
+            states: {
+                type: Array,
+                default: () => { return []; },
+            },
         },
         methods: {
-            addItem() {
-                this.items.push("");
+            emitInputWithNewValue(method) {
+                this.$emit('update', method(this.value.slice()));
             },
-            insertItemAndFocus(index) {
-                let start = parseInt(index) + 1;
-                this.items.splice(start, 0, "");
-                this.$nextTick().then(() => {
-                    this.$refs.itemInputs[start].focus();
+            onAppendNewItem() {
+                this.emitInputWithNewValue((newValue) => {
+                    newValue.push("");
+                    return newValue;
                 });
+            },
+            onRemoveItemAtIndex(index) {
+                this.emitInputWithNewValue((newValue) => {
+                    newValue.splice(index, 1);
+                    return newValue;
+                });
+            },
+            onInput(index, inputFieldValue) {
+                this.emitInputWithNewValue((newValue) => {
+                    newValue[index] = inputFieldValue;
+                    return newValue;
+                });
+                this.$emit('touch', parseInt(index));
+            },
+            onInsertAfterIndexAndFocus(index) {
+                this.emitInputWithNewValue((newValue) => {
+                    const start = parseInt(index) + 1;
+                    newValue.splice(start, 0, "");
+                    this.$nextTick().then(() => {
+                        this.$refs.itemInputs[start].focus();
+                    });
 
+                    return newValue;
+                });
             },
-            removeItemAtIndex(index) {
-                this.items.splice(index, 1);
+
+            isValidAtIndex(index) {
+                return this.states[index] === true;
             },
-            onInput(index, value) {
-                this.$set(this.items, index, value);
-                this.$v.items.$each[index].$touch();
-            },
-            isValid(item) {
-                return item.$dirty && !item.$error;
-            },
-            isInvalid(item) {
-                return item.$dirty && item.$error;
+            isInvalidAtIndex(index) {
+                return this.states[index] === false;
             }
         }
     };

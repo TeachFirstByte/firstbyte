@@ -8,6 +8,8 @@
                         <b-form-group
                             label="Title:"
                             label-for="title-input"
+                            :invalid-feedback="getInvalidFeedback($v.title)"
+                            :state="getBootstrapFormInputState($v.title)"
                         >
                             <b-form-input
                                 id="title-input"
@@ -23,6 +25,8 @@
                         <b-form-group
                             label="Summary:"
                             label-for="summary-input"
+                            :invalid-feedback="getInvalidFeedback($v.summary)"
+                            :state="getBootstrapFormInputState($v.summary)"
                         >
                             <b-form-textarea
                                 id="summary-input"
@@ -37,6 +41,8 @@
                         <b-form-group
                             label="Grade Level:"
                             label-for="grade-level-input"
+                            :invalid-feedback="getInvalidFeedback($v.gradeLevel)"
+                            :state="getBootstrapFormInputState($v.gradeLevel)"
                         >
                             <b-form-select
                                 id="grade-level-input"
@@ -50,6 +56,8 @@
                         <b-form-group
                             label="Num Classes:"
                             label-for="num-classes-input"
+                            :invalid-feedback="getInvalidFeedback($v.numClasses)"
+                            :state="getBootstrapFormInputState($v.numClasses)"
                         >
                             <b-form-input
                                 id="num-classes-input"
@@ -66,6 +74,8 @@
                         <b-form-group
                             label="Single Class Time:"
                             label-for="single-class-time-input"
+                            :invalid-feedback="getInvalidFeedback($v.singleClassTime)"
+                            :state="getBootstrapFormInputState($v.singleClassTime)"
                         >
                             <b-form-select
                                 id="single-class-time-input"
@@ -79,6 +89,8 @@
                         <b-form-group
                             label="Total Prep Time:"
                             label-for="total-prep-time-input"
+                            :invalid-feedback="getInvalidFeedback($v.totalPrepTime)"
+                            :state="getBootstrapFormInputState($v.totalPrepTime)"
                         >
                             <b-form-select
                                 id="total-prep-time-input"
@@ -94,6 +106,8 @@
                         <b-form-group
                             label="Materials:"
                             label-for="materials-input"
+                            :invalid-feedback="getInvalidFeedback($v.materials)"
+                            :state="getBootstrapFormInputState($v.materials)"
                         >
                             <LineItemInput
                                 id="materials-input"
@@ -139,7 +153,10 @@
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-form-group>
+                        <b-form-group
+                            invalid-feedback="You must license this work under CC BY-NC 4.0 to submit it for access on our website."
+                            :state="getBootstrapFormInputState($v.agree)"
+                        >
                             <b-form-checkbox
                                 id="agree-input"
                                 v-model="$v.agree.$model"
@@ -177,6 +194,7 @@
                     class="btn btn-primary mt-3"
                     for="lesson-plan-form"
                     value="Upload Curriculum"
+                    @click="onSubmit"
                 >
             </b-col>
         </b-row>
@@ -259,11 +277,17 @@
             }
         },
         methods: {
+            getInvalidFeedback(vuelidateObject) {
+                return !vuelidateObject.required ? "This field is required" : "";
+            },
             onMaterialsUpdate(newArray) {
                 this.materials = newArray;
             },
             onMaterialsTouch(index) {
                 this.$v.materials.$each[index].$touch();
+            },
+            onSubmit(_) {
+                this.$v.$touch();
             }
         },
         validations: {

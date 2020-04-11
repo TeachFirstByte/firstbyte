@@ -1,7 +1,7 @@
 <template>
     <div>
         <draggable
-            v-modal="valueProp"
+            v-model="valueProp"
             handle=".grip-handle"
         >
             <div

@@ -8,6 +8,8 @@
                 v-for="(lineItem, index) in value"
                 :key="index"
                 class="d-flex mb-2"
+                @mouseover="currentHoveredIndex = parseInt(index)"
+                @mouseleave="currentHoveredIndex = null"
             >
                 <div class="grip-handle text-dark pr-2 align-self-center">
                     <font-awesome-icon
@@ -18,24 +20,16 @@
                 </div>
                 <input
                     ref="itemInputs"
-                    class="flex-grow-1 mr-2 form-control"
+                    class="item-input flex-grow-1 form-control"
                     :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
                     :value="lineItem"
                     @input="onInput(index, $event.target.value)"
                     @keyup.enter="onInsertAfterIndexAndFocus(index)"
                 >
-                <font-awesome-icon
-                    v-if="index == value.length - 1"
-                    class="action-icon text-secondary align-self-center"
-                    :icon="['fas', 'plus-circle']"
-                    size="lg"
-                    @click="onAppendNewItem"
-                />
-                <font-awesome-icon
-                    v-else
-                    class="action-icon text-danger align-self-center"
-                    :icon="['fas', 'minus-circle']"
-                    size="lg"
+                <b-button-close
+                    :class="{'close-icon--hidden': !showDeleteButtonAtIndex(index)}"
+                    class="close-icon pl-2"
+                    aria-label="Delete"
                     @click="onRemoveItemAtIndex(index)"
                 />
             </div>
@@ -58,6 +52,11 @@
                 type: Array,
                 default: () => { return []; },
             },
+        },
+        data() {
+            return {
+                currentHoveredIndex: null
+            };
         },
         computed: {
             valueProp: {
@@ -93,15 +92,27 @@
                 this.$emit('touch', parseInt(index));
             },
             onInsertAfterIndexAndFocus(index) {
+                if (this.value[index] === "") {
+                    return;
+                }
                 this.emitInputWithNewValue((newValue) => {
                     const start = parseInt(index) + 1;
                     newValue.splice(start, 0, "");
+
+                    this.currentHoveredIndex = null;
                     this.$nextTick().then(() => {
                         this.$refs.itemInputs[start].focus();
                     });
 
                     return newValue;
                 });
+            },
+
+            showDeleteButtonAtIndex(index) {
+                if (this.value.length === 1) {
+                    return false;
+                }
+                return this.currentHoveredIndex === index;
             },
 
             isValidAtIndex(index) {
@@ -114,7 +125,11 @@
     };
 </script>
 <style lang="scss" scoped>
-    .sortable-drag .action-icon {
-        opacity: 0;
+    .sortable-drag .close-icon {
+        visibility: hidden;
+    }
+
+    .close-icon--hidden {
+        visibility: hidden;
     }
 </style>

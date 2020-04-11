@@ -12,7 +12,7 @@
                 <div class="grip-handle text-dark pr-2 align-self-center">
                     <font-awesome-icon
                         class="my-auto"
-                        :icon="['fas', 'grip-lines-vertical']"
+                        :icon="['fas', 'align-justify']"
                         size="lg"
                     />
                 </div>

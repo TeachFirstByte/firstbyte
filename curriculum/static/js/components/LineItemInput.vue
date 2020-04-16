@@ -64,13 +64,13 @@
                     return this.value;
                 },
                 set: function(newValue) {
-                    this.$emit('update', newValue);
+                    this.$emit('update:value', newValue);
                 },
             },
         },
         methods: {
             emitInputWithNewValue(method) {
-                this.$emit('update', method(this.value.slice()));
+                this.$emit('update:value', method(this.value.slice()));
             },
             onAppendNewItem() {
                 this.emitInputWithNewValue((newValue) => {

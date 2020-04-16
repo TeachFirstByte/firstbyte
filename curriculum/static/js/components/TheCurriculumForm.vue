@@ -113,7 +113,7 @@
                                 id="materials-input"
                                 :states="materialsBootstrapStates"
                                 :value="materials"
-                                @update="onMaterialsUpdate"
+                                @update:value="onMaterialsUpdate"
                                 @touch="onMaterialsTouch"
                             />
                         </b-form-group>

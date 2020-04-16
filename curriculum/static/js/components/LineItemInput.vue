@@ -1,7 +1,7 @@
 <template>
     <div>
         <draggable
-            v-model="valueProp"
+            v-model="draggableValueModel"
             handle=".grip-handle"
         >
             <div
@@ -59,7 +59,7 @@
             },
         },
         computed: {
-            valueProp: {
+            draggableValueModel: {
                 get: function() {
                     return this.value;
                 },

@@ -64,28 +64,31 @@
                     return this.value;
                 },
                 set: function(newValue) {
-                    this.$emit('update:value', newValue);
+                    this.updateValue(newValue);
                 },
             },
         },
         methods: {
-            emitInputWithNewValue(method) {
-                this.$emit('update:value', method(this.value.slice()));
+            updateValue(newValue) {
+                this.$emit('update:value', newValue);
+            },
+            updateValueWithResult(fn) {
+                this.updateValue(fn(this.value.slice()));
             },
             onAppendNewItem() {
-                this.emitInputWithNewValue((newValue) => {
+                this.updateValueWithResult((newValue) => {
                     newValue.push("");
                     return newValue;
                 });
             },
             onRemoveItemAtIndex(index) {
-                this.emitInputWithNewValue((newValue) => {
+                this.updateValueWithResult((newValue) => {
                     newValue.splice(index, 1);
                     return newValue;
                 });
             },
             onInput(index, inputFieldValue) {
-                this.emitInputWithNewValue((newValue) => {
+                this.updateValueWithResult((newValue) => {
                     newValue[index] = inputFieldValue;
                     return newValue;
                 });
@@ -95,7 +98,7 @@
                 if (this.value[index] === "") {
                     return;
                 }
-                this.emitInputWithNewValue((newValue) => {
+                this.updateValueWithResult((newValue) => {
                     const start = parseInt(index) + 1;
                     newValue.splice(start, 0, "");
 

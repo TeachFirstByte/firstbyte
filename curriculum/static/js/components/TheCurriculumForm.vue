@@ -175,23 +175,10 @@
                 <span class="mb-2">
                     Attach materials by dragging &amp; dropping or clicking in the box below.
                 </span>
-                <DropArea
-                    class="flex-grow-1"
-                    :highlight="!formData.lessonResources.length"
-                    @newFile="addLessonResource"
-                >
-                    <b-form-group
-                        v-for="(resource, index) in formData.lessonResources"
-                        :key="resource.id"
-                    >
-                        <LessonResource
-                            :vuelidate-object="$v.formData.lessonResources.$each[index]"
-                            :filename.sync="$v.formData.lessonResources.$each[index].filename.$model"
-                            :resource-type.sync="$v.formData.lessonResources.$each[index].resourceType.$model"
-                            @onRemove="onRemove(resource)"
-                        />
-                    </b-form-group>
-                </DropArea>
+                <LessonResourceList
+                    :lesson-resources.sync="formData.lessonResources"
+                    :vuelidate-object="$v.formData.lessonResources"
+                />
             </b-col>
         </b-row>
         <p class="lesson-submission-warning">
@@ -212,8 +199,7 @@
     </b-container>
 </template>
 <script>
-    import DropArea from './DropArea.vue';
-    import LessonResource from './LessonResource.vue';
+    import LessonResourceList from './LessonResourceList.vue';
     import LineItemInput from './LineItemInput.vue';
 
     import { validationMixin } from 'vuelidate';
@@ -223,9 +209,8 @@
 
     export default {
         components: {
-            DropArea,
-            LessonResource,
             LineItemInput,
+            LessonResourceList,
         },
         mixins: [validationMixin],
         data() {
@@ -279,7 +264,6 @@
                     agree: false,
                     lessonResources: [],
                 },
-                lessonResourceIdCounter: 0,
                 getBootstrapFormInputState,
             };
         },
@@ -296,19 +280,6 @@
             },
             onMaterialsTouch(index) {
                 this.$v.formData.materials.$each[index].$touch();
-            },
-            addLessonResource(file) {
-                const newResource = {
-                    id: ++this.lessonResourceIdCounter,
-                    file: file,
-                    filename: file.name,
-                    resourceType: null,
-                };
-                this.formData.lessonResources.push(newResource);
-                this.$v.formData.lessonResources.$each[this.formData.lessonResources.length - 1].filename.$touch();
-            },
-            onRemove(resource) {
-                this.$delete(this.formData.lessonResources, this.formData.lessonResources.indexOf(resource));
             },
             onSubmit(_) {
                 this.$v.formData.$touch();

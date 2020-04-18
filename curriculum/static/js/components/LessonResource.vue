@@ -44,12 +44,12 @@
         props: {
             filename: {
                 type: String,
-                default: ""
+                default: "",
             },
             onRemove: {
                 type: Function,
-                required: true
-            }
+                required: true,
+            },
         },
         data() {
             return {
@@ -66,16 +66,16 @@
 
                 lessonResourceName: this.filename,
 
-                getBootstrapFormInputState
+                getBootstrapFormInputState,
             };
         },
         validations: {
             filename: {
-                required
+                required,
             },
             resourceType: {
-                required
-            }
+                required,
+            },
         },
 
         mounted() {

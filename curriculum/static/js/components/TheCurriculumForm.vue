@@ -223,7 +223,7 @@
         components: {
             DropArea,
             LessonResource,
-            LineItemInput
+            LineItemInput,
         },
         mixins: [validationMixin],
         data() {
@@ -286,7 +286,7 @@
                 return this.formData.materials.map((_, index) => {
                     return getBootstrapFormInputState(this.$v.formData.materials.$each[index]);
                 });
-            }
+            },
         },
         methods: {
             getInvalidFeedback(vuelidateObject) {
@@ -300,7 +300,7 @@
                     id: ++this.lessonResourceIdCounter,
                     file: file,
                     filename: file.name,
-                    resourceType: null
+                    resourceType: null,
                 };
                 this.formData.lessonResources.push(newResource);
             },
@@ -311,8 +311,7 @@
             },
             onSubmit(_) {
                 this.$v.formData.$touch();
-
-            }
+            },
         },
         validations: {
             formData: {
@@ -345,7 +344,7 @@
                     },
                 },
                 agree: {
-                    mustAgree: (value) => value
+                    mustAgree: (value) => value,
                 },
             },
         },

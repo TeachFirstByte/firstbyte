@@ -23,7 +23,7 @@
         props: {
             highlight: {
                 type: Boolean,
-                default: false
+                default: false,
             },
         },
         data() {
@@ -68,7 +68,7 @@
             },
             onDragExitHandler() {
                 this.pendingDrop = false;
-            }
+            },
         },
     };
 </script>

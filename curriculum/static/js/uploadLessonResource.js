@@ -65,7 +65,7 @@ function submitLessonPlan(event) {
             // Make a request to the server, given ID
             let resourcePatch = {
                 name: form.elements[1].value,
-                type: form.elements[0].value
+                type: form.elements[0].value,
             };
             resourceIds.push(form.dataset.resourceId);
             promises.push(curriculumClient.putResource(form.dataset.resourceId, resourcePatch));

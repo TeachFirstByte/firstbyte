@@ -25,7 +25,7 @@ $(() => {
     new Vue({
         el: "#vue-container",
         components: {
-            TheCurriculumForm
-        }
+            TheCurriculumForm,
+        },
     });
 });

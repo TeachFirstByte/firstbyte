@@ -8,5 +8,6 @@ module.exports = {
         "vue/html-indent": ["error", 4],
         "no-var": "error",
         "semi": ["error", "always"],
+        "comma-dangle": ["error", "always-multiline"],
     }
 }

@@ -60,7 +60,7 @@
         },
         data() {
             return {
-                idCounter: 0
+                idCounter: 0,
             };
         },
         computed: {
@@ -128,8 +128,8 @@
             },
             isInvalidAtIndex(index) {
                 return this.states[index] === false;
-            }
-        }
+            },
+        },
     };
 </script>
 <style lang="scss" scoped>

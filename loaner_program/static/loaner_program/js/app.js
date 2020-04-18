@@ -9,7 +9,7 @@ $(() => {
     new Vue({
         el: "#vue-container",
         components: {
-            TheLoanerProgram
-        }
+            TheLoanerProgram,
+        },
     });
 });

@@ -1,6 +1,6 @@
 <template>
     <draggable
-        handle=".grip-handle"
+        handle=".drag-handle"
         :value="value"
         @input="$emit('update:value', $event)"
     >
@@ -9,13 +9,7 @@
             :key="index"
             class="d-flex mb-2"
         >
-            <div class="grip-handle text-dark pr-2 align-self-center">
-                <font-awesome-icon
-                    class="my-auto"
-                    :icon="['fas', 'align-justify']"
-                    size="lg"
-                />
-            </div>
+            <DragHandle class="drag-handle" />
             <b-input-group>
                 <input
                     ref="itemInputs"
@@ -42,10 +36,12 @@
 </template>
 <script>
     import draggable from 'vuedraggable';
+    import DragHandle from './DragHandle.vue';
 
     export default {
         components: {
             draggable,
+            DragHandle,
         },
         props: {
             value: {

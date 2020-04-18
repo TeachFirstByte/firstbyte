@@ -1,45 +1,43 @@
 <template>
-    <div>
-        <draggable
-            v-model="draggableValueModel"
-            handle=".grip-handle"
+    <draggable
+        v-model="draggableValueModel"
+        handle=".grip-handle"
+    >
+        <div
+            v-for="(lineItem, index) in value"
+            :key="index"
+            class="d-flex mb-2"
         >
-            <div
-                v-for="(lineItem, index) in value"
-                :key="index"
-                class="d-flex mb-2"
-            >
-                <div class="grip-handle text-dark pr-2 align-self-center">
-                    <font-awesome-icon
-                        class="my-auto"
-                        :icon="['fas', 'align-justify']"
-                        size="lg"
-                    />
-                </div>
-                <b-input-group>
-                    <input
-                        ref="itemInputs"
-                        class="item-input flex-grow-1 form-control"
-                        :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
-                        :value="lineItem.value"
-                        @input="onInput(index, $event.target.value)"
-                        @keyup.enter="onInsertAfterIndexAndFocus(index)"
-                    >
-                    <b-input-group-append>
-                        <b-button
-                            class="remove-btn"
-                            variant="danger"
-                            aria-label="Remove"
-                            :disabled="value.length <= 1"
-                            @click="onRemoveItemAtIndex(index)"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </b-button>
-                    </b-input-group-append>
-                </b-input-group>
+            <div class="grip-handle text-dark pr-2 align-self-center">
+                <font-awesome-icon
+                    class="my-auto"
+                    :icon="['fas', 'align-justify']"
+                    size="lg"
+                />
             </div>
-        </draggable>
-    </div>
+            <b-input-group>
+                <input
+                    ref="itemInputs"
+                    class="item-input flex-grow-1 form-control"
+                    :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
+                    :value="lineItem.value"
+                    @input="onInput(index, $event.target.value)"
+                    @keyup.enter="onInsertAfterIndexAndFocus(index)"
+                >
+                <b-input-group-append>
+                    <b-button
+                        class="remove-btn"
+                        variant="danger"
+                        aria-label="Remove"
+                        :disabled="value.length <= 1"
+                        @click="onRemoveItemAtIndex(index)"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </b-button>
+                </b-input-group-append>
+            </b-input-group>
+        </div>
+    </draggable>
 </template>
 <script>
     import draggable from 'vuedraggable';

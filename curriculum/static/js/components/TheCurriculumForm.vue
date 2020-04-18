@@ -260,7 +260,7 @@
                     { value: '5:45', text: '5:45' },
                     { value: '6:00', text: '6:00' },
                 ],
-                materials: [""],
+                materials: [{id: 0, value: ""}],
                 webOnly: false,
                 feedbackEnabled: false,
                 draft: false,
@@ -302,7 +302,7 @@
             },
             numClasses: {
                 required,
-                minValue: minValue(1)
+                minValue: minValue(1),
             },
             totalPrepTime: {
                 required,
@@ -313,8 +313,11 @@
             materials: {
                 required,
                 $each: {
-                    required,
-                }
+                    $trackBy: "id",
+                    value: {
+                        required,
+                    },
+                },
             },
             agree: {
                 mustAgree: (value) => value

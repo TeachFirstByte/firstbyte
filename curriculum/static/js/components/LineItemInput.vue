@@ -21,7 +21,7 @@
                         ref="itemInputs"
                         class="item-input flex-grow-1 form-control"
                         :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
-                        :value="lineItem"
+                        :value="lineItem.value"
                         @input="onInput(index, $event.target.value)"
                         @keyup.enter="onInsertAfterIndexAndFocus(index)"
                     >
@@ -58,6 +58,11 @@
                 default: () => { return []; },
             },
         },
+        data() {
+            return {
+                idCounter: 0
+            };
+        },
         computed: {
             draggableValueModel: {
                 get: function() {
@@ -75,9 +80,17 @@
             updateValueWithResult(fn) {
                 this.updateValue(fn(this.value.slice()));
             },
+            makeNewItem(initialValue) {
+                initialValue = initialValue || "";
+                return {
+                    id: ++this.idCounter,
+                    value: initialValue,
+                    state: null,
+                };
+            },
             onAppendNewItem() {
                 this.updateValueWithResult((newValue) => {
-                    newValue.push("");
+                    newValue.push(this.makeNewItem());
                     return newValue;
                 });
             },
@@ -89,18 +102,18 @@
             },
             onInput(index, inputFieldValue) {
                 this.updateValueWithResult((newValue) => {
-                    newValue[index] = inputFieldValue;
+                    newValue[index].value = inputFieldValue;
                     return newValue;
                 });
                 this.$emit('touch', parseInt(index));
             },
             onInsertAfterIndexAndFocus(index) {
-                if (this.value[index] === "") {
+                if (this.value[index].value === "") {
                     return;
                 }
                 this.updateValueWithResult((newValue) => {
                     const start = parseInt(index) + 1;
-                    newValue.splice(start, 0, "");
+                    newValue.splice(start, 0, this.makeNewItem());
 
                     this.$nextTick().then(() => {
                         this.$refs.itemInputs[start].focus();

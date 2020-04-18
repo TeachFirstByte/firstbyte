@@ -112,7 +112,7 @@
                             <LineItemInput
                                 id="materials-input"
                                 :states="materialsBootstrapStates"
-                                :value.sync="materials"
+                                :value.sync="formData.materials"
                                 @touch="onMaterialsTouch"
                             />
                         </b-form-group>
@@ -123,7 +123,7 @@
                         <b-form-group>
                             <b-form-checkbox
                                 id="web-only-input"
-                                v-model="webOnly"
+                                v-model="formData.webOnly"
                             >
                                 Web only
                             </b-form-checkbox>
@@ -133,7 +133,7 @@
                         <b-form-group>
                             <b-form-checkbox
                                 id="feedback-enabled-input"
-                                v-model="feedbackEnabled"
+                                v-model="formData.feedbackEnabled"
                             >
                                 Allow reviews
                             </b-form-checkbox>
@@ -143,7 +143,7 @@
                         <b-form-group>
                             <b-form-checkbox
                                 id="draft-input"
-                                v-model="draft"
+                                v-model="formData.draft"
                             >
                                 This a draft
                             </b-form-checkbox>

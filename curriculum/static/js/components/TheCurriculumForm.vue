@@ -306,9 +306,7 @@
             },
             buildOnRemoveCallback(resource) {
                 return () => {
-                    this.$delete(this.formData.lessonResources, this.formData.lessonResources.findIndex((it) => {
-                        return it.id == resource.id;
-                    }));
+                    this.$delete(this.formData.lessonResources, this.formData.lessonResources.indexOf(resource));
                 };
             },
             onSubmit(_) {

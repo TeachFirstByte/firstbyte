@@ -8,7 +8,6 @@ module.exports = {
   context: __dirname,
   entry: {
     firstByteBootstrap: "./firstbyte/static/firstbyte/js/bootstrap.js",
-    uploadLessonResource: "./curriculum/static/js/uploadLessonResource.js",
     starRating: "./firstbyte/static/firstbyte/js/starRating.js",
     cardHoverShadow: './curriculum/static/js/cardHoverShadow.js',
     loanerProgram: './loaner_program/static/loaner_program/js/app.js',

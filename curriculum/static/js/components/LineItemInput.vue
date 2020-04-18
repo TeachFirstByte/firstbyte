@@ -2,7 +2,7 @@
     <draggable
         handle=".drag-handle"
         :value="value"
-        @input="$emit('update:value', $event)"
+        @input="updateValue"
     >
         <div
             v-for="(lineItem, index) in value"

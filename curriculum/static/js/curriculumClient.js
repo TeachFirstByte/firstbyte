@@ -12,7 +12,7 @@ function defaultValue(val, fallback) {
     return fallback;
 }
 
-export function CurriculumClient(csrfToken) {
+export default function CurriculumClient(csrfToken) {
     this.csrfToken = csrfToken;
 }
 

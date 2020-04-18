@@ -1,7 +1,8 @@
 <template>
     <draggable
-        v-model="draggableValueModel"
         handle=".grip-handle"
+        :value="value"
+        @input="$emit('update:value', $event)"
     >
         <div
             v-for="(lineItem, index) in value"
@@ -60,16 +61,6 @@
             return {
                 idCounter: 0,
             };
-        },
-        computed: {
-            draggableValueModel: {
-                get: function() {
-                    return this.value;
-                },
-                set: function(newValue) {
-                    this.updateValue(newValue);
-                },
-            },
         },
         methods: {
             updateValue(newValue) {

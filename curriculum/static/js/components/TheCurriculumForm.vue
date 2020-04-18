@@ -112,8 +112,7 @@
                             <LineItemInput
                                 id="materials-input"
                                 :states="materialsBootstrapStates"
-                                :value="materials"
-                                @update:value="onMaterialsUpdate"
+                                :value.sync="materials"
                                 @touch="onMaterialsTouch"
                             />
                         </b-form-group>
@@ -280,9 +279,6 @@
         methods: {
             getInvalidFeedback(vuelidateObject) {
                 return !vuelidateObject.required ? "This field is required" : "";
-            },
-            onMaterialsUpdate(newArray) {
-                this.materials = newArray;
             },
             onMaterialsTouch(index) {
                 this.$v.formData.materials.$each[index].$touch();

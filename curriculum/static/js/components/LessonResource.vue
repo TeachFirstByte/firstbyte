@@ -5,25 +5,27 @@
                 <b-input-group-prepend>
                     <b-form-select
                         :id="filename + '-lesson-resource'"
-                        v-model="$v.resourceType.$model"
                         class="lesson-resource-type-select"
                         variant="primary"
                         :options="resourceTypeOptions"
-                        :state="getBootstrapFormInputState($v.resourceType)"
+                        :state="getBootstrapFormInputState(vuelidateObject.resourceType)"
+                        :value="resourceType"
+                        @input="$emit('update:resourceType', $event)"
                     />
                 </b-input-group-prepend>
                 <b-form-input
                     :id="filename + '-name'"
-                    v-model="$v.filename.$model"
                     type="text"
-                    :state="getBootstrapFormInputState($v.filename)"
+                    :state="getBootstrapFormInputState(vuelidateObject.filename)"
+                    :value="filename"
+                    @input="$emit('update:filename', $event)"
                 />
                 <b-input-group-append>
                     <b-button
                         class="remove-btn"
                         variant="danger"
                         aria-label="Remove"
-                        @click="onRemove"
+                        @click="$emit('onRemove')"
                     >
                         <span aria-hidden="true">&times;</span>
                     </b-button>
@@ -33,22 +35,21 @@
     </b-row>
 </template>
 <script>
-
-    import { validationMixin } from 'vuelidate';
-    import { required } from 'vuelidate/lib/validators';
-
     import { getBootstrapFormInputState } from '../componentUtil.js';
 
     export default {
-        mixins: [validationMixin],
         props: {
             filename: {
                 type: String,
                 default: "",
             },
-            onRemove: {
-                type: Function,
-                required: true,
+            resourceType: {
+                type: Number,
+                default: null,
+            },
+            vuelidateObject: {
+                type: Object,
+                default: () => {return {}; },
             },
         },
         data() {
@@ -62,25 +63,8 @@
                     { value: 5, text: "Schematic"},
                     { value: 0, text: "Other"},
                 ],
-                resourceType: null,
-
-                lessonResourceName: this.filename,
-
                 getBootstrapFormInputState,
             };
-        },
-        validations: {
-            filename: {
-                required,
-            },
-            resourceType: {
-                required,
-            },
-        },
-
-        mounted() {
-            this.$v.filename.$touch();
-            this.$v.resourceType.$touch();
         },
     };
 </script>
@@ -91,6 +75,8 @@
     .lesson-resource-type-select {
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
+
+        width: 13em;
 
         &:focus {
             z-index: 2;

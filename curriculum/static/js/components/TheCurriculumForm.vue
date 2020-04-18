@@ -181,12 +181,14 @@
                     @newFile="addLessonResource"
                 >
                     <b-form-group
-                        v-for="resource in formData.lessonResources"
+                        v-for="(resource, index) in formData.lessonResources"
                         :key="resource.id"
                     >
                         <LessonResource
-                            :filename="resource.filename"
-                            :on-remove="buildOnRemoveCallback(resource)"
+                            :vuelidate-object="$v.formData.lessonResources.$each[index]"
+                            :filename.sync="$v.formData.lessonResources.$each[index].filename.$model"
+                            :resource-type.sync="$v.formData.lessonResources.$each[index].resourceType.$model"
+                            @onRemove="onRemove(resource)"
                         />
                     </b-form-group>
                 </DropArea>
@@ -303,11 +305,10 @@
                     resourceType: null,
                 };
                 this.formData.lessonResources.push(newResource);
+                this.$v.formData.lessonResources.$each[this.formData.lessonResources.length - 1].filename.$touch();
             },
-            buildOnRemoveCallback(resource) {
-                return () => {
-                    this.$delete(this.formData.lessonResources, this.formData.lessonResources.indexOf(resource));
-                };
+            onRemove(resource) {
+                this.$delete(this.formData.lessonResources, this.formData.lessonResources.indexOf(resource));
             },
             onSubmit(_) {
                 this.$v.formData.$touch();
@@ -345,6 +346,17 @@
                 },
                 agree: {
                     mustAgree: (value) => value,
+                },
+                lessonResources: {
+                    $each: {
+                        $trackBy: "id",
+                        filename: {
+                            required,
+                        },
+                        resourceType: {
+                            required,
+                        },
+                    },
                 },
             },
         },

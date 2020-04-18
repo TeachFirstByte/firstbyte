@@ -8,14 +8,14 @@
                         <b-form-group
                             label="Title:"
                             label-for="title-input"
-                            :invalid-feedback="getInvalidFeedback($v.title)"
-                            :state="getBootstrapFormInputState($v.title)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.title)"
+                            :state="getBootstrapFormInputState($v.formData.title)"
                         >
                             <b-form-input
                                 id="title-input"
-                                v-model="$v.title.$model"
+                                v-model="$v.formData.title.$model"
                                 type="text"
-                                :state="getBootstrapFormInputState($v.title)"
+                                :state="getBootstrapFormInputState($v.formData.title)"
                             />
                         </b-form-group>
                     </b-col>
@@ -25,13 +25,13 @@
                         <b-form-group
                             label="Summary:"
                             label-for="summary-input"
-                            :invalid-feedback="getInvalidFeedback($v.summary)"
-                            :state="getBootstrapFormInputState($v.summary)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.summary)"
+                            :state="getBootstrapFormInputState($v.formData.summary)"
                         >
                             <b-form-textarea
                                 id="summary-input"
-                                v-model="$v.summary.$model"
-                                :state="getBootstrapFormInputState($v.summary)"
+                                v-model="$v.formData.summary.$model"
+                                :state="getBootstrapFormInputState($v.formData.summary)"
                             />
                         </b-form-group>
                     </b-col>
@@ -41,14 +41,14 @@
                         <b-form-group
                             label="Grade Level:"
                             label-for="grade-level-input"
-                            :invalid-feedback="getInvalidFeedback($v.gradeLevel)"
-                            :state="getBootstrapFormInputState($v.gradeLevel)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.gradeLevel)"
+                            :state="getBootstrapFormInputState($v.formData.gradeLevel)"
                         >
                             <b-form-select
                                 id="grade-level-input"
-                                v-model="$v.gradeLevel.$model"
+                                v-model="$v.formData.gradeLevel.$model"
                                 :options="gradeLevelOptions"
-                                :state="getBootstrapFormInputState($v.gradeLevel)"
+                                :state="getBootstrapFormInputState($v.formData.gradeLevel)"
                             />
                         </b-form-group>
                     </b-col>
@@ -56,15 +56,15 @@
                         <b-form-group
                             label="Num Classes:"
                             label-for="num-classes-input"
-                            :invalid-feedback="getInvalidFeedback($v.numClasses)"
-                            :state="getBootstrapFormInputState($v.numClasses)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.numClasses)"
+                            :state="getBootstrapFormInputState($v.formData.numClasses)"
                         >
                             <b-form-input
                                 id="num-classes-input"
-                                v-model="$v.numClasses.$model"
+                                v-model="$v.formData.numClasses.$model"
                                 type="number"
                                 min="1"
-                                :state="getBootstrapFormInputState($v.numClasses)"
+                                :state="getBootstrapFormInputState($v.formData.numClasses)"
                             />
                         </b-form-group>
                     </b-col>
@@ -74,14 +74,14 @@
                         <b-form-group
                             label="Single Class Time:"
                             label-for="single-class-time-input"
-                            :invalid-feedback="getInvalidFeedback($v.singleClassTime)"
-                            :state="getBootstrapFormInputState($v.singleClassTime)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.singleClassTime)"
+                            :state="getBootstrapFormInputState($v.formData.singleClassTime)"
                         >
                             <b-form-select
                                 id="single-class-time-input"
-                                v-model="$v.singleClassTime.$model"
+                                v-model="$v.formData.singleClassTime.$model"
                                 :options="durationOptions"
-                                :state="getBootstrapFormInputState($v.singleClassTime)"
+                                :state="getBootstrapFormInputState($v.formData.singleClassTime)"
                             />
                         </b-form-group>
                     </b-col>
@@ -89,14 +89,14 @@
                         <b-form-group
                             label="Total Prep Time:"
                             label-for="total-prep-time-input"
-                            :invalid-feedback="getInvalidFeedback($v.totalPrepTime)"
-                            :state="getBootstrapFormInputState($v.totalPrepTime)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.totalPrepTime)"
+                            :state="getBootstrapFormInputState($v.formData.totalPrepTime)"
                         >
                             <b-form-select
                                 id="total-prep-time-input"
-                                v-model="$v.totalPrepTime.$model"
+                                v-model="$v.formData.totalPrepTime.$model"
                                 :options="durationOptions"
-                                :state="getBootstrapFormInputState($v.totalPrepTime)"
+                                :state="getBootstrapFormInputState($v.formData.totalPrepTime)"
                             />
                         </b-form-group>
                     </b-col>
@@ -106,8 +106,8 @@
                         <b-form-group
                             label="Materials:"
                             label-for="materials-input"
-                            :invalid-feedback="getInvalidFeedback($v.materials)"
-                            :state="getBootstrapFormInputState($v.materials)"
+                            :invalid-feedback="getInvalidFeedback($v.formData.materials)"
+                            :state="getBootstrapFormInputState($v.formData.materials)"
                         >
                             <LineItemInput
                                 id="materials-input"
@@ -155,12 +155,12 @@
                     <b-col>
                         <b-form-group
                             invalid-feedback="You must license this work under CC BY-NC 4.0 to submit it for access on our website."
-                            :state="getBootstrapFormInputState($v.agree)"
+                            :state="getBootstrapFormInputState($v.formData.agree)"
                         >
                             <b-form-checkbox
                                 id="agree-input"
-                                v-model="$v.agree.$model"
-                                :state="getBootstrapFormInputState($v.agree)"
+                                v-model="$v.formData.agree.$model"
+                                :state="getBootstrapFormInputState($v.formData.agree)"
                             >
                                 I am the sole author or I have permission to license this work under the CC BY-NC 4.0 License
                             </b-form-checkbox>
@@ -219,9 +219,6 @@
         mixins: [validationMixin],
         data() {
             return {
-                title: "",
-                summary: "",
-                gradeLevel: null,
                 gradeLevelOptions: [
                     { value: null, text: "" },
                     { value: "ES", text: "Elementary School" },
@@ -229,9 +226,6 @@
                     { value: "HS", text: "High School" },
                     { value: "U", text: "Post-secondary" },
                 ],
-                numClasses: null,
-                totalPrepTime: null,
-                singleClassTime: null,
                 durationOptions: [
                     { value: null, text: ''},
                     { value: '0:00', text: '0:00' },
@@ -260,19 +254,26 @@
                     { value: '5:45', text: '5:45' },
                     { value: '6:00', text: '6:00' },
                 ],
-                materials: [{id: 0, value: ""}],
-                webOnly: false,
-                feedbackEnabled: false,
-                draft: false,
-                agree: false,
-
+                formData: {
+                    title: "",
+                    summary: "",
+                    gradeLevel: null,
+                    numClasses: null,
+                    totalPrepTime: null,
+                    singleClassTime: null,
+                    materials: [{id: 0, value: ""}],
+                    webOnly: false,
+                    feedbackEnabled: false,
+                    draft: false,
+                    agree: false,
+                },
                 getBootstrapFormInputState,
             };
         },
         computed: {
             materialsBootstrapStates() {
-                return this.materials.map((_, index) => {
-                    return getBootstrapFormInputState(this.$v.materials.$each[index]);
+                return this.formData.materials.map((_, index) => {
+                    return getBootstrapFormInputState(this.$v.formData.materials.$each[index]);
                 });
             }
         },
@@ -284,43 +285,46 @@
                 this.materials = newArray;
             },
             onMaterialsTouch(index) {
-                this.$v.materials.$each[index].$touch();
+                this.$v.formData.materials.$each[index].$touch();
             },
             onSubmit(_) {
-                this.$v.$touch();
+                this.$v.formData.$touch();
+
             }
         },
         validations: {
-            title: {
-                required,
-            },
-            summary: {
-                required,
-            },
-            gradeLevel: {
-                required,
-            },
-            numClasses: {
-                required,
-                minValue: minValue(1),
-            },
-            totalPrepTime: {
-                required,
-            },
-            singleClassTime: {
-                required,
-            },
-            materials: {
-                required,
-                $each: {
-                    $trackBy: "id",
-                    value: {
-                        required,
+            formData: {
+                title: {
+                    required,
+                },
+                summary: {
+                    required,
+                },
+                gradeLevel: {
+                    required,
+                },
+                numClasses: {
+                    required,
+                    minValue: minValue(1),
+                },
+                totalPrepTime: {
+                    required,
+                },
+                singleClassTime: {
+                    required,
+                },
+                materials: {
+                    required,
+                    $each: {
+                        $trackBy: "id",
+                        value: {
+                            required,
+                        },
                     },
                 },
-            },
-            agree: {
-                mustAgree: (value) => value
+                agree: {
+                    mustAgree: (value) => value
+                },
             },
         },
     };

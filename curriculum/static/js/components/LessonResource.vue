@@ -37,6 +37,16 @@
 <script>
     import { getBootstrapFormInputState } from '../componentUtil.js';
 
+    export const RESOURCE_TYPE_OPTIONS = [
+        { value: null, text: ""},
+        { value: 1, text: "Student Handout"},
+        { value: 2, text: "Teacher Reference"},
+        { value: 3, text: "Slides"},
+        { value: 4, text: "Code"},
+        { value: 5, text: "Schematic"},
+        { value: 0, text: "Other"},
+    ];
+
     export default {
         props: {
             filename: {
@@ -54,15 +64,7 @@
         },
         data() {
             return {
-                resourceTypeOptions: [
-                    { value: null, text: ""},
-                    { value: 1, text: "Student Handout"},
-                    { value: 2, text: "Teacher Reference"},
-                    { value: 3, text: "Slides"},
-                    { value: 4, text: "Code"},
-                    { value: 5, text: "Schematic"},
-                    { value: 0, text: "Other"},
-                ],
+                resourceTypeOptions: RESOURCE_TYPE_OPTIONS,
                 getBootstrapFormInputState,
             };
         },

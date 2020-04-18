@@ -6,6 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   context: __dirname,
+  devtool: 'source-map',
   entry: {
     firstByteBootstrap: "./firstbyte/static/firstbyte/js/bootstrap.js",
     starRating: "./firstbyte/static/firstbyte/js/starRating.js",

@@ -172,13 +172,23 @@
                 class="d-flex flex-column"
             >
                 <h4>Upload Supporting Files</h4>
-                <DropArea class="flex-grow-1">
-                    <template #fileForm="{ filename, onRemove }">
+                <span class="mb-2">
+                    Attach materials by dragging &amp; dropping or clicking in the box below.
+                </span>
+                <DropArea
+                    class="flex-grow-1"
+                    :highlight="!formData.lessonResources.length"
+                    @newFile="addLessonResource"
+                >
+                    <b-form-group
+                        v-for="resource in formData.lessonResources"
+                        :key="resource.id"
+                    >
                         <LessonResource
-                            :filename="filename"
-                            :on-remove="onRemove"
+                            :filename="resource.filename"
+                            :on-remove="buildOnRemoveCallback(resource)"
                         />
-                    </template>
+                    </b-form-group>
                 </DropArea>
             </b-col>
         </b-row>
@@ -265,7 +275,9 @@
                     feedbackEnabled: false,
                     draft: false,
                     agree: false,
+                    lessonResources: [],
                 },
+                lessonResourceIdCounter: 0,
                 getBootstrapFormInputState,
             };
         },
@@ -282,6 +294,22 @@
             },
             onMaterialsTouch(index) {
                 this.$v.formData.materials.$each[index].$touch();
+            },
+            addLessonResource(file) {
+                const newResource = {
+                    id: ++this.lessonResourceIdCounter,
+                    file: file,
+                    filename: file.name,
+                    resourceType: null
+                };
+                this.formData.lessonResources.push(newResource);
+            },
+            buildOnRemoveCallback(resource) {
+                return () => {
+                    this.$delete(this.formData.lessonResources, this.formData.lessonResources.findIndex((it) => {
+                        return it.id == resource.id;
+                    }));
+                };
             },
             onSubmit(_) {
                 this.$v.formData.$touch();

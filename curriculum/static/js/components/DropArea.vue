@@ -1,60 +1,42 @@
 <template>
-    <div class="d-flex flex-column">
-        <span
-            class="mb-2"
-            style="user-select: none;"
-            @click="$refs.fileInput.click()"
+    <div
+        :class="{'droparea--pending-drop': pendingDrop, 'droparea--highlight': highlight}"
+        class="droparea"
+        @click.self="$refs.fileInput.click()"
+        @drop.prevent="onDropHandler"
+        @dragenter="onDragEnterHandler"
+        @dragleave="onDragExitHandler"
+        @dragover.prevent
+    >
+        <input
+            ref="fileInput"
+            style="display: none;"
+            type="file"
+            multiple
+            @change="onFileUpload"
         >
-            Attach materials by dragging &amp; dropping or clicking in the box below.
-        </span>
-        <div
-            :class="{'droparea--pending-drop': pendingDrop, 'droparea--highlight': !files.length}"
-            class="droparea flex-grow-1"
-            @click.self="$refs.fileInput.click()"
-            @drop.prevent="onDropHandler"
-            @dragenter="onDragEnterHandler"
-            @dragleave="onDragExitHandler"
-            @dragover.prevent
-        >
-            <input
-                ref="fileInput"
-                style="display: none;"
-                type="file"
-                multiple
-                @change="onFileUpload"
-            >
-            <b-form-group
-                v-for="file in files"
-                :key="file.name"
-            >
-                <slot
-                    name="fileForm"
-                    :filename="file.name"
-                    :onRemove="buildOnRemoveCallback(file)"
-                />
-            </b-form-group>
-        </div>
+        <slot />
     </div>
 </template>
 <script>
     export default {
+        props: {
+            highlight: {
+                type: Boolean,
+                default: false
+            },
+        },
         data() {
             return {
                 pendingDrop: false,
-                files: []
             };
         },
         methods: {
-            buildOnRemoveCallback(file) {
-                return () => {
-                    this.files.splice(this.files.indexOf(file), 1);
-                };
-            },
             onFileUpload(event) {
                 let files = event.currentTarget.files;
                 for(let index = 0; index < files.length; ++index) {
                     let file = files[index];
-                    this.files.push(file);
+                    this.$emit('newFile', file);
                 }
             },
             onDropHandler(event) {
@@ -64,7 +46,7 @@
                         // If dropped items aren't files, reject them
                         if (event.dataTransfer.items[i].kind === 'file') {
                             let file = event.dataTransfer.items[i].getAsFile();
-                            this.files.push(file);
+                            this.$emit('newFile', file);
                         }
                     }
                     event.dataTransfer.items.clear();
@@ -73,7 +55,7 @@
                     // Use DataTransfer interface to access the file(s)
                     for (let i = 0; i < event.dataTransfer.files.length; i++) {
                         let file = event.dataTransfer.files[i];
-                        this.files.push(file);
+                        this.$emit('newFile', file);
                     }
 
                     event.dataTransfer.clearData();

@@ -186,14 +186,18 @@
         </p>
         <b-row class="w-100 text-center">
             <b-col class="text-center">
-                <input
-                    id="submit-lesson-plan"
-                    type="submit"
-                    class="btn btn-primary mt-3"
-                    for="lesson-plan-form"
-                    value="Upload Curriculum"
+                <b-button
+                    variant="primary"
+                    class="mt-3"
                     @click="onSubmit"
                 >
+                    <b-spinner
+                        v-if="submissionLoading"
+                        small
+                        variant="light"
+                    />
+                    Upload Curriculum
+                </b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -267,6 +271,7 @@
                     agree: false,
                     lessonResources: [],
                 },
+                submissionLoading: false,
                 getBootstrapFormInputState,
             };
         },

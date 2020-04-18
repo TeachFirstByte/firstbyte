@@ -33,35 +33,39 @@
         },
         methods: {
             onFileUpload(event) {
+                let newFiles = [];
                 let files = event.currentTarget.files;
                 for(let index = 0; index < files.length; ++index) {
                     let file = files[index];
-                    this.$emit('newFile', file);
+                    newFiles.push(file);
                 }
+                this.$emit('newFiles', newFiles);
             },
             onDropHandler(event) {
+                let newFiles = [];
+
                 if (event.dataTransfer.items) {
                     // Use DataTransferItemList interface to access the file(s)
                     for (let i = 0; i < event.dataTransfer.items.length; i++) {
                         // If dropped items aren't files, reject them
                         if (event.dataTransfer.items[i].kind === 'file') {
                             let file = event.dataTransfer.items[i].getAsFile();
-                            this.$emit('newFile', file);
+                            newFiles.push(file);
                         }
                     }
                     event.dataTransfer.items.clear();
-
                 } else {
                     // Use DataTransfer interface to access the file(s)
                     for (let i = 0; i < event.dataTransfer.files.length; i++) {
                         let file = event.dataTransfer.files[i];
-                        this.$emit('newFile', file);
+                        newFiles.push(file);
                     }
 
                     event.dataTransfer.clearData();
                 }
-                // We've handled the drag
+
                 this.onDragExitHandler();
+                this.$emit('newFiles', newFiles);
             },
             onDragEnterHandler() {
                 this.pendingDrop = true;

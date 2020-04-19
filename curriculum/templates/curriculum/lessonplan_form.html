@@ -5,7 +5,7 @@
     <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
     {% if LESSON_PLAN_ID %}
         <script type="text/javascript">
-            window.LESSON_PLAN_ID = "{{ LESSON_PLAN_ID }}";
+            window.CURRICULUM_ID = "{{ LESSON_PLAN_ID }}";
         </script>
     {% endif %}
     {% load render_bundle from webpack_loader %}

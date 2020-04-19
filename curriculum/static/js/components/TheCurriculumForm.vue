@@ -247,6 +247,84 @@
         { value: '6:00', text: '6:00' },
     ];
 
+    function submitCurriculum(client, formData, updatingCurriculumId) {
+        let lessonPlanFormData = new FormData();
+
+        lessonPlanFormData.append('title', formData.title);
+        lessonPlanFormData.append('grade_level', formData.gradeLevel);
+        lessonPlanFormData.append('num_classes', formData.numClasses);
+        lessonPlanFormData.append('summary', formData.summary);
+        lessonPlanFormData.append('total_prep_time', formData.totalPrepTime);
+        lessonPlanFormData.append('single_class_time', formData.singleClassTime);
+        lessonPlanFormData.append('materials', JSON.stringify(formData.materials.map((it) => { return it.value; })));
+        lessonPlanFormData.append('web_only', formData.webOnly);
+        lessonPlanFormData.append('feedback_enabled', formData.feedbackEnabled);
+        lessonPlanFormData.append('draft', formData.draft);
+
+        lessonPlanFormData.append('agree', formData.agree);
+        lessonPlanFormData.append('jsonResponse', true);
+
+        let resourceIds = [];
+        let resourceTypes = [];
+        let filenames = [];
+        let files = [];
+
+        formData.lessonResources.forEach((resource) => {
+            // TODO: If this is a new lessonplan put it at the end
+            if (resource.resourceId) {
+                resourceIds.push(resource.resourceId);
+            }
+            resourceTypes.push(resource.resourceType);
+            filenames.push(resource.filename);
+            files.push(resource.file);
+        });
+
+        lessonPlanFormData.append('resource_ids', JSON.stringify(resourceIds));
+        lessonPlanFormData.append('filetypes', JSON.stringify(resourceTypes));
+        lessonPlanFormData.append('filenames', JSON.stringify(filenames));
+
+        files.forEach((file) => {
+            lessonPlanFormData.append('files[]', file);
+        });
+
+        let submissionPromise;
+        if (updatingCurriculumId) {
+            submissionPromise = client.updateLessonPlan(lessonPlanFormData, updatingCurriculumId);
+        } else {
+            submissionPromise = client.submitLessonPlan(lessonPlanFormData);
+        }
+
+        submissionPromise.then(function(response) {
+            window.location.href = '/lesson-plans/' + response.id;
+        }).catch(function(error) {
+            console.error(error);
+        });
+    }
+
+    function retrieveExistingLessonResources(util) {
+        let lessonResources = [];
+
+        if(util.updatingCurriculumId) {
+            util.client.getLessonPlan(util.updatingCurriculumId).then(function(lessonplan) {
+                for (let i = 0; i < lessonplan.resources.length; ++i) {
+                    let resource = lessonplan.resources[i];
+                    // TODO: Make sure the ID we assign here doesn't interfere with added lesson resources
+                    lessonResources.push({
+                        id: resource.id,
+                        resourceId: resource.id,
+                        file: null,
+                        filename: resource.name,
+                        resourceType: resource.semantic_type,
+                    });
+                }
+            }).catch(function(err) {
+                console.log(err);
+            });
+        }
+
+        return lessonResources;
+    }
+
     export default {
         components: {
             LineItemInput,
@@ -282,6 +360,9 @@
                 });
             },
         },
+        mounted() {
+            this.formData.lessonResources = retrieveExistingLessonResources(this.$curriculumForm);
+        },
         methods: {
             getInvalidFeedback(vuelidateObject) {
                 return !vuelidateObject.required ? "This field is required" : "";
@@ -291,6 +372,9 @@
             },
             onSubmit(_) {
                 this.$v.formData.$touch();
+                if (!this.$v.formData.$anyError) {
+                    submitCurriculum(this.$curriculumForm.client, this.formData, this.$curriculumForm.updatingCurriculumId);
+                }
             },
         },
         validations: {

@@ -68,7 +68,9 @@
 
             },
             onRemove(resource) {
-                this.updateLessonResources([...this.lessonResources].splice(this.lessonResources.indexOf(resource), 1));
+                let newArray = [...this.lessonResources];
+                newArray.splice(this.lessonResources.indexOf(resource), 1);
+                this.updateLessonResources(newArray);
             },
         },
     };

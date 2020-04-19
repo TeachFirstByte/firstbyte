@@ -80,7 +80,7 @@ class LessonPlan(models.Model):
 
     # Summary and materials listing
     summary = models.CharField(max_length=2000)
-    materials = models.CharField(max_length=2000)
+    materials = models.TextField()
 
     # Chromebooks only support web-only curriculums!
     web_only = models.BooleanField()

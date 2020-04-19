@@ -79,8 +79,8 @@ class LessonPlan(models.Model):
     single_class_time = models.DurationField()
 
     # Summary and materials listing
-    summary = models.CharField(max_length=2000)
-    materials = models.TextField()
+    summary = models.CharField(max_length=2000, blank=True)
+    materials = models.TextField(blank=True)
 
     # Chromebooks only support web-only curriculums!
     web_only = models.BooleanField()

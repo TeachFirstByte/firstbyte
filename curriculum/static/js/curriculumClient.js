@@ -26,7 +26,7 @@ CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options
             method: 'POST',
             dataType: 'json',
             headers: {
-                'X-CSRFToken': that.csrfToken
+                'X-CSRFToken': that.csrfToken,
             },
             contentType: false,
             processData: false,
@@ -64,7 +64,7 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
             method: 'POST',
             dataType: 'json',
             headers: {
-                'X-CSRFToken': that.csrfToken
+                'X-CSRFToken': that.csrfToken,
             },
             contentType: false,
             processData: false,
@@ -82,13 +82,13 @@ CurriculumClient.prototype.uploadResource = function (file, options) {
                             $(progress).attr({
                                 'aria-valuenow': progressEvent.loaded,
                                 'aria-valuemax': progressEvent.total,
-                                style: 'width: ' + currentPercentage + '%;'
+                                style: 'width: ' + currentPercentage + '%;',
                             });
                         }
                     });
                 }
                 return myXhr;
-            }
+            },
         })
         .done(function(response, _textStatus, _jqXHR) {
             if(defined(response.id)) {
@@ -118,9 +118,9 @@ CurriculumClient.prototype.putResource = function(id, data, options) {
             processData: false,
             cache: false,
             headers: {
-                'X-CSRFToken': that.csrfToken
+                'X-CSRFToken': that.csrfToken,
             },
-            data: JSON.stringify(data)
+            data: JSON.stringify(data),
         })
         .then(function(response, _textStatus, _jqXHR) {
             resolve(response);
@@ -141,8 +141,8 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
             dataType: 'json',
             cache: false,
             headers: {
-                'X-CSRFToken': that.csrfToken
-            }
+                'X-CSRFToken': that.csrfToken,
+            },
         })
         .then(function(response, _textStatus, _jqXHR) {
             resolve(response);

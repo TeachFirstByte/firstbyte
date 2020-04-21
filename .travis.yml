@@ -1,8 +1,11 @@
 language: python
 python: 3.6
+before_install:
+- pip install poetry
+- poetry --version
+- poetry config settings.virtualenvs.in-project true
 install:
-- pip install pipenv
-- pipenv install
+- poetry install --no-root -v
 script:
 - python manage.py test
 deploy:

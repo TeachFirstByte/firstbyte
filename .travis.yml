@@ -3,7 +3,6 @@ python: 3.6
 before_install:
 - pip install poetry
 - poetry --version
-- poetry config settings.virtualenvs.in-project true
 install:
 - poetry install --no-root -v
 script:

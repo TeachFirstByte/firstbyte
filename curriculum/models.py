@@ -69,6 +69,13 @@ class LessonResourceExternalLink(models.Model):
         return '(LessonResourceExternalLink ' + str(self.id) + ') ' + self.name + ' (' + semantic_type_str + ')'
 
 
+class Material(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return '(Material) ' + self.name
+
+
 class LessonPlan(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
@@ -86,6 +93,8 @@ class LessonPlan(models.Model):
     # uploaded files!
     resources = models.ManyToManyField(LessonResource, blank=True)
     resource_links = models.ManyToManyField(LessonResourceExternalLink, blank=True)
+
+    materials = models.ManyToManyField(Material, blank=True)
 
     # enable feedback?
     feedback_enabled = models.BooleanField(default=True)
@@ -112,15 +121,6 @@ class LessonPlan(models.Model):
 
     def __str__(self):
         return '(LessonPlan) ' + self.title
-
-
-class Material(models.Model):
-    lesson_plan = models.ForeignKey(LessonPlan, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return '(Material) ' + self.name
-
 
 class FiveStarRatingField(models.SmallIntegerField):
     ratings = (

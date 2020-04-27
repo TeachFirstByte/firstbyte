@@ -22,7 +22,7 @@ Start by downloading the repository
     $ git clone git@github.com:lukesanantonio/firstbyte.git
     $ cd firstbyte
 
-Then set up virtual environment / install python dependencies with [poetry](https://python-poetry.org/):
+Then set up virtual environment / install python dependencies with https://python-poetry.org/[poetry]:
 
     $ poetry install --no-root
 

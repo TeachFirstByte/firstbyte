@@ -42,8 +42,6 @@ class LessonPlanForm(forms.ModelForm):
     filenames = forms.CharField(required=False, widget=forms.HiddenInput)
     files = forms.FileField(required=False, widget=forms.HiddenInput)
 
-    materials = forms.CharField(required=True, widget=forms.HiddenInput)
-
     total_prep_time = forms.ChoiceField(
         choices=TIME_OPTIONS,
         label='Total prep time (hh:mm)',
@@ -98,14 +96,11 @@ class LessonPlanForm(forms.ModelForm):
     def clean_filenames(self):
         return json.loads(self.cleaned_data['filenames'])
 
-    def clean_materials(self):
-        return json.loads(self.cleaned_data['materials'])
-
     class Meta:
         model = LessonPlan
         fields = ['title', 'grade_level', 'num_classes', 'summary',
                   'total_prep_time', 'single_class_time',
-                  'web_only', 'feedback_enabled',
+                  'materials', 'web_only', 'feedback_enabled',
                   'draft']
         widgets = {
             'summary': forms.Textarea(),

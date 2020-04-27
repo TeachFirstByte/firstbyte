@@ -68,17 +68,19 @@ class LessonResourceExternalLink(models.Model):
                 break
         return '(LessonResourceExternalLink ' + str(self.id) + ') ' + self.name + ' (' + semantic_type_str + ')'
 
-
 class LessonPlan(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=120, unique=True)
-    summary = models.CharField(max_length=2000, blank=True)
     grade_level = models.CharField(max_length=GRADE_LEVEL_MAX_LENGTH, choices=GradeLevels)
 
     total_prep_time = models.DurationField()
     num_classes = models.IntegerField()
     single_class_time = models.DurationField()
+
+    # Summary and materials listing
+    summary = models.CharField(max_length=2000)
+    materials = models.CharField(max_length=2000)
 
     # Chromebooks only support web-only curriculums!
     web_only = models.BooleanField()
@@ -112,14 +114,6 @@ class LessonPlan(models.Model):
 
     def __str__(self):
         return '(LessonPlan) ' + self.title
-
-
-class Material(models.Model):
-    lesson_plan = models.ForeignKey(LessonPlan, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return '(Material) ' + self.name
 
 
 class FiveStarRatingField(models.SmallIntegerField):

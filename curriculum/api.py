@@ -1,6 +1,10 @@
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, reverse
+
+from rest_framework.viewsets import ModelViewSet
+
 from . import models
+from .serializers import LessonPlanSerializer
 
 def get_lessonplan(request, pk):
     """Return a JSON description object for some LessonPlan."""
@@ -57,3 +61,8 @@ def get_lessonplan(request, pk):
         res['feedbacks'] = feedbacks
 
     return JsonResponse(res)
+
+
+class LessonPlanViewSet(ModelViewSet):
+    queryset = models.LessonPlan.objects.all()
+    serializer_class = LessonPlanSerializer

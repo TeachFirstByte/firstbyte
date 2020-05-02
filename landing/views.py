@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from loaner_program.models import Technology, Kit
 
 def index(request):
     return render(request, 'landing/landing.html', {'user': request.user})
@@ -13,7 +14,16 @@ def privacy_policy(request):
     return render(request, 'landing/privacy_policy.html', {'user': request.user})
 
 def loaner_program(request):
-    return render(request, 'landing/loaner_program.html', {'user': request.user})
+    res = []
+    technologies = Technology.objects.all()
+    for tech in technologies:
+        q = Kit.objects.filter(technology_id=tech.id)
+        res.append({
+            'name': tech.name,
+            'quantity': len(q),
+            'boards': 0 if len(q) == 0 else q[0].num_boards
+        })
+    return render(request, 'landing/loaner_program.html', {'user': request.user, 'inventory': res})
 
 def volunteer_redirect(request):
     return redirect('https://goo.gl/forms/TOgxhucxMKVaPFqD3')

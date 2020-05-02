@@ -24,11 +24,10 @@
         <div class="col">
             <p>If you're in the Boston area and need materials, we're here to help. FirstByte's loaner program gives local educators the chance to borrow various technology kits to use in their classrooms. Email us at <a href="mailto:info@teachfirstbyte.org">info@teachfirstbyte.org</a> to reserve!</p>
             <p>Our inventory is as follows:
-            <ul>
-                <li>2 MaKey MaKey kits - <i>contain 12 boards each</i></li>
-                <li>1 Circuit Playground Classic kit - <i>contains 15 boards</i></li>
-                <li>1 Circuit Playground Express kit - <i>contains 15 boards</i></li>
-                <li>1 Lilypad Arduino kit - <i>contains 10 boards</i></li>
+							<ul>
+								{% for item in inventory %}
+								<li>{{ item.quantity }} {{ item.name }} kit(s) - <i>contains {{ item.boards }} boards each</i></li>
+								{% endfor %}
             </ul></p>
             <div class="text-center my-5">
                 <a href="mailto:info@teachfirstbyte.org" class="btn btn-primary"><h4 class="m-0 p-3">Reserve Now!</h4></a>

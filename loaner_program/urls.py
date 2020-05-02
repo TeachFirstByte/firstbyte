@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from landing import views
 
 urlpatterns = [
-    path('loaner-program/', views.show_loaner_program, name='loaner-program')
+    path('loaner-program/', views.loaner_program, name='loaner-program')
 ]

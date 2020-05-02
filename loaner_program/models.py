@@ -5,8 +5,7 @@ class Technology(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField()
     image_url_path = models.CharField(max_length=200)
-
-
+    
 class Kit(models.Model):
     technology = models.ForeignKey('Technology', on_delete=models.CASCADE)
     num_boards = models.PositiveIntegerField()

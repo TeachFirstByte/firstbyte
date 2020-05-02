@@ -251,15 +251,18 @@
         let lessonPlanFormData = new FormData();
 
         lessonPlanFormData.append('title', formData.title);
-        lessonPlanFormData.append('grade_level', formData.gradeLevel);
-        lessonPlanFormData.append('num_classes', formData.numClasses);
+        lessonPlanFormData.append('gradeLevel', formData.gradeLevel);
+        lessonPlanFormData.append('numClasses', formData.numClasses);
         lessonPlanFormData.append('summary', formData.summary);
-        lessonPlanFormData.append('total_prep_time', formData.totalPrepTime);
-        lessonPlanFormData.append('single_class_time', formData.singleClassTime);
-        lessonPlanFormData.append('materials', JSON.stringify(formData.materials.map((it) => { return it.value; })));
-        lessonPlanFormData.append('web_only', formData.webOnly);
-        lessonPlanFormData.append('feedback_enabled', formData.feedbackEnabled);
+        lessonPlanFormData.append('totalPrepTime', formData.totalPrepTime);
+        lessonPlanFormData.append('singleClassTime', formData.singleClassTime);
+        lessonPlanFormData.append('webOnly', formData.webOnly);
+        lessonPlanFormData.append('feedbackEnabled', formData.feedbackEnabled);
         lessonPlanFormData.append('draft', formData.draft);
+
+        formData.materials.forEach((material) => {
+            lessonPlanFormData.append('materialNames', material.value);
+        });
 
         lessonPlanFormData.append('agree', formData.agree);
         lessonPlanFormData.append('jsonResponse', true);
@@ -279,12 +282,19 @@
             files.push(resource.file);
         });
 
-        lessonPlanFormData.append('resource_ids', JSON.stringify(resourceIds));
-        lessonPlanFormData.append('filetypes', JSON.stringify(resourceTypes));
-        lessonPlanFormData.append('filenames', JSON.stringify(filenames));
+
+        resourceIds.forEach((id) => {
+            lessonPlanFormData.append('resourceIds', id);
+        });
+        resourceTypes.forEach((resourceType) => {
+            lessonPlanFormData.append('filetypes', resourceType);
+        });
+        filenames.forEach((filename) => {
+            lessonPlanFormData.append('filenames', filename);
+        });
 
         files.forEach((file) => {
-            lessonPlanFormData.append('files[]', file);
+            lessonPlanFormData.append('files', file);
         });
 
         let submissionPromise;

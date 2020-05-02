@@ -18,7 +18,7 @@ export default function CurriculumClient(csrfToken) {
 
 CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options) {
     options = options || {};
-    const endpoint = defaultValue(options.endpoint, '/lesson-plans/new/');
+    const endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/');
 
     let that = this;
     return new Promise(function(resolve, reject) {

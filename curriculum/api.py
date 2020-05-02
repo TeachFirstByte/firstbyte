@@ -66,3 +66,8 @@ def get_lessonplan(request, pk):
 class LessonPlanViewSet(ModelViewSet):
     queryset = models.LessonPlan.objects.all()
     serializer_class = LessonPlanSerializer
+
+    def get_serializer_context(self):
+        return {
+            'user': self.request.user
+        }

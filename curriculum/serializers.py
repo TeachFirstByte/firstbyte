@@ -102,7 +102,6 @@ class LessonPlanSerializer(serializers.Serializer):
             'lesson_resource_ids',
             'lesson_resource_names',
             'lesson_resource_types',
-            'lesson_resource_files',
         ]
         if not all_in_or_all_not_in(lesson_resource_keys, data):
             raise serializers.ValidationError(

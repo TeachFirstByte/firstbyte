@@ -6,6 +6,8 @@ from rest_framework import serializers
 from .util import all_in_or_all_not_in, all_same_length
 from .models import LessonResource, LessonResourceExternalLink, Material, LessonPlan, GradeLevels
 
+import logging
+logger = logging.getLogger(__name__)
 
 class LessonResourceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -132,7 +134,7 @@ class LessonPlanSerializer(serializers.Serializer):
                 if r_id:
                     resource = LessonResource.objects.get(id=r_id)
             except ObjectDoesNotExist:
-                pass
+                logger.error(f'Unable to find lesson resource with id=%s will create a resource instead', r_id)
 
             if resource is None:
                 resource = LessonResource(**create_kwargs)
@@ -164,7 +166,7 @@ class LessonPlanSerializer(serializers.Serializer):
                 if m_id:
                     material = Material.objects.get(id=m_id)
             except ObjectDoesNotExist:
-                pass
+                logger.error(f'Unable to find lesson resource with id=%s will create a resource instead', m_id)
 
             if material is None:
                 material = Material(**create_kwargs)

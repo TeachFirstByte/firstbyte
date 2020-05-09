@@ -19,11 +19,12 @@ export default function CurriculumClient(csrfToken) {
 CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options) {
     options = options || {};
     const endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/');
+    const method = defaultValue(options.method, 'POST');
 
     let that = this;
     return new Promise(function(resolve, reject) {
         $.ajax(endpoint, {
-            method: 'POST',
+            method: method,
             dataType: 'json',
             headers: {
                 'X-CSRFToken': that.csrfToken,
@@ -46,7 +47,8 @@ CurriculumClient.prototype.submitLessonPlan = function(combinedFormData, options
 
 CurriculumClient.prototype.updateLessonPlan = function(combinedFormData, id, options) {
     options = options || {};
-    options.endpoint = defaultValue(options.endpoint, '/lesson-plans/update/' + id + '/');
+    options.endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/' + id + '/');
+    options.method = defaultValue(options.method, 'PUT');
     return this.submitLessonPlan(combinedFormData, options);
 };
 
@@ -155,7 +157,7 @@ CurriculumClient.prototype.deleteResource = function(id, options) {
 
 CurriculumClient.prototype.getLessonPlan = function(id, options) {
     options = options || {};
-    const endpoint = defaultValue(options.endpoint, '/api/v1/lesson-plans/' + id + '/');
+    const endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/' + id + '/');
 
     return new Promise(function(resolve, reject) {
         $.ajax(endpoint, {

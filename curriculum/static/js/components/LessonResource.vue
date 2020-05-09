@@ -4,21 +4,19 @@
             <b-input-group>
                 <b-input-group-prepend>
                     <b-form-select
-                        :id="filename + '-lesson-resource'"
                         class="lesson-resource-type-select"
                         variant="primary"
-                        :options="resourceTypeOptions"
-                        :state="getBootstrapFormInputState(vuelidateObject.resourceType)"
-                        :value="resourceType"
-                        @input="$emit('update:resourceType', $event)"
+                        :options="typeOptions"
+                        :state="getBootstrapFormInputState(vuelidateObject.type)"
+                        :value="type"
+                        @input="$emit('update:type', $event)"
                     />
                 </b-input-group-prepend>
                 <b-form-input
-                    :id="filename + '-name'"
                     type="text"
-                    :state="getBootstrapFormInputState(vuelidateObject.filename)"
-                    :value="filename"
-                    @input="$emit('update:filename', $event)"
+                    :state="getBootstrapFormInputState(vuelidateObject.name)"
+                    :value="name"
+                    @input="$emit('update:name', $event)"
                 />
                 <b-input-group-append>
                     <b-button
@@ -37,7 +35,7 @@
 <script>
     import { getBootstrapFormInputState } from '../componentUtil.js';
 
-    export const RESOURCE_TYPE_OPTIONS = [
+    export const TYPE_OPTIONS = [
         { value: null, text: ""},
         { value: 1, text: "Student Handout"},
         { value: 2, text: "Teacher Reference"},
@@ -49,11 +47,11 @@
 
     export default {
         props: {
-            filename: {
+            name: {
                 type: String,
                 default: "",
             },
-            resourceType: {
+            type: {
                 type: Number,
                 default: null,
             },
@@ -64,7 +62,7 @@
         },
         data() {
             return {
-                resourceTypeOptions: RESOURCE_TYPE_OPTIONS,
+                typeOptions: TYPE_OPTIONS,
                 getBootstrapFormInputState,
             };
         },

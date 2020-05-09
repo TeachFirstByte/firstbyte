@@ -6,12 +6,12 @@
     >
         <b-form-group
             v-for="(resource, index) in lessonResources"
-            :key="resource.id"
+            :key="resource.visualId"
         >
             <LessonResource
                 :vuelidate-object="vuelidateObject.$each[index]"
-                :filename.sync="vuelidateObject.$each[index].filename.$model"
-                :resource-type.sync="vuelidateObject.$each[index].resourceType.$model"
+                :name.sync="vuelidateObject.$each[index].name.$model"
+                :type.sync="vuelidateObject.$each[index].type.$model"
                 @onRemove="onRemove(resource)"
             />
         </b-form-group>
@@ -48,10 +48,10 @@
             addLessonResources(newFiles) {
                 const newLessonResources = newFiles.map((file) => {
                     return {
-                        id: ++this.idCounter,
+                        visualId: ++this.idCounter,
+                        name: file.name,
+                        type: null,
                         file: file,
-                        filename: file.name,
-                        resourceType: null,
                     };
                 });
 
@@ -62,7 +62,7 @@
 
                 this.$nextTick(() => {
                     [...Array(numNewResources).keys()].forEach((index) => {
-                        this.vuelidateObject.$each[oldLength + index].filename.$touch();
+                        this.vuelidateObject.$each[oldLength + index].name.$touch();
                     });
                 });
 

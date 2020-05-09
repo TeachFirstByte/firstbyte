@@ -268,9 +268,9 @@
         });
 
         formData.lessonResources.forEach((resource) => {
-            lessonPlanFormData.append('lessonResourceIds', resource.resourceId || "");
-            lessonPlanFormData.append('lessonResourceTypes', resource.resourceType);
-            lessonPlanFormData.append('lessonResourceNames', resource.filename);
+            lessonPlanFormData.append('lessonResourceIds', resource.id || "");
+            lessonPlanFormData.append('lessonResourceTypes', resource.type);
+            lessonPlanFormData.append('lessonResourceNames', resource.name);
 
             if (resource.file) {
                 lessonPlanFormData.append('lessonResourceFiles', resource.file);
@@ -291,28 +291,53 @@
         });
     }
 
-    function retrieveExistingLessonResources(util) {
-        let lessonResources = [];
-
+    async function retrieveInitialFormData(util) {
         if(util.updatingCurriculumId) {
-            util.client.getLessonPlan(util.updatingCurriculumId).then(function(lessonplan) {
-                for (let i = 0; i < lessonplan.resources.length; ++i) {
-                    let resource = lessonplan.resources[i];
-                    // TODO: Make sure the ID we assign here doesn't interfere with added lesson resources
-                    lessonResources.push({
+            const lessonPlan = await util.client.getLessonPlan(util.updatingCurriculumId);
+
+            const buildMaterials = (materials) => {
+                return materials.map((material) => {
+                    return {
+                        visualId: material.id,
+                        id: material.id,
+                        value: material.name,
+                    };
+                });
+            };
+
+            const buildResources = (resources) => {
+                return resources.map((resource) => {
+                    return {
+                        visualId: resource.id,
                         id: resource.id,
-                        resourceId: resource.id,
-                        file: null,
-                        filename: resource.name,
-                        resourceType: resource.semantic_type,
-                    });
-                }
-            }).catch(function(err) {
-                console.log(err);
-            });
+                        name: resource.name,
+                        type: resource.semanticType,
+                    };
+                });
+            };
+
+            const formData = {
+                title: lessonPlan.title,
+                summary: lessonPlan.summary,
+                gradeLevel: lessonPlan.gradeLevel,
+                totalPrepTime: lessonPlan.totalPrepTime,
+                numClasses: lessonPlan.numClasses,
+                singleClassTime: lessonPlan.singleClassTime,
+                webOnly: lessonPlan.webOnly,
+                feedbackEnabled: lessonPlan.feedbackEnabled,
+                draft: lessonPlan.draft,
+                lessonResources: buildResources(lessonPlan.resources),
+            };
+
+            const materials = buildMaterials(lessonPlan.materials);
+            if (materials.length) {
+                formData.materials = materials;
+            }
+
+            return formData;
         }
 
-        return lessonResources;
+        return {};
     }
 
     export default {
@@ -350,8 +375,15 @@
                 });
             },
         },
-        mounted() {
-            this.formData.lessonResources = retrieveExistingLessonResources(this.$curriculumForm);
+        async mounted() {
+            const initialData = await retrieveInitialFormData(this.$curriculumForm);
+            Object.assign(this.formData, initialData);
+            Object.keys(initialData).forEach((formField) => {
+                const formObject = this.$v.formData[formField];
+                if (formObject) {
+                    formObject.$touch();
+                }
+            });
         },
         methods: {
             getInvalidFeedback(vuelidateObject) {
@@ -403,10 +435,10 @@
                 lessonResources: {
                     $each: {
                         $trackBy: "visualId",
-                        filename: {
+                        name: {
                             required,
                         },
-                        resourceType: {
+                        type: {
                             required,
                         },
                     },

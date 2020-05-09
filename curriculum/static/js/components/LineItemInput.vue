@@ -6,7 +6,7 @@
     >
         <div
             v-for="(lineItem, index) in value"
-            :key="index"
+            :key="lineItem.visualId"
             class="d-flex mb-2"
         >
             <DragHandle class="drag-handle" />
@@ -68,7 +68,7 @@
             makeNewItem(initialValue) {
                 initialValue = initialValue || "";
                 return {
-                    id: ++this.idCounter,
+                    visualId: ++this.idCounter,
                     value: initialValue,
                     state: null,
                 };

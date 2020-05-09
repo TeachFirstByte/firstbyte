@@ -24,6 +24,17 @@ class MaterialSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
         read_only_fields = ['id']
 
+class NullableIntegerField(serializers.IntegerField):
+    def to_representation(self, value):
+        if value is None:
+            return ''
+        return super().to_representation(value)
+
+    def to_internal_value(self, data):
+        if data == '':
+            return None
+        return super().to_internal_value(data)
+
 
 class LessonPlanSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)

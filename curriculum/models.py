@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from django.utils.text import slugify
 
+from sortedm2m.fields import SortedManyToManyField
+
 from accounts.models import GRADE_LEVEL_MAX_LENGTH, GradeLevels
 
 
@@ -94,7 +96,7 @@ class LessonPlan(models.Model):
     resources = models.ManyToManyField(LessonResource, blank=True)
     resource_links = models.ManyToManyField(LessonResourceExternalLink, blank=True)
 
-    materials = models.ManyToManyField(Material, blank=True)
+    materials = SortedManyToManyField(Material, blank=True)
 
     # enable feedback?
     feedback_enabled = models.BooleanField(default=True)

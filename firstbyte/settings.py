@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'storages',
+    'sortedm2m',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',

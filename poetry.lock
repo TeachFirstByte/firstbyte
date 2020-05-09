@@ -142,6 +142,14 @@ bounce = ["requests (<3)", "m2crypto"]
 
 [[package]]
 category = "main"
+description = "Drop-in replacement for django's many to many field with sorted relations."
+name = "django-sortedm2m"
+optional = false
+python-versions = "*"
+version = "3.0.0"
+
+[[package]]
+category = "main"
 description = "Support for many storage backends in Django"
 name = "django-storages"
 optional = false
@@ -406,7 +414,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "bea206125ffd5dcbe2666c4fecc66834e7b304bc616ee30b1038840e22541345"
+content-hash = "16da08dd6ae0c86dd73c0c4583729b567780a2c7c57220848a69575a2cc22b85"
 python-versions = "3.8.2"
 
 [metadata.files]
@@ -460,6 +468,9 @@ django-heroku = [
 django-ses = [
     {file = "django-ses-0.8.14.tar.gz", hash = "sha256:ad45fca653db1725d2237d5aa1a4e2705789088717d69b9a91e4a1c7688896b5"},
     {file = "django_ses-0.8.14-py2.py3-none-any.whl", hash = "sha256:0077b9a70a0e1a8c4eb13c55451663fbca3b0bb14f462ed73eeb56aa330ab1ce"},
+]
+django-sortedm2m = [
+    {file = "django_sortedm2m-3.0.0-py2.py3-none-any.whl", hash = "sha256:363846516d26b193ef9b960c8031daf919795257359267814f029fb4d07ab5ce"},
 ]
 django-storages = [
     {file = "django-storages-1.9.1.tar.gz", hash = "sha256:a59e9923cbce7068792f75344ed7727021ee4ac20f227cf17297d0d03d141e91"},

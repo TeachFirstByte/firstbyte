@@ -236,7 +236,7 @@ class LessonPlanSerializer(serializers.Serializer):
                     original_material.delete()
 
             instance.materials.clear()
-            self.save_resources(instance, validated_data)
+            self.save_materials(instance, validated_data)
 
         instance.save()
         return instance

@@ -251,50 +251,30 @@
         let lessonPlanFormData = new FormData();
 
         lessonPlanFormData.append('title', formData.title);
-        lessonPlanFormData.append('gradeLevel', formData.gradeLevel);
-        lessonPlanFormData.append('numClasses', formData.numClasses);
         lessonPlanFormData.append('summary', formData.summary);
+        lessonPlanFormData.append('gradeLevel', formData.gradeLevel);
+
         lessonPlanFormData.append('totalPrepTime', formData.totalPrepTime);
+        lessonPlanFormData.append('numClasses', formData.numClasses);
         lessonPlanFormData.append('singleClassTime', formData.singleClassTime);
+
         lessonPlanFormData.append('webOnly', formData.webOnly);
         lessonPlanFormData.append('feedbackEnabled', formData.feedbackEnabled);
         lessonPlanFormData.append('draft', formData.draft);
 
         formData.materials.forEach((material) => {
+            lessonPlanFormData.append('materialIds', material.id || "");
             lessonPlanFormData.append('materialNames', material.value);
         });
 
-        lessonPlanFormData.append('agree', formData.agree);
-        lessonPlanFormData.append('jsonResponse', true);
-
-        let resourceIds = [];
-        let resourceTypes = [];
-        let filenames = [];
-        let files = [];
-
         formData.lessonResources.forEach((resource) => {
-            // TODO: If this is a new lessonplan put it at the end
-            if (resource.resourceId) {
-                resourceIds.push(resource.resourceId);
+            lessonPlanFormData.append('lessonResourceIds', resource.resourceId || "");
+            lessonPlanFormData.append('lessonResourceTypes', resource.resourceType);
+            lessonPlanFormData.append('lessonResourceNames', resource.filename);
+
+            if (resource.file) {
+                lessonPlanFormData.append('lessonResourceFiles', resource.file);
             }
-            resourceTypes.push(resource.resourceType);
-            filenames.push(resource.filename);
-            files.push(resource.file);
-        });
-
-
-        resourceIds.forEach((id) => {
-            lessonPlanFormData.append('resourceIds', id);
-        });
-        resourceTypes.forEach((resourceType) => {
-            lessonPlanFormData.append('filetypes', resourceType);
-        });
-        filenames.forEach((filename) => {
-            lessonPlanFormData.append('filenames', filename);
-        });
-
-        files.forEach((file) => {
-            lessonPlanFormData.append('files', file);
         });
 
         let submissionPromise;
@@ -352,7 +332,7 @@
                     numClasses: null,
                     totalPrepTime: null,
                     singleClassTime: null,
-                    materials: [{id: 0, value: ""}],
+                    materials: [{visualId: 0, value: ""}],
                     webOnly: false,
                     feedbackEnabled: false,
                     draft: false,
@@ -411,7 +391,7 @@
                 materials: {
                     required,
                     $each: {
-                        $trackBy: "id",
+                        $trackBy: "visualId",
                         value: {
                             required,
                         },
@@ -422,7 +402,7 @@
                 },
                 lessonResources: {
                     $each: {
-                        $trackBy: "id",
+                        $trackBy: "visualId",
                         filename: {
                             required,
                         },

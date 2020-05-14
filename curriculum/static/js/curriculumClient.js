@@ -36,3 +36,10 @@ CurriculumClient.prototype.updateLessonPlan = function(combinedFormData, id, opt
     options.method = defaultValue(options.method, 'PUT');
     return this.submitLessonPlan(combinedFormData, options);
 };
+
+CurriculumClient.prototype.getLessonPlan = async function(id, options) {
+    options = options || {};
+    const endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/' + id + '/');
+    const response = await axios.get(endpoint);
+    return response.data;
+};

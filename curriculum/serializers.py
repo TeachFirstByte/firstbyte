@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import transaction
 
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from .util import all_in_or_all_not_in, all_same_length
 from .models import LessonResource, LessonResourceExternalLink, Material, LessonPlan, GradeLevels
@@ -47,7 +48,14 @@ class LessonPlanSerializer(serializers.Serializer):
     # Replace with a User serializer that adds names,
     owner = serializers.CharField(source="owner.first_name", read_only=True)
 
-    title = serializers.CharField()
+    title = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=LessonPlan.objects.all(),
+                message="A curriculum with this title already exists."
+            )
+        ],
+    )
     summary = serializers.CharField()
     grade_level = serializers.ChoiceField(choices=GradeLevels)
 

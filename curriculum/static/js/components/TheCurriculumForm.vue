@@ -192,7 +192,7 @@
                     @click="onSubmit"
                 >
                     <b-spinner
-                        v-if="submissionLoading"
+                        v-if="submissionStatus.loading"
                         small
                         variant="light"
                     />
@@ -203,11 +203,12 @@
     </b-container>
 </template>
 <script>
+    import { validationMixin } from 'vuelidate';
+    import { required, minValue, helpers } from 'vuelidate/lib/validators';
+    import { cloneDeep } from 'lodash';
+
     import LessonResourceList from './LessonResourceList.vue';
     import LineItemInput from './LineItemInput.vue';
-
-    import { validationMixin } from 'vuelidate';
-    import { required, minValue } from 'vuelidate/lib/validators';
 
     import { getBootstrapFormInputState } from '../componentUtil.js';
 
@@ -284,11 +285,7 @@
             submissionPromise = client.submitLessonPlan(lessonPlanFormData);
         }
 
-        submissionPromise.then(function(response) {
-            window.location.href = '/lesson-plans/' + response.id;
-        }).catch(function(error) {
-            console.error(error);
-        });
+        return submissionPromise;
     }
 
     async function retrieveInitialFormData(util) {
@@ -340,6 +337,23 @@
         return {};
     }
 
+    function makeServerValidator(field) {
+        return helpers.withParams(
+            { type: 'serverValidationOk', field: field },
+            function(currentFieldValue) {
+                const status = this.submissionStatus;
+                if (status.submittedValues && status.errorResponse) {
+                    if (currentFieldValue === status.submittedValues[field]) {
+                        if (Object.prototype.hasOwnProperty.call(status.errorResponse, field)) {
+                            return !status.errorResponse[field].length;
+                        }
+                    }
+                }
+                return true;
+            },
+        );
+    }
+
     export default {
         components: {
             LineItemInput,
@@ -364,7 +378,12 @@
                     agree: false,
                     lessonResources: [],
                 },
-                submissionLoading: false,
+                submissionStatus: {
+                    loading: false,
+                    submittedValues: {},
+                    errorResponse: {},
+                },
+
                 getBootstrapFormInputState,
             };
         },
@@ -387,15 +406,32 @@
         },
         methods: {
             getInvalidFeedback(vuelidateObject) {
-                return !vuelidateObject.required ? "This field is required" : "";
+                if (!vuelidateObject.required) {
+                    return "This field is required.";
+                }
+                if (!vuelidateObject.serverValidationOk) {
+                    return this.submissionStatus.errorResponse[vuelidateObject.$params.serverValidationOk.field].reduce(
+                        (str, val) => str + val + '\n',
+                        "",
+                    );
+                }
+                return "";
             },
             onMaterialsTouch(index) {
                 this.$v.formData.materials.$each[index].$touch();
             },
-            onSubmit(_) {
+            async onSubmit(_) {
                 this.$v.formData.$touch();
                 if (!this.$v.formData.$anyError) {
-                    submitCurriculum(this.$curriculumForm.client, this.formData, this.$curriculumForm.updatingCurriculumId);
+                    this.submissionStatus.loading = true;
+                    this.submissionStatus.submittedValues = cloneDeep(this.formData);
+                    try {
+                        const response = await submitCurriculum(this.$curriculumForm.client, this.formData, this.$curriculumForm.updatingCurriculumId);
+                        window.location.href = '/lesson-plans/' + response.data.id;
+                    } catch (error) {
+                        this.submissionStatus.loading = false;
+                        this.submissionStatus.errorResponse = error.response.data;
+                    }
                 }
             },
         },
@@ -403,25 +439,32 @@
             formData: {
                 title: {
                     required,
+                    serverValidationOk: makeServerValidator('title'),
                 },
                 summary: {
                     required,
+                    serverValidationOk: makeServerValidator('summary'),
                 },
                 gradeLevel: {
                     required,
+                    serverValidationOk: makeServerValidator('gradeLevel'),
                 },
                 numClasses: {
                     required,
                     minValue: minValue(1),
+                    serverValidationOk: makeServerValidator('numClasses'),
                 },
                 totalPrepTime: {
                     required,
+                    serverValidationOk: makeServerValidator('totalPrepTime'),
                 },
                 singleClassTime: {
                     required,
+                    serverValidationOk: makeServerValidator('singleClassTime'),
                 },
                 materials: {
                     required,
+                    serverValidationOk: makeServerValidator('materials'),
                     $each: {
                         $trackBy: "visualId",
                         value: {
@@ -431,8 +474,10 @@
                 },
                 agree: {
                     mustAgree: (value) => value,
+                    serverValidationOk: makeServerValidator('agree'),
                 },
                 lessonResources: {
+                    serverValidationOk: makeServerValidator('lessonResources'),
                     $each: {
                         $trackBy: "visualId",
                         name: {

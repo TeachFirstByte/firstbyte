@@ -186,6 +186,11 @@
         </p>
         <b-row class="w-100 text-center">
             <b-col class="text-center">
+                <b-progress
+                    v-if="submissionStatus.loading"
+                    :value="submissionStatus.uploadProgress"
+                    variant="primary"
+                />
                 <b-button
                     variant="primary"
                     class="mt-3"
@@ -384,6 +389,7 @@
                 },
                 submissionStatus: {
                     loading: false,
+                    uploadProgress: 0,
                     submittedValues: {},
                     validationErrors: {},
                 },
@@ -424,10 +430,14 @@
             onMaterialsTouch(index) {
                 this.$v.formData.materials.$each[index].$touch();
             },
+            onUploadProgress(event) {
+                this.submissionStatus.uploadProgress = event.loaded / event.total * 100.0;
+            },
             async onSubmit(_) {
                 this.$v.formData.$touch();
                 if (!this.$v.formData.$anyError) {
                     this.submissionStatus.loading = true;
+                    this.submissionStatus.uploadProgress = 0;
                     try {
                         const response = await submitCurriculumForm(this.formData, this.$curriculum.updatingCurriculumId, this.onUploadProgress);
                         window.location.href = '/lesson-plans/' + response.data.id;

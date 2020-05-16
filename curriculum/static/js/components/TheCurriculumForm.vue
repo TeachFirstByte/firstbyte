@@ -430,7 +430,17 @@
                         window.location.href = '/lesson-plans/' + response.data.id;
                     } catch (error) {
                         this.submissionStatus.loading = false;
-                        this.submissionStatus.errorResponse = error.response.data;
+
+                        const errorResponse = error.response.data;
+                        this.submissionStatus.errorResponse = errorResponse;
+
+                        const errorMessage = 'An error occurred. Please correct form errors.';
+                        this.$bvToast.toast(errorMessage, {
+                            title: 'Submission Failure',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            variant: 'danger',
+                        });
                     }
                 }
             },

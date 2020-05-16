@@ -390,6 +390,7 @@
                 submissionStatus: {
                     loading: false,
                     uploadProgress: 0,
+                    success: false,
                     submittedValues: {},
                     validationErrors: {},
                 },
@@ -410,12 +411,7 @@
 
             const initialData = await retrieveInitialFormData(this.$curriculum.updatingCurriculumId);
             Object.assign(this.formData, initialData);
-            Object.keys(initialData).forEach((formField) => {
-                const formObject = this.$v.formData[formField];
-                if (formObject) {
-                    formObject.$touch();
-                }
-            });
+            this.$nextTick(() => this.$v.$reset());
         },
         unmounted() {
             window.removeEventListener('beforeunload', this.onBeforeUnload);
@@ -440,7 +436,7 @@
                 this.submissionStatus.uploadProgress = event.loaded / event.total * 100.0;
             },
             onBeforeUnload(event) {
-                if (this.$v.$anyDirty) {
+                if (this.$v.$anyDirty && !this.submissionStatus.success) {
                     event.preventDefault();
                     event.returnValue = '';
                 } else {
@@ -454,6 +450,7 @@
                     this.submissionStatus.uploadProgress = 0;
                     try {
                         const response = await submitCurriculumForm(this.formData, this.$curriculum.updatingCurriculumId, this.onUploadProgress);
+                        this.submissionStatus.success = true;
                         window.location.href = '/lesson-plans/' + response.data.id;
                     } catch (error) {
                         this.submissionStatus.loading = false;

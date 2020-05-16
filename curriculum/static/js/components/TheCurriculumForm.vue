@@ -405,6 +405,9 @@
             },
         },
         async mounted() {
+            this.onBeforeUnload = this.onBeforeUnload.bind(this);
+            window.addEventListener('beforeunload', this.onBeforeUnload);
+
             const initialData = await retrieveInitialFormData(this.$curriculum.updatingCurriculumId);
             Object.assign(this.formData, initialData);
             Object.keys(initialData).forEach((formField) => {
@@ -413,6 +416,9 @@
                     formObject.$touch();
                 }
             });
+        },
+        unmounted() {
+            window.removeEventListener('beforeunload', this.onBeforeUnload);
         },
         methods: {
             getInvalidFeedback(vuelidateObject) {
@@ -432,6 +438,14 @@
             },
             onUploadProgress(event) {
                 this.submissionStatus.uploadProgress = event.loaded / event.total * 100.0;
+            },
+            onBeforeUnload(event) {
+                if (this.$v.$anyDirty) {
+                    event.preventDefault();
+                    event.returnValue = '';
+                } else {
+                    delete event['returnValue'];
+                }
             },
             async onSubmit(_) {
                 this.$v.formData.$touch();

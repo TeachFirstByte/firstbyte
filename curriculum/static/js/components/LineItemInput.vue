@@ -1,40 +1,53 @@
 <template>
-    <draggable
-        handle=".drag-handle"
-        :value="value"
-        @input="updateValue"
-    >
-        <div
-            v-for="(lineItem, index) in value"
-            :key="lineItem.visualId"
-            class="d-flex mb-2"
+    <div>
+        <draggable
+            handle=".drag-handle"
+            :value="value"
+            @input="updateValue"
         >
-            <DragHandle class="drag-handle" />
-            <b-input-group>
-                <input
-                    ref="itemInputs"
-                    class="item-input flex-grow-1 form-control"
-                    :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
-                    :value="lineItem.value"
-                    @input="onInput(index, $event.target.value)"
-                    @keyup.enter="onInsertAfterIndexAndFocus(index)"
-                >
-                <b-input-group-append>
-                    <b-button
-                        class="remove-btn"
-                        variant="danger"
-                        aria-label="Remove"
-                        :disabled="value.length <= 1"
-                        @click="onRemoveItemAtIndex(index)"
+            <div
+                v-for="(lineItem, index) in value"
+                :key="lineItem.visualId"
+                class="d-flex mb-2"
+            >
+                <DragHandle class="drag-handle" />
+                <b-input-group>
+                    <input
+                        ref="itemInputs"
+                        class="item-input flex-grow-1 form-control"
+                        :class="{'is-valid': isValidAtIndex(index), 'is-invalid': isInvalidAtIndex(index)}"
+                        :value="lineItem.value"
+                        @input="onInput(index, $event.target.value)"
+                        @keyup.enter="onInsertAfterIndexAndFocus(index)"
                     >
-                        <span aria-hidden="true">&times;</span>
-                    </b-button>
-                </b-input-group-append>
-            </b-input-group>
+                    <b-input-group-append>
+                        <b-button
+                            class="remove-btn"
+                            variant="danger"
+                            aria-label="Remove"
+                            :disabled="value.length <= 1"
+                            @click="onRemoveItemAtIndex(index)"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </div>
+        </draggable>
+        <div class="d-flex justify-content-center">
+            <b-button
+                aria-label="Add"
+                variant="outline-success"
+                :disabled="!allItemsHaveContent"
+                @click="onAppendNewItem"
+            >
+                +
+            </b-button>
         </div>
-    </draggable>
+    </div>
 </template>
 <script>
+    import { every } from 'lodash';
     import draggable from 'vuedraggable';
     import DragHandle from './DragHandle.vue';
 
@@ -57,6 +70,11 @@
             return {
                 idCounter: 0,
             };
+        },
+        computed: {
+            allItemsHaveContent() {
+                return every(this.value, (it) => it.value);
+            },
         },
         methods: {
             updateValue(newValue) {

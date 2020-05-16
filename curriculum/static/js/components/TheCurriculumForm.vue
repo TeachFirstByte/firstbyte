@@ -211,6 +211,7 @@
     import LineItemInput from './LineItemInput.vue';
 
     import { getBootstrapFormInputState } from '../componentUtil.js';
+    import { submitCurriculum, updateCurriculum, getCurriculum } from '../curriculumClient.js';
 
     export const GRADE_LEVEL_OPTIONS = [
         { value: null, text: "" },
@@ -248,7 +249,7 @@
         { value: '6:00', text: '6:00' },
     ];
 
-    function submitCurriculum(client, formData, updatingCurriculumId) {
+    function submitCurriculumForm(formData, updatingCurriculumId, onUploadProgress) {
         let lessonPlanFormData = new FormData();
 
         lessonPlanFormData.append('title', formData.title);
@@ -280,17 +281,23 @@
 
         let submissionPromise;
         if (updatingCurriculumId) {
-            submissionPromise = client.updateLessonPlan(lessonPlanFormData, updatingCurriculumId);
+            submissionPromise = updateCurriculum(updatingCurriculumId, {
+                data: lessonPlanFormData,
+                onUploadProgress: onUploadProgress,
+            });
         } else {
-            submissionPromise = client.submitLessonPlan(lessonPlanFormData);
+            submissionPromise = submitCurriculum({
+                data: lessonPlanFormData,
+                onUploadProgress: onUploadProgress,
+            });
         }
 
         return submissionPromise;
     }
 
-    async function retrieveInitialFormData(util) {
-        if(util.updatingCurriculumId) {
-            const lessonPlan = await util.client.getLessonPlan(util.updatingCurriculumId);
+    async function retrieveInitialFormData(existingCurriculumId) {
+        if(existingCurriculumId) {
+            const lessonPlan = await getCurriculum(existingCurriculumId);
 
             const buildMaterials = (materials) => {
                 return materials.map((material) => {
@@ -392,7 +399,7 @@
             },
         },
         async mounted() {
-            const initialData = await retrieveInitialFormData(this.$curriculumForm);
+            const initialData = await retrieveInitialFormData(this.$curriculum.updatingCurriculumId);
             Object.assign(this.formData, initialData);
             Object.keys(initialData).forEach((formField) => {
                 const formObject = this.$v.formData[formField];
@@ -422,7 +429,7 @@
                 if (!this.$v.formData.$anyError) {
                     this.submissionStatus.loading = true;
                     try {
-                        const response = await submitCurriculum(this.$curriculumForm.client, this.formData, this.$curriculumForm.updatingCurriculumId);
+                        const response = await submitCurriculumForm(this.formData, this.$curriculum.updatingCurriculumId, this.onUploadProgress);
                         window.location.href = '/lesson-plans/' + response.data.id;
                     } catch (error) {
                         this.submissionStatus.loading = false;

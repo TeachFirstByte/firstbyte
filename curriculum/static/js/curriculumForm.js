@@ -9,8 +9,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import TheCurriculumForm from './components/TheCurriculumForm.vue';
 
-import CurriculumClient from './curriculumClient.js';
-
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle, faMinusCircle, faAlignJustify } from '@fortawesome/free-solid-svg-icons';
@@ -28,8 +26,7 @@ $(() => {
 
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-    Vue.prototype.$curriculumForm = {
-        client: new CurriculumClient(),
+    Vue.prototype.$curriculum = {
         updatingCurriculumId: window.CURRICULUM_ID,
     };
 

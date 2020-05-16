@@ -2,40 +2,26 @@
 
 import axios from 'axios';
 
-function defined(val) {
-    return val !== undefined;
+export async function submitCurriculum(config) {
+    config = config || {};
+    config.url = config.url || '/api/v2/lesson-plans/';
+    config.method = config.method || 'post';
+
+    return await axios(config);
 }
 
-function defaultValue(val, fallback) {
-    if(defined(val)) return val;
-    return fallback;
+export function updateCurriculum(id, config) {
+    config = config || {};
+    config.url = config.url || '/api/v2/lesson-plans/' + id + '/';
+    config.method = config.method || 'put';
+    return submitCurriculum(config);
 }
 
-export default function CurriculumClient() {
-}
+export async function getCurriculum(id, config) {
+    config = config || {};
+    config.url = config.url || '/api/v2/lesson-plans/' + id + '/';
+    config.method = config.method || 'get';
 
-CurriculumClient.prototype.submitLessonPlan = async function(combinedFormData, options) {
-    options = options || {};
-    const endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/');
-    const method = defaultValue(options.method, 'POST');
-
-    return await axios({
-        method: method,
-        url: endpoint,
-        data: combinedFormData,
-    });
-};
-
-CurriculumClient.prototype.updateLessonPlan = function(combinedFormData, id, options) {
-    options = options || {};
-    options.endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/' + id + '/');
-    options.method = defaultValue(options.method, 'PUT');
-    return this.submitLessonPlan(combinedFormData, options);
-};
-
-CurriculumClient.prototype.getLessonPlan = async function(id, options) {
-    options = options || {};
-    const endpoint = defaultValue(options.endpoint, '/api/v2/lesson-plans/' + id + '/');
-    const response = await axios.get(endpoint);
+    const response = await axios(config);
     return response.data;
-};
+}

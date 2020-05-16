@@ -466,6 +466,7 @@
                             appendToast: true,
                             variant: 'danger',
                         });
+                        console.error(error);
                     }
                 }
             },

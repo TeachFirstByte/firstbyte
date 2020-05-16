@@ -205,7 +205,7 @@
 <script>
     import { validationMixin } from 'vuelidate';
     import { required, minValue, helpers } from 'vuelidate/lib/validators';
-    import { cloneDeep } from 'lodash';
+    import { cloneDeep, has } from 'lodash';
 
     import LessonResourceList from './LessonResourceList.vue';
     import LineItemInput from './LineItemInput.vue';
@@ -342,12 +342,9 @@
             { type: 'serverValidationOk', field: field },
             function(currentFieldValue) {
                 const status = this.submissionStatus;
-                if (status.submittedValues && status.errorResponse) {
-                    if (currentFieldValue === status.submittedValues[field]) {
-                        if (Object.prototype.hasOwnProperty.call(status.errorResponse, field)) {
-                            return !status.errorResponse[field].length;
-                        }
-                    }
+                if (has(status.validationErrors, field) && has(status.submittedValues, field)
+                    && status.submittedValues[field] === currentFieldValue) {
+                    return !status.validationErrors[field].length;
                 }
                 return true;
             },
@@ -381,7 +378,7 @@
                 submissionStatus: {
                     loading: false,
                     submittedValues: {},
-                    errorResponse: {},
+                    validationErrors: {},
                 },
 
                 getBootstrapFormInputState,
@@ -410,7 +407,7 @@
                     return "This field is required.";
                 }
                 if (!vuelidateObject.serverValidationOk) {
-                    return this.submissionStatus.errorResponse[vuelidateObject.$params.serverValidationOk.field].reduce(
+                    return this.submissionStatus.validationErrors[vuelidateObject.$params.serverValidationOk.field].reduce(
                         (str, val) => str + val + '\n',
                         "",
                     );
@@ -424,20 +421,31 @@
                 this.$v.formData.$touch();
                 if (!this.$v.formData.$anyError) {
                     this.submissionStatus.loading = true;
-                    this.submissionStatus.submittedValues = cloneDeep(this.formData);
                     try {
                         const response = await submitCurriculum(this.$curriculumForm.client, this.formData, this.$curriculumForm.updatingCurriculumId);
                         window.location.href = '/lesson-plans/' + response.data.id;
                     } catch (error) {
                         this.submissionStatus.loading = false;
 
-                        const errorResponse = error.response.data;
-                        this.submissionStatus.errorResponse = errorResponse;
+                        const apiResponse = error.response;
+                        if (apiResponse) {
+                            this.submissionStatus.validationErrors = apiResponse.data;
+                            this.submissionStatus.submittedValues = cloneDeep(this.formData);
 
-                        const errorMessage = 'An error occurred. Please correct form errors.';
-                        this.$bvToast.toast(errorMessage, {
-                            title: 'Submission Failure',
-                            autoHideDelay: 5000,
+                            this.$v.formData.$touch();
+                            if (this.$v.formData.$anyError) {
+                                this.$bvToast.toast('An error occurred. Please correct form errors.', {
+                                    title: 'Submission Failure',
+                                    autoHideDelay: 5000,
+                                    appendToast: true,
+                                    variant: 'danger',
+                                });
+                                return;
+                            }
+                        }
+
+                        this.$bvToast.toast('An unknown error occurred. Please try again later.', {
+                            title: 'Unknown Failure',
                             appendToast: true,
                             variant: 'danger',
                         });

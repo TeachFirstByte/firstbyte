@@ -2,7 +2,6 @@
 {% block title %}Upload Curriculum{% endblock %}
 {% block head %}
     {% load static %}
-    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
     {% if LESSON_PLAN_ID %}
         <script type="text/javascript">
             window.CURRICULUM_ID = "{{ LESSON_PLAN_ID }}";

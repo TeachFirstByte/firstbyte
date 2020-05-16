@@ -11,6 +11,7 @@ import TheCurriculumForm from './components/TheCurriculumForm.vue';
 
 import CurriculumClient from './curriculumClient.js';
 
+import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle, faMinusCircle, faAlignJustify } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -22,10 +23,13 @@ $(() => {
 
     Vue.use(BootstrapVue);
 
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 
     Vue.prototype.$curriculumForm = {
-        client: new CurriculumClient(window.CSRF_TOKEN),
+        client: new CurriculumClient(),
         updatingCurriculumId: window.CURRICULUM_ID,
     };
 

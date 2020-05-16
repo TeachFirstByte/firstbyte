@@ -11,8 +11,7 @@ function defaultValue(val, fallback) {
     return fallback;
 }
 
-export default function CurriculumClient(csrfToken) {
-    this.csrfToken = csrfToken;
+export default function CurriculumClient() {
 }
 
 CurriculumClient.prototype.submitLessonPlan = async function(combinedFormData, options) {
@@ -24,9 +23,6 @@ CurriculumClient.prototype.submitLessonPlan = async function(combinedFormData, o
         method: method,
         url: endpoint,
         data: combinedFormData,
-        headers: {
-            'X-CSRFToken': this.csrfToken,
-        },
     });
 };
 

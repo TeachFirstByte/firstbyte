@@ -26,7 +26,7 @@
             <p>Our inventory is as follows:
 							<ul>
 								{% for item in inventory %}
-								<li>{{ item.quantity }} {{ item.name }} kit{{ item.quantity > 1 ? 's' : '' }} - <i>contains {{ item.boards }} boards each</i></li>
+								<li>{{ item.quantity }} {{ item.name }} kit{{ item.quantity|pluralize }} - <i>contains {{ item.boards }} boards each</i></li>
 								{% endfor %}
             </ul></p>
             <div class="text-center my-5">

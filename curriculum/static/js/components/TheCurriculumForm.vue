@@ -212,7 +212,7 @@
 <script>
     import { validationMixin } from 'vuelidate';
     import { required, minValue, helpers } from 'vuelidate/lib/validators';
-    import { cloneDeep, has } from 'lodash';
+    import { cloneDeep, has, zip } from 'lodash';
 
     import LessonResourceList from './LessonResourceList.vue';
     import LineItemInput from './LineItemInput.vue';
@@ -369,6 +369,20 @@
         return duration !== "00:00:00";
     }
 
+    function durationInRange(min, max) {
+        const minDurationParts = min.split(":").map((val) => parseInt(val));
+        const maxDurationParts = max.split(":").map((val) => parseInt(val));
+        return helpers.withParams(
+            { type: 'durationInRange', min: min, max: max },
+            function(duration) {
+                const valueParts = duration.split(":").map((val) => parseInt(val));
+                return zip(valueParts, minDurationParts, maxDurationParts).every((durationComponent) => {
+                    return durationComponent[1] <= durationComponent[0] & durationComponent[0] <= durationComponent[2];
+                });
+            },
+        );
+    }
+
     export default {
         components: {
             LineItemInput,
@@ -428,6 +442,11 @@
                 if (!vuelidateObject.required || !vuelidateObject.nonZeroDuration) {
                     return "This field is required.";
                 }
+
+                if (!vuelidateObject.durationInRange) {
+                    return "Duration is out of range.";
+                }
+
                 if (!vuelidateObject.serverValidationOk) {
                     return this.submissionStatus.validationErrors[vuelidateObject.$params.serverValidationOk.field].reduce(
                         (str, val) => str + val + '\n',
@@ -512,11 +531,13 @@
                     required,
                     serverValidationOk: makeServerValidator('totalPrepTime'),
                     nonZeroDuration,
+                    durationInRange: durationInRange("00:00:00", "00:06:45"),
                 },
                 singleClassTime: {
                     required,
                     serverValidationOk: makeServerValidator('singleClassTime'),
                     nonZeroDuration,
+                    durationInRange: durationInRange("00:00:00", "00:06:45"),
                 },
                 materials: {
                     required,

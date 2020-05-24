@@ -81,6 +81,7 @@
                                 id="total-prep-time-input"
                                 v-model="$v.formData.singleClassTime.$model"
                                 :min-hours="0"
+                                :max-hours="24"
                                 :minutes-step="15"
                                 :state="getBootstrapFormInputState($v.formData.singleClassTime)"
                             />
@@ -97,6 +98,7 @@
                                 id="total-prep-time-input"
                                 v-model="$v.formData.totalPrepTime.$model"
                                 :min-hours="0"
+                                :max-hours="24"
                                 :minutes-step="15"
                                 :state="getBootstrapFormInputState($v.formData.totalPrepTime)"
                             />

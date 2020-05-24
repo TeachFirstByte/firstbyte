@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "firstbyte"
+version = "1.0.0"
+description = "A curriculum collaboration tool for teachers"
+authors = ["Luke San Antonio Bialecki <lukesanantonio@gmail.com>"]
+license = "BSD-3-Clause"
+
+[tool.poetry.dependencies]
+python = "3.8.2"
+django-storages = "^1.9.1"
+django-webpack-loader = "^0.7.0"
+gunicorn = "^20.0.4"
+django-crispy-forms = "^1.9.0"
+inflect = "^4.1.0"
+Django = "^3.0.5"
+djangorestframework = "^3.11.0"
+django-heroku = "^0.3.1"
+psycopg2 = "^2.8.5"
+django-ses = "^0.8.14"
+django-allauth = "^0.41.0"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.4.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

@@ -17,21 +17,19 @@ Software & Dependencies:
 
 . Install Python 3, Node and NPM.
 
-Start by downloading the repository and setting up a virtual environment.
+Start by downloading the repository
 
     $ git clone git@github.com:lukesanantonio/firstbyte.git
-    $ python -m venv env
-    $ . env/bin/activate
     $ cd firstbyte
 
-Then install python dependencies (including Django):
+Then set up virtual environment / install python dependencies with https://python-poetry.org/[poetry]:
 
-    $ pip install -r requirements.txt
+    $ poetry install --no-root
 
 Django is primarily configured via the link:firstbyte/settings.py[settings.py]
 file. The file checked into the repo is ready for production (sans a few
-private values that are deferred to environment variables), so we need to add a
-file for development. Create a new file in the same directory as the settings
+private values that are deferred to environment variables), so you'll need to change
+settings for development. Create a new file in the same directory as the settings.py
 file called `dev_settings.py` and make it contain the following:
 
 ```
@@ -67,6 +65,10 @@ You can also call the script directly:
     $ node node_modules/webpack/bin/webpack.js --watch
 
 Once you've run webpack in some form, you can move on.
+
+I like to start a shell with poetry so I can run `manage.py` without a prefix
+
+    $ poetry shell
 
 Now initialize a local SQLite database:
 

@@ -25,9 +25,9 @@ def format_duration(td, singular=False):
 
     minutes = (td.seconds - hours * 3600) // 60
     if minutes > 0:
-        hr_min_separator = ' and ' if hours > 0 else '' 
+        hr_min_separator = ' and ' if hours > 0 else ''
         min_separator = ' minute' if not singular else '-minute'
         plural = 's' if minutes > 0 and not singular else ''
-        result = result + str(minutes) + hr_min_separator + min_separator + plural
-  
+        result = result + hr_min_separator + str(minutes) + min_separator + plural
+
     return result

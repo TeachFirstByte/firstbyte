@@ -504,13 +504,13 @@
                     required,
                     serverValidationOk: makeServerValidator('totalPrepTime'),
                     nonZeroDuration,
-                    durationInRange: durationInRange("00:00:00", "00:06:45"),
+                    durationInRange: durationInRange("00:00:00", "24:45:00"),
                 },
                 singleClassTime: {
                     required,
                     serverValidationOk: makeServerValidator('singleClassTime'),
                     nonZeroDuration,
-                    durationInRange: durationInRange("00:00:00", "00:06:45"),
+                    durationInRange: durationInRange("00:00:00", "24:45:00"),
                 },
                 materials: {
                     required,

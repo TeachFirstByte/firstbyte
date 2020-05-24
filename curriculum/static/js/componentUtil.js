@@ -11,3 +11,7 @@ export function getBootstrapFormInputState(vuelidateObject) {
     }
     return null;
 }
+
+export function mod(a, b) {
+    return ((a % b) + b) % b;
+}

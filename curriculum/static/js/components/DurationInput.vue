@@ -36,7 +36,7 @@
                 :number="true"
                 :min="minMinutes"
                 :max="maxMinutes"
-                :step="minuteStep"
+                :step="minutesStep"
                 :value="minutes"
                 :state="state"
                 @update="updateMinutes"
@@ -46,10 +46,8 @@
 </template>
 <script>
 
-    import { mod } from '../componentUtil.js';
-
-    const MIN_MINUTES = 0;
     const NUM_MINUTES_IN_HOUR = 60;
+    const OVERFLOW_MINUTES = NUM_MINUTES_IN_HOUR;
 
     export default {
         props: {
@@ -69,7 +67,7 @@
                 default: null,
                 type: Number,
             },
-            minuteStep: {
+            minutesStep: {
                 default: null,
                 type: Number,
             },
@@ -79,19 +77,25 @@
             },
         },
         data() {
-            const negativeSentinelValue = MIN_MINUTES - this.minuteStep;
             return {
                 hours: 0,
                 minutes: 0,
-                minMinutes: negativeSentinelValue,
-                maxMinutes: NUM_MINUTES_IN_HOUR,
             };
         },
         computed: {
             formattedDuration() {
                 const hoursPadded = this.hours.toString().padStart(2, '0');
                 const minutesPadded = this.minutes.toString().padStart(2, '0');
-                return `00:${hoursPadded}:${minutesPadded}`;
+                return `${hoursPadded}:${minutesPadded}:00`;
+            },
+            underflowMinutes() {
+                return -this.minutesStep;
+            },
+            minMinutes() {
+                return this.minHours === this.hours ? 0 : this.underflowMinutes;
+            },
+            maxMinutes() {
+                return this.maxHours === this.hours ? NUM_MINUTES_IN_HOUR - this.minutesStep : OVERFLOW_MINUTES;
             },
         },
         watch: {
@@ -102,8 +106,8 @@
                         return;
                     }
                     const durationParts = newValue.split(':');
-                    this.hours = parseInt(durationParts[1]);
-                    this.minutes = parseInt(durationParts[2]);
+                    this.hours = parseInt(durationParts[0]);
+                    this.minutes = parseInt(durationParts[1]);
                 },
             },
         },
@@ -116,14 +120,14 @@
                 this.updateValue();
             },
             updateMinutes(newMinutes) {
-                if (newMinutes === NUM_MINUTES_IN_HOUR && this.hours < this.maxHours) {
+                if (newMinutes === OVERFLOW_MINUTES) {
                     this.hours += 1;
                     this.minutes = 0;
-                } else if (newMinutes === this.minMinutes && this.minHours < this.hours) {
+                } else if (newMinutes === this.underflowMinutes) {
                     this.hours -= 1;
                     this.minutes = 45;
                 } else {
-                    this.minutes = mod(newMinutes, NUM_MINUTES_IN_HOUR);
+                    this.minutes = newMinutes;
                 }
 
                 this.updateValue();

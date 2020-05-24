@@ -83,6 +83,7 @@
                                 :min-hours="0"
                                 :max-hours="6"
                                 :minute-step="15"
+                                :state="getBootstrapFormInputState($v.formData.singleClassTime)"
                             />
                         </b-form-group>
                     </b-col>
@@ -99,6 +100,7 @@
                                 :min-hours="0"
                                 :max-hours="6"
                                 :minute-step="15"
+                                :state="getBootstrapFormInputState($v.formData.totalPrepTime)"
                             />
                         </b-form-group>
                     </b-col>
@@ -365,6 +367,9 @@
             },
         );
     }
+    function nonZeroDuration(duration) {
+        return duration !== "00:00:00";
+    }
 
     export default {
         components: {
@@ -422,7 +427,7 @@
         },
         methods: {
             getInvalidFeedback(vuelidateObject) {
-                if (!vuelidateObject.required) {
+                if (!vuelidateObject.required || !vuelidateObject.nonZeroDuration) {
                     return "This field is required.";
                 }
                 if (!vuelidateObject.serverValidationOk) {
@@ -508,10 +513,12 @@
                 totalPrepTime: {
                     required,
                     serverValidationOk: makeServerValidator('totalPrepTime'),
+                    nonZeroDuration,
                 },
                 singleClassTime: {
                     required,
                     serverValidationOk: makeServerValidator('singleClassTime'),
+                    nonZeroDuration,
                 },
                 materials: {
                     required,

@@ -5,6 +5,7 @@
             label="Hours"
             label-size="sm"
             label-for="duration-input__hours"
+            :state="state"
         >
             <b-form-input
                 id="duration-input__hours"
@@ -16,6 +17,7 @@
                 :max="maxHours"
                 :step="hourStep"
                 :value="hours"
+                :state="state"
                 @update="updateHours"
             />
         </b-form-group>
@@ -24,6 +26,7 @@
             label="Minutes"
             label-size="sm"
             label-for="duration-input__minutes"
+            :state="state"
         >
             <b-form-input
                 id="duration-input__minutes"
@@ -35,6 +38,7 @@
                 :max="maxMinutes"
                 :step="minuteStep"
                 :value="minutes"
+                :state="state"
                 @update="updateMinutes"
             />
         </b-form-group>
@@ -68,6 +72,10 @@
             minuteStep: {
                 default: null,
                 type: Number,
+            },
+            state: {
+                default: null,
+                type: Boolean,
             },
         },
         data() {

@@ -77,11 +77,12 @@
                             :invalid-feedback="getInvalidFeedback($v.formData.singleClassTime)"
                             :state="getBootstrapFormInputState($v.formData.singleClassTime)"
                         >
-                            <b-form-select
-                                id="single-class-time-input"
+                            <DurationInput
+                                id="total-prep-time-input"
                                 v-model="$v.formData.singleClassTime.$model"
-                                :options="durationOptions"
-                                :state="getBootstrapFormInputState($v.formData.singleClassTime)"
+                                :min-hours="0"
+                                :max-hours="6"
+                                :minute-step="15"
                             />
                         </b-form-group>
                     </b-col>
@@ -92,11 +93,12 @@
                             :invalid-feedback="getInvalidFeedback($v.formData.totalPrepTime)"
                             :state="getBootstrapFormInputState($v.formData.totalPrepTime)"
                         >
-                            <b-form-select
+                            <DurationInput
                                 id="total-prep-time-input"
                                 v-model="$v.formData.totalPrepTime.$model"
-                                :options="durationOptions"
-                                :state="getBootstrapFormInputState($v.formData.totalPrepTime)"
+                                :min-hours="0"
+                                :max-hours="6"
+                                :minute-step="15"
                             />
                         </b-form-group>
                     </b-col>
@@ -214,6 +216,7 @@
 
     import LessonResourceList from './LessonResourceList.vue';
     import LineItemInput from './LineItemInput.vue';
+    import DurationInput from './DurationInput.vue';
 
     import { getBootstrapFormInputState } from '../componentUtil.js';
     import { submitCurriculum, updateCurriculum, getCurriculum } from '../curriculumClient.js';
@@ -367,6 +370,7 @@
         components: {
             LineItemInput,
             LessonResourceList,
+            DurationInput,
         },
         mixins: [validationMixin],
         data() {

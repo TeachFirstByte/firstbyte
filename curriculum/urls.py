@@ -1,5 +1,8 @@
 from django.urls import path
 from django.views.generic.list import ListView
+
+from rest_framework import routers
+
 from . import models
 from . import views
 from . import api
@@ -22,3 +25,7 @@ urlpatterns = [
 
     path('api/v1/lesson-plans/<int:pk>/', api.get_lessonplan),
 ]
+
+router = routers.SimpleRouter()
+router.register("api/v2/lesson-plans", api.LessonPlanViewSet)
+urlpatterns.extend(router.urls)

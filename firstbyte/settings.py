@@ -59,12 +59,15 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'curriculum.apps.CurriculumConfig',
     'landing.apps.LandingConfig',
+    'loaner_program.apps.LoanerProgramConfig',
     'webpack_loader',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'rest_framework',
     'crispy_forms',
     'storages',
+    'sortedm2m',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,6 +77,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
+}
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -243,8 +263,8 @@ LOGGING = {
 
 try:
     from .dev_settings import *
+    print('Successfully imported dev_settings.py')
 except ImportError:
-    print('Unable to load dev_settings.py')
     pass
 
 # Configure Django App for Heroku.

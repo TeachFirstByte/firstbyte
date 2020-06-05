@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from landing.views import index, team, events_redirect, faq, privacy_policy, loaner_program, volunteer_redirect, media_release_form_redirect, inventory_form_redirect, student_feedback_form_redirect, teacher_pre_survey_redirect, teacher_check_in_1_redirect, teacher_check_in_2_redirect, teacher_post_survey
 
@@ -38,4 +38,6 @@ urlpatterns = [
     path('checkin-2/', teacher_check_in_2_redirect),
     path('post-survey/', teacher_post_survey),
     path('', include('curriculum.urls')),
+    path('', include('loaner_program.urls')),
+    re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

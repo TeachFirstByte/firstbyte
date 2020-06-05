@@ -15,7 +15,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "bootstrap-vue": "2.10.1",
     "css-loader": "^3.4.2",
     "file-loader": "^6.0.0",

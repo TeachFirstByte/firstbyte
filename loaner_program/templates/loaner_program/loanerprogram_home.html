@@ -1,0 +1,10 @@
+{% extends "firstbyte/base.html" %} {% block title %}Loaner Program{% endblock %}
+{% block head %}
+  {% load render_bundle from webpack_loader %}
+  {% render_bundle 'loanerProgram' %}
+{% endblock %}
+{% block content %}
+<div id="vue-container">
+  <the-loaner-program />
+</div>
+{% endblock %}

@@ -83,8 +83,8 @@
             </div>
             <div class="list-group-item">
                 <h6 class="h6 font-weight-bold my-3">Required materials</h6>
-                {% if lessonplan.material_set.all %}
-                    {% for material in lessonplan.material_set.all %}
+                {% if lessonplan.materials.all %}
+                    {% for material in lessonplan.materials.all %}
                         <p>{{ material.name }}</p>
                     {% endfor %}
                 {% else %}

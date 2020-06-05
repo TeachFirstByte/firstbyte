@@ -9,6 +9,6 @@ $(document).ready(function() {
         },
         function() {
             $(this).removeClass('shadow-lg');
-        }
+        },
     );
 });

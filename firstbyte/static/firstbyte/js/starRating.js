@@ -4,11 +4,11 @@ import $ from 'jquery';
 
 $(function() {
     $('[data-average-rating]').each(function(index, element) {
-        var container = $(element);
-        var averageRating = $(container).attr('data-average-rating');
+        let container = $(element);
+        let averageRating = $(container).attr('data-average-rating');
 
-        var numFilledStars = Math.floor(averageRating);
-        var extra = averageRating - numFilledStars;
+        let numFilledStars = Math.floor(averageRating);
+        let extra = averageRating - numFilledStars;
         if(extra >= .75) {
             numFilledStars += 1;
             extra = 0.0;
@@ -16,7 +16,7 @@ $(function() {
             extra = 0.0;
         }
         container.children('.fa-star').each(function(starNum, element) {
-            var starElement = $(element);
+            let starElement = $(element);
             if(starNum < numFilledStars) {
                 // Star completely filled in
                 starElement.addClass('fas');

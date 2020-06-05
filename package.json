@@ -19,7 +19,7 @@
     "bootstrap-vue": "2.10.1",
     "css-loader": "^3.4.2",
     "file-loader": "^6.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "popper.js": "^1.16.1",
     "style-loader": "^0.21.0",

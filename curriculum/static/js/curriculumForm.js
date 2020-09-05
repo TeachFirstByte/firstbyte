@@ -7,6 +7,8 @@ import Vue from 'vue';
 import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
+import VueGtag from "vue-gtag";
+
 import TheCurriculumForm from './components/TheCurriculumForm.vue';
 
 import axios from 'axios';
@@ -20,6 +22,10 @@ $(() => {
     library.add(faAlignJustify);
 
     Vue.use(BootstrapVue);
+
+    Vue.use(VueGtag, {
+        config: { id: "UA-123339471-1" },
+    });
 
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';

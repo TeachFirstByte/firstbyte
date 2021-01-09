@@ -417,8 +417,8 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "e2e21cbe1736eaa29197ddad38e9ab331e6ad45e305f2df4d63cc55828ad1080"
-python-versions = "^3.8"
+content-hash = "5b6e21b7694cd097660539c453a3e22b734b595db8ea2dc3a833d4cf56f854ad"
+python-versions = "3.8.5"
 
 [metadata.files]
 asgiref = [

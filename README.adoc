@@ -83,6 +83,10 @@ Now initialize a local SQLite database:
 
     $ python manage.py migrate
 
+Create an admin user to play around with:
+
+    $ python manage.py createsuperuser
+
 And finally run the server and test:
 
     $ python manage.py runserver

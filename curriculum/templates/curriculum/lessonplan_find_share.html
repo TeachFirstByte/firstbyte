@@ -48,7 +48,7 @@
                             Difficulty Level
                         </a>
                     </div>
-                    <div class="pr-4 ">
+                    <div class="pr-4">
                         <div class="btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-outline-primary {% if form.web_only.value %}active{% endif %}"
                                    for="{{ form.web_only.id_for_label }}">
@@ -100,7 +100,7 @@
                     <div class="d-flex flex-column curriculum mb-3 card-hover-shadow border rounded border-primary p-3">
                         <a href="{{ lessonplan.get_absolute_url }}">
                             <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
-                            <div class="d-flex flex-row  justify-content-between">
+                            <div class="d-flex flex-row justify-content-between">
                                 {% if lessonplan.average_rating %}
                                     <p class="stars text-primary" data-average-rating="{{ lessonplan.average_rating }}">
                                         <i class="fa-star" aria-hidden="true"></i>
@@ -133,15 +133,15 @@
         <hr>
     </div>
     <div class="container mb-5">
-        <div class="row justify-content-center justify-content-md-start ">
+        <div class="row justify-content-center justify-content-md-start">
             <div class="col-8">
-                <h6 class="font-weight-bold ">Interested in sharing your curricula?</h6>
+                <h6 class="font-weight-bold">Interested in sharing your curricula?</h6>
                 <p class="descriptions mb-5">
                     Upload your curriculum to share it with a community of
                     educators who may utilize it in their own classroom, make
                     changes for their own use, and provide feedback directly.
                 </p>
-                <a class="btn btn-primary " href="{% url 'create-lesson-plan' %}">Upload my curriculum</a>
+                <a class="btn btn-primary" href="{% url 'create-lesson-plan' %}">Upload my curriculum</a>
             </div>
         </div>
         <hr>
@@ -151,7 +151,7 @@
                 <p class="description">Don't miss information about new events and volunteer opportunities! Opt out
                     anytime.</p>
             </div>
-            <div class="input-group  col-sm-5 align-self-center">
+            <div class="input-group col-sm-5 align-self-center">
                 <input name="q" type="text" class="form-control" placeholder="Email address"
                        value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
                 <div class="input-group-append">

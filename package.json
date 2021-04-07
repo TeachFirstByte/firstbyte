@@ -43,6 +43,6 @@
     "precss": "^4.0.0",
     "sass-loader": "^8.0.2",
     "webpack-bundle-analyzer": "^3.6.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^4.5.0"
   }
 }

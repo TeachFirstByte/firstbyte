@@ -10,7 +10,7 @@
 {% block content %}
     <div>
         <div class="container">
-            <div class="row col-5">
+            <div class="row col-md-5">
                 <table style="height:20em; width: 100%;">
                     <tbody>
                     <tr>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex-fill pr-4 col-4 align-self-end">
+                <div class="flex-fill pr-4 col-md-4 align-self-end">
                     <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Search Curricula"
                                value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
@@ -96,7 +96,7 @@
         </form>
         <div class="row my-5">
             {% for lessonplan in object_list %}
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="d-flex flex-column curriculum mb-3 card-hover-shadow border rounded border-primary p-3">
                         <a href="{{ lessonplan.get_absolute_url }}">
                             <h6 class="curriculum-title text-primary">{{ lessonplan.title }}</h6>
@@ -133,8 +133,8 @@
         <hr>
     </div>
     <div class="container mb-5">
-        <div class="row">
-            <div class="col-6">
+        <div class="row justify-content-center justify-content-md-start">
+            <div class="col-8">
                 <h6 class="font-weight-bold">Interested in sharing your curricula?</h6>
                 <p class="descriptions mb-5">
                     Upload your curriculum to share it with a community of
@@ -145,19 +145,21 @@
             </div>
         </div>
         <hr>
-        <div class="d-flex flex-row justify-content-between mb-3">
-            <div class="flex-column col-4">
-                <h6 class="font-weight-bold">Subscribe to our newsletter</h6>
+        <div class="d-md-flex flex-row justify-content-between align-items-center mt-5 flex-column flex-sm-row">
+            <div class="flex-column col-md-4">
+                <h6 class="font-weight-bold ml-auto">Subscribe to our newsletter</h6>
                 <p class="description">Don't miss information about new events and volunteer opportunities! Opt out
                     anytime.</p>
             </div>
-            <div class="input-group col-5 align-self-start">
+            <div class="input-group col-lg-5 align-self-center">
                 <input name="q" type="text" class="form-control" placeholder="Email address"
                        value="{% if form.q.value %}{{ form.q.value }}{% endif %}"/>
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-primary"> Subscribe</button>
                 </div>
             </div>
+            
+                
         </div>
     </div>
 {% endblock %}
